@@ -30,6 +30,10 @@ flutter_lints
 2.19
 file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/flutter_lints-2.0.3/
 file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/flutter_lints-2.0.3/lib/
+get
+2.15
+file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/get-4.6.6/
+file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/get-4.6.6/lib/
 lints
 3.0
 file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/lints-2.1.1/
@@ -84,8 +88,8 @@ file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/web-0.3.0/
 file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/web-0.3.0/lib/
 patient_tracker
 3.2
-file:///home/sasaka-jr/Patient-Tracker/
-file:///home/sasaka-jr/Patient-Tracker/lib/
+file:///home/sasaka-jr/patient-tracker/
+file:///home/sasaka-jr/patient-tracker/lib/
 sky_engine
 3.2
 file:///home/sasaka-jr/snap/flutter/common/flutter/bin/cache/pkg/sky_engine/
