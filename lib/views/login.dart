@@ -13,75 +13,87 @@ class Login extends StatelessWidget {
     TextEditingController passwordController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Login"),
+        title: const Text("Medical Login"),
         backgroundColor: primaryColor,
         foregroundColor: appbartextColor,
         automaticallyImplyLeading: true,
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(50, 30, 50, 30),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     Image.asset("assets/images/first.png"),
-              //   ],
-              // ),
-              const SizedBox(height: 20),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  customtitleText(
-                      label: "Login Screen",
-                      labelColor: primaryColor,
-                      labelfontSize: 30)
-                ],
-              ),
-              const SizedBox(height: 10),
-              const customtitleText(label: "Username"),
-              customTextField(
-                userFieldController: userNameController,
-                icon: Icons.person,
-                hint: "Enter your username",
-              ),
-              const customtitleText(label: "Password"),
-              customTextField(
-                  userFieldController: passwordController,
-                  icon: Icons.lock,
-                  hideText: true,
-                  isPassword: true,
-                  hint: "Password"),
-              const SizedBox(height: 20),
-              const customButton(
-                labelButton: "Login",
-                labelColor: appbartextColor,
-              ),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  customtitleText(label: "No account yet?"),
-                  SizedBox(width: 10),
-                  customtitleText(label: "Register", labelColor: primaryColor),
-                ],
-              ),
-              const SizedBox(height: 50),
-              GestureDetector(
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+      body: Container(
+        color: Colors.grey[200], // Background color
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(50, 10, 50, 7), // Updated padding values
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Center(
+                  child: Transform.scale(
+                    scale: 0.4, // Reduce size by 50%
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(30), // Make image rounded
+                      child: Image.asset("assets/images/medical-box.jpg"),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    customtitleText(label: "Forgot password?"),
-                    SizedBox(width: 10),
-                    customtitleText(label: "Recover", labelColor: primaryColor),
-                    //  OnTap: () {
-                    //   print("Recovery process has began"); },
+                    customtitleText(
+                        label: "Medical Login",
+                        labelColor: primaryColor,
+                        labelfontSize: 30)
                   ],
                 ),
-              )
-            ],
+                const SizedBox(height: 10),
+                const customtitleText(label: "Username", labelColor: primaryColor,),
+                Center(
+                  child: customTextField(
+                    userFieldController: userNameController,
+                    icon: Icons.person,
+                    hint: "Enter your username",
+                  ),
+                ),
+                const customtitleText(label: "Password", labelColor: primaryColor,),
+                Center(
+                  child: customTextField(
+                    userFieldController: passwordController,
+                    icon: Icons.lock,
+                    hideText: true,
+                    isPassword: true,
+                    hint: "Password",
+                  ),
+                ),
+                const SizedBox(height: 20),
+                const customButton(
+                  labelButton: "Login",
+                  labelColor: appbartextColor,
+                ),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    customtitleText(label: "No account yet?", labelColor: blackColor,),
+                    SizedBox(width: 10),
+                    customtitleText(label: "Register", labelColor: primaryColor),
+                  ],
+                ),
+                const SizedBox(height: 50),
+                GestureDetector(
+                  onTap: () {
+                    print("Recovery process has begun");
+                  },
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      customtitleText(label: "Forgot password?", labelColor: blackColor,),
+                      SizedBox(width: 10),
+                      customtitleText(label: "Recover", labelColor: primaryColor),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

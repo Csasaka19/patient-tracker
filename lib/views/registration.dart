@@ -20,7 +20,7 @@ class Registration extends StatelessWidget {
     TextEditingController userNameController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Color.fromARGB(255, 76, 72, 72),
       appBar: AppBar(
         title: const Text("Register"),
         backgroundColor: primaryColor,
@@ -40,7 +40,7 @@ class Registration extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(60),
                   child: Image.asset(
-                    "assets/images/firs.jpg",
+                    "assets/images/medical-box.jpg",
                     fit: BoxFit.cover,
                   ),
                 ),

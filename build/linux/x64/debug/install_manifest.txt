@@ -4,6 +4,7 @@
 /home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/AssetManifest.json
 /home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/FontManifest.json
 /home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/kernel_blob.bin
+/home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/assets/images/medical-box.jpg
 /home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/version.json
 /home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf
 /home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/NOTICES.Z
