@@ -28,10 +28,11 @@ class customButton extends StatelessWidget {
         
         style: ElevatedButton.styleFrom(
           backgroundColor: backgroundColor,
-          elevation: 10,
+          elevation: 20,
           padding: const EdgeInsets.all(25),
           shadowColor: blackColor,
-          maximumSize: Size.fromWidth(200),
+          maximumSize: Size.fromWidth(600),
+
         ));
   }
 }

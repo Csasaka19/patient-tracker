@@ -3,114 +3,194 @@ import 'package:patient_tracker/configs/constants.dart';
 import 'package:patient_tracker/customs/custombutton.dart';
 import 'package:patient_tracker/customs/customtext.dart';
 import 'package:patient_tracker/customs/customtextfield.dart';
-
-
-void main() {
-  runApp( MaterialApp(
-    home: Registration(),
-    debugShowCheckedModeBanner: false,
-  ));
-}
+import 'package:patient_tracker/customs/square_tile.dart';
 
 class Registration extends StatelessWidget {
   Registration({Key? key}) : super(key: key);
+
+  void registerButtonPressed() {}
 
   @override
   Widget build(BuildContext context) {
     TextEditingController userNameController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
+    TextEditingController confirmController = TextEditingController();
+    TextEditingController emailController = TextEditingController();
+    TextEditingController firstnameController = TextEditingController();
+    TextEditingController lastnameController = TextEditingController();
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 76, 72, 72),
-      appBar: AppBar(
-        title: const Text("Register"),
-        backgroundColor: primaryColor,
-        foregroundColor: appbartextColor,
-        automaticallyImplyLeading: true,
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(50, 30, 50, 30),
+      backgroundColor: greyColor,
+      body: SafeArea(
+        child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
-                height: 100,
-                width: 100,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(60),
-                  child: Image.asset(
-                    "assets/images/medical-box.jpg",
-                    fit: BoxFit.cover,
+              const SizedBox(height: 20),
+
+              // logo
+              const Icon(
+                Icons.medical_services_sharp,
+                size: 100,
+              ),
+
+              const SizedBox(height: 30),
+
+              // welcome back!
+              const customText(label: "Hello! Join Us", fontSize: 30),
+
+              const SizedBox(height: 25),
+
+              // username textfield
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const customText(
+                      label: "Username", labelColor: blackColor, fontSize: 16),
+                  const SizedBox(width: 15),
+                  customTextField(
+                    userFieldController: userNameController,
+                    icon: Icons.person_2_sharp,
+                    hint: 'Username',
                   ),
+                ],
+              ),
+
+              const SizedBox(height: 5),
+
+               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const customText(
+                      label: "First Name", labelColor: blackColor, fontSize: 16),
+                  const SizedBox(width: 10),
+                  customTextField(
+                    userFieldController: firstnameController,
+                    icon: Icons.person_4_outlined,
+                    hint: 'First Name',
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 5),
+
+               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const customText(
+                      label: "Last Name", labelColor: blackColor, fontSize: 16),
+                  const SizedBox(width: 10),
+                  customTextField(
+                    userFieldController: lastnameController,
+                    icon: Icons.person_4_outlined,
+                    hint: 'Last Name',
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 5),
+
+               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const customText(
+                      label: "Email", labelColor: blackColor, fontSize: 16),
+                  const SizedBox(width: 55),
+                  customTextField(
+                    userFieldController: emailController,
+                    icon: Icons.mark_email_unread_outlined,
+                    hint: 'Email',
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 5),
+              
+              // password textfield
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const customText(
+                      label: "Password", labelColor: blackColor, fontSize: 16),
+                  const SizedBox(width: 10),
+                  customTextField(
+                    userFieldController: passwordController,
+                    icon: Icons.lock_outline_sharp,
+                    isPassword: true,
+                    hint: 'Password',
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 5),
+
+              // Confirm password textfield
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const customText(
+                      label: "Confirm", labelColor: blackColor, fontSize: 16),
+                  const SizedBox(width: 20),
+                  customTextField(
+                    userFieldController: confirmController,
+                    icon: Icons.lock_outline_sharp,
+                    isPassword: true,
+                    hint: 'Confirm Password',
+                  ),
+                ],
+              ),
+
+
+              const SizedBox(height: 25),
+
+              // Log in button
+              customButton(
+                labelButton: 'Login',
+                onTap: registerButtonPressed,
+                labelColor: appbartextColor,
+              ),
+
+              const SizedBox(height: 20),
+
+              // Alternative login options
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Divider(
+                        thickness: 0.6,
+                        color: blackColor,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      child: customText(
+                          label: "Or Register with",
+                          labelColor: blackColor,
+                          fontSize: 16),
+                    ),
+                    Expanded(
+                      child: Divider(
+                        thickness: 0.5,
+                        color: blackColor,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 20),
+
+              const SizedBox(height: 30),
+
+              //  Google + Fit sign in buttons
               const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  customText(
-                      label: "Registration Screen",
-                      labelColor: primaryColor,
-                      fontSize: 30)
+                  // Google button
+                  SquareTile(imagePath: 'assets/images/google.png'),
+
+                  SizedBox(width: 25),
                 ],
               ),
-              const SizedBox(height: 10),
-              const customText(label: "First name"),
-              const SizedBox(height: 5),
-              customTextField(
-                userFieldController: userNameController,
-                icon: Icons.person,
-                hint: "Enter your first name",
-              ),
-              const SizedBox(height: 10),
-              const customText(label: "Second name"),
-              const SizedBox(height: 5),
-              customTextField(
-                userFieldController: userNameController,
-                icon: Icons.person,
-                hint: "Enter your second name",
-              ),
-              const SizedBox(height: 10),
-              const customText(label: "Phone number"),
-              const SizedBox(height: 5),
-              customTextField(
-                userFieldController: userNameController,
-                icon: Icons.phone,
-                hint: "Input your phone number",
-              ),
-              const SizedBox(height: 10),
-              const customText(label: "Email"),
-              const SizedBox(height: 5),
-              customTextField(
-                userFieldController: userNameController,
-                icon: Icons.email,
-                hint: "Input your email",
-              ),
-              const SizedBox(height: 10),
-              const customText(label: "Password"),
-              const SizedBox(height: 5),
-              customTextField(
-                  userFieldController: passwordController,
-                  icon: Icons.lock,
-                  hideText: true,
-                  isPassword: true,
-                  hint: "Password"),
-              const SizedBox(height: 10),
-              const customText(label: "Confirm Password"),
-              const SizedBox(height: 5),
-              customTextField(
-                  userFieldController: passwordController,
-                  icon: Icons.lock,
-                  hideText: true,
-                  isPassword: true,
-                  hint: "Re-enter Password"),
-              const SizedBox(height: 20),
-              const customButton(
-                labelColor: primaryColor,
-                labelButton: "Register",
-              ),
-              const SizedBox(height: 50),
             ],
           ),
         ),
