@@ -5,11 +5,16 @@ import 'package:patient_tracker/customs/customtext.dart';
 
 class customButton extends StatelessWidget {
   final Color labelColor;
+  final Color backgroundColor;
   final String labelButton;
+  final Function()? onTap;
+
   const customButton({
     super.key,
     this.labelColor = primaryColor,
+    this.backgroundColor = blackColor,
     this.labelButton = "Login",
+    this.onTap,
   });
 
   @override
@@ -18,11 +23,13 @@ class customButton extends StatelessWidget {
         onPressed: () {
           print("Button Pressed");
         },
-        child: customtitleText(label: labelButton, labelColor: labelColor),
+
+        child: customText(label: labelButton, labelColor: labelColor),
+        
         style: ElevatedButton.styleFrom(
-          backgroundColor: secondaryColor,
+          backgroundColor: backgroundColor,
           elevation: 10,
-          padding: const EdgeInsets.all(30),
+          padding: const EdgeInsets.all(25),
           shadowColor: blackColor,
           maximumSize: Size.fromWidth(200),
         ));

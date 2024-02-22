@@ -49,14 +49,14 @@ class Registration extends StatelessWidget {
               const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  customtitleText(
+                  customText(
                       label: "Registration Screen",
                       labelColor: primaryColor,
-                      labelfontSize: 30)
+                      fontSize: 30)
                 ],
               ),
               const SizedBox(height: 10),
-              const customtitleText(label: "First name"),
+              const customText(label: "First name"),
               const SizedBox(height: 5),
               customTextField(
                 userFieldController: userNameController,
@@ -64,7 +64,7 @@ class Registration extends StatelessWidget {
                 hint: "Enter your first name",
               ),
               const SizedBox(height: 10),
-              const customtitleText(label: "Second name"),
+              const customText(label: "Second name"),
               const SizedBox(height: 5),
               customTextField(
                 userFieldController: userNameController,
@@ -72,7 +72,7 @@ class Registration extends StatelessWidget {
                 hint: "Enter your second name",
               ),
               const SizedBox(height: 10),
-              const customtitleText(label: "Phone number"),
+              const customText(label: "Phone number"),
               const SizedBox(height: 5),
               customTextField(
                 userFieldController: userNameController,
@@ -80,7 +80,7 @@ class Registration extends StatelessWidget {
                 hint: "Input your phone number",
               ),
               const SizedBox(height: 10),
-              const customtitleText(label: "Email"),
+              const customText(label: "Email"),
               const SizedBox(height: 5),
               customTextField(
                 userFieldController: userNameController,
@@ -88,7 +88,7 @@ class Registration extends StatelessWidget {
                 hint: "Input your email",
               ),
               const SizedBox(height: 10),
-              const customtitleText(label: "Password"),
+              const customText(label: "Password"),
               const SizedBox(height: 5),
               customTextField(
                   userFieldController: passwordController,
@@ -97,7 +97,7 @@ class Registration extends StatelessWidget {
                   isPassword: true,
                   hint: "Password"),
               const SizedBox(height: 10),
-              const customtitleText(label: "Confirm Password"),
+              const customText(label: "Confirm Password"),
               const SizedBox(height: 5),
               customTextField(
                   userFieldController: passwordController,
