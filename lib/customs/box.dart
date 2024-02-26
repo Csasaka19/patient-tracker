@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:patient_tracker/configs/constants.dart';
 
 class MyBox extends StatelessWidget {
   // Create a custom box widget
@@ -14,12 +15,13 @@ class MyBox extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          color: Colors.grey[400],
+          color: lightBlue,
         ),
         child: Column(
           children: [
             Text(title),
             Text(subtitle),
+            const SizedBox(height: 15),
             Icon(icon),
           ],
         ),

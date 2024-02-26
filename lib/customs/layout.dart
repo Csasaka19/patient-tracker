@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:patient_tracker/configs/constants.dart';
 
-var defaultBackgroundColor = Colors.grey[300];
-var appBarColor = Colors.grey[900];
+var defaultBackgroundColor = greyColor;
+var appBarColor = blackColor;
 var myAppBar = AppBar(
   backgroundColor: appBarColor,
   title: const Text(' '),
   centerTitle: false,
 );
-var drawerTextColor = TextStyle(
-  color: Colors.grey[600],
+var drawerTextColor = const TextStyle(
+  color: appbartextColor,
 );
 var tilePadding = const EdgeInsets.only(left: 8.0, right: 8, top: 8);
 var myDrawer = Drawer(
@@ -19,7 +20,7 @@ var myDrawer = Drawer(
        const DrawerHeader(
         child: Icon(
           Icons.medical_services_rounded,
-          size: 64,
+          size: 65,
         ),
       ),
       Padding(
@@ -48,6 +49,16 @@ var myDrawer = Drawer(
           leading: const Icon(Icons.info),
           title: Text(
             'A B O U T',
+            style: drawerTextColor,
+          ),
+        ),
+      ),
+      Padding(
+        padding: tilePadding,
+        child: ListTile(
+          leading: const Icon(Icons.account_box_rounded),
+          title: Text(
+            'A C C O U N T',
             style: drawerTextColor,
           ),
         ),

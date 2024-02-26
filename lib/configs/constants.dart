@@ -5,3 +5,4 @@ const Color secondaryColor = Color(0xFFF2F597);
 const Color blackColor = Color(0xFF000000);
 const Color  greyColor = Color(0xFFCCCCCC);
 const Color appbartextColor = Color(0xFFFFFFFF);
+const Color lightBlue = Color.fromARGB(255, 106, 106, 138);
