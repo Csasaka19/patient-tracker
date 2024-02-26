@@ -19,7 +19,7 @@ class MyTile extends StatelessWidget {
             color: secondaryColor,
           ),
           child: Center(
-            child: customText(label: randomText, fontSize: 13, italic: true,),
+            child: CustomText(label: randomText, fontSize: 13, italic: true,),
           ),
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:patient_tracker/configs/constants.dart';
 import 'package:patient_tracker/customs/custombutton.dart';
 import 'package:patient_tracker/customs/customtext.dart';
@@ -33,7 +34,7 @@ class Login extends StatelessWidget {
               const SizedBox(height: 30),
 
               // welcome back!
-              const customText(label: "Welcome back you!", fontSize: 30),
+              const CustomText(label: "Welcome back you!", fontSize: 30),
 
               const SizedBox(height: 25),
 
@@ -41,7 +42,7 @@ class Login extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const customText(label: "Username", labelColor: blackColor, fontSize: 16),
+                  const CustomText(label: "Username", labelColor: blackColor, fontSize: 16),
                   
                   const SizedBox(width: 10),
 
@@ -59,7 +60,7 @@ class Login extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const customText(label: "Password", labelColor: blackColor, fontSize: 16),
+                  const CustomText(label: "Password", labelColor: blackColor, fontSize: 16),
 
                   const SizedBox(width: 10),
 
@@ -82,9 +83,9 @@ class Login extends StatelessWidget {
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      customText(label: "Forgot password?", labelColor: blackColor,),
+                      CustomText(label: "Forgot password?", labelColor: blackColor,),
                       SizedBox(width: 5),
-                      customText(label: "Recover", labelColor: primaryColor),
+                      CustomText(label: "Recover", labelColor: primaryColor),
                     ],
                   ),
                 ),
@@ -94,8 +95,8 @@ class Login extends StatelessWidget {
               // Log in button
               customButton(
                 labelButton: 'Login',
-                onTap: loginButtonPressed,
                 labelColor: appbartextColor,
+                action: () => gotoDashboard(),
               ),
 
               const SizedBox(height: 20),
@@ -113,7 +114,7 @@ class Login extends StatelessWidget {
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 10.0),
-                      child: customText(label: "Or Continue with", labelColor: blackColor, fontSize: 16),
+                      child: CustomText(label: "Or Continue with", labelColor: blackColor, fontSize: 16),
                     ),
                     Expanded(
                       child: Divider(
@@ -141,18 +142,29 @@ class Login extends StatelessWidget {
               const SizedBox(height: 50),
 
               // Non member section
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  customText(label: "Not a member?", labelColor: blackColor, fontSize: 16),
-                  SizedBox(width: 4),
-                  customText(label: "Register", labelColor: primaryColor, fontSize: 16),
-                ],
+              GestureDetector(
+                onTap: () => gotoRegistration(),
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomText(label: "Not a member?", labelColor: blackColor, fontSize: 16),
+                    SizedBox(width: 4),
+                    CustomText(label: "Register", labelColor: primaryColor, fontSize: 16),
+                  ],
+                ),
               )
             ],
           ),
         ),
       ),
     );
+  }
+
+  void gotoDashboard() {
+    Get.toNamed('/dashboard');
+  }
+
+  void gotoRegistration() {
+    Get.toNamed('/registration');
   }
 }

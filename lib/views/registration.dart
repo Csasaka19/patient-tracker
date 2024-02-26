@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:patient_tracker/configs/constants.dart';
 import 'package:patient_tracker/customs/custombutton.dart';
 import 'package:patient_tracker/customs/customtext.dart';
@@ -20,6 +21,12 @@ class Registration extends StatelessWidget {
     TextEditingController lastnameController = TextEditingController();
     return Scaffold(
       backgroundColor: greyColor,
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Get.back(),
+        ),
+      ),
       body: SafeArea(
         child: Center(
           child: Column(
@@ -36,7 +43,7 @@ class Registration extends StatelessWidget {
               const SizedBox(height: 30),
 
               // welcome back!
-              const customText(label: "Hello! Join Us", fontSize: 30),
+              const CustomText(label: "Hello! Join Us", fontSize: 30),
 
               const SizedBox(height: 25),
 
@@ -44,7 +51,7 @@ class Registration extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const customText(
+                  const CustomText(
                       label: "Username", labelColor: blackColor, fontSize: 16),
                   const SizedBox(width: 15),
                   customTextField(
@@ -57,11 +64,13 @@ class Registration extends StatelessWidget {
 
               const SizedBox(height: 5),
 
-               Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const customText(
-                      label: "First Name", labelColor: blackColor, fontSize: 16),
+                  const CustomText(
+                      label: "First Name",
+                      labelColor: blackColor,
+                      fontSize: 16),
                   const SizedBox(width: 10),
                   customTextField(
                     userFieldController: firstnameController,
@@ -73,10 +82,10 @@ class Registration extends StatelessWidget {
 
               const SizedBox(height: 5),
 
-               Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const customText(
+                  const CustomText(
                       label: "Last Name", labelColor: blackColor, fontSize: 16),
                   const SizedBox(width: 10),
                   customTextField(
@@ -89,10 +98,10 @@ class Registration extends StatelessWidget {
 
               const SizedBox(height: 5),
 
-               Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const customText(
+                  const CustomText(
                       label: "Email", labelColor: blackColor, fontSize: 16),
                   const SizedBox(width: 55),
                   customTextField(
@@ -104,12 +113,12 @@ class Registration extends StatelessWidget {
               ),
 
               const SizedBox(height: 5),
-              
+
               // password textfield
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const customText(
+                  const CustomText(
                       label: "Password", labelColor: blackColor, fontSize: 16),
                   const SizedBox(width: 10),
                   customTextField(
@@ -127,7 +136,7 @@ class Registration extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const customText(
+                  const CustomText(
                       label: "Confirm", labelColor: blackColor, fontSize: 16),
                   const SizedBox(width: 20),
                   customTextField(
@@ -139,13 +148,12 @@ class Registration extends StatelessWidget {
                 ],
               ),
 
-
               const SizedBox(height: 25),
 
               // Log in button
               customButton(
-                labelButton: 'Login',
-                onTap: registerButtonPressed,
+                labelButton: 'Register',
+                action: () => gotoLogin(),
                 labelColor: appbartextColor,
               ),
 
@@ -164,7 +172,7 @@ class Registration extends StatelessWidget {
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 10.0),
-                      child: customText(
+                      child: CustomText(
                           label: "Or Register with",
                           labelColor: blackColor,
                           fontSize: 16),
@@ -196,5 +204,9 @@ class Registration extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void gotoLogin() {
+    Get.toNamed('/login');
   }
 }

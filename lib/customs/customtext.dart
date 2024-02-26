@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import '/configs/constants.dart';
 
-class customText extends StatelessWidget {
+class CustomText extends StatelessWidget {
   final String label;
   final Color labelColor;
   final double fontSize;
   final bool italic;
   
-  const customText(
-      {super.key, required this.label, this.labelColor = blackColor, this.fontSize = 16, this.italic = false,});
+  const CustomText(
+       
+      {Key? key, required this.label, this.labelColor = blackColor, this.fontSize = 16, this.italic = false,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -7,24 +7,20 @@ class customButton extends StatelessWidget {
   final Color labelColor;
   final Color backgroundColor;
   final String labelButton;
-  final Function()? onTap;
+  final VoidCallback? action;
 
   const customButton({
     super.key,
     this.labelColor = primaryColor,
     this.backgroundColor = blackColor,
     this.labelButton = "Login",
-    this.onTap,
+    this.action,
   });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        onPressed: () {
-          print("Button Pressed");
-        },
-
-        child: customText(label: labelButton, labelColor: labelColor),
+        onPressed: action,
         
         style: ElevatedButton.styleFrom(
           backgroundColor: backgroundColor,
@@ -33,6 +29,7 @@ class customButton extends StatelessWidget {
           shadowColor: blackColor,
           maximumSize: Size.fromWidth(600),
 
-        ));
+        ),
+        child: CustomText(label: labelButton, labelColor: labelColor,));
   }
 }
