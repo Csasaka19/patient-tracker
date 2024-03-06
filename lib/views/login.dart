@@ -5,6 +5,12 @@ import 'package:patient_tracker/customs/custombutton.dart';
 import 'package:patient_tracker/customs/customtext.dart';
 import 'package:patient_tracker/customs/customtextfield.dart';
 import 'package:patient_tracker/customs/square_tile.dart';
+import 'package:patient_tracker/utils/prefs.dart';
+
+TextEditingController userNameController = TextEditingController();
+TextEditingController passwordController = TextEditingController();
+
+Prefs myprefs = Prefs();
 
 class Login extends StatelessWidget {
   const Login({super.key});
@@ -13,8 +19,10 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController userNameController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
+    myprefs.getValue("username").then((value) {
+      userNameController.text = value;
+    });
+   
     return Scaffold(
       backgroundColor: greyColor,
 
@@ -69,6 +77,7 @@ class Login extends StatelessWidget {
                     icon: Icons.lock,
                     isPassword: true,
                     hint: 'Password',
+                    hideText: true,
                   ),
                 ],
               ),
@@ -161,6 +170,7 @@ class Login extends StatelessWidget {
   }
 
   void gotoHome() {
+    myprefs.setValue("username", userNameController.text);
     Get.toNamed('/home');
   }
 

@@ -5,6 +5,8 @@ import 'package:patient_tracker/views/dashboards/mobile.dart';
 import 'package:patient_tracker/views/dashboards/responsive_layout.dart';
 import 'package:patient_tracker/views/dashboards/tablet.dart';
 import 'package:patient_tracker/views/login.dart';
+import 'package:patient_tracker/views/profile.dart';
+import 'package:patient_tracker/views/settings.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:patient_tracker/controllers/screen_controller.dart';
 import 'package:get/get.dart';
@@ -14,6 +16,8 @@ ScreenController screenController = Get.put(ScreenController());
 
 var screens = [
   MobileScaffold(),
+  ProfilePage(),
+  Settings(),
   const Login(),
 ];
 
