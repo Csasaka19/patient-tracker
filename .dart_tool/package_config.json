@@ -98,6 +98,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "salomon_bottom_bar",
+      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/salomon_bottom_bar-3.3.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "sky_engine",
       "rootUri": "file:///home/sasaka-jr/snap/flutter/common/flutter/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
@@ -158,7 +164,7 @@
       "languageVersion": "3.2"
     }
   ],
-  "generated": "2024-02-20T19:44:37.904856Z",
+  "generated": "2024-02-28T06:44:11.389609Z",
   "generator": "pub",
   "generatorVersion": "3.2.5"
 }

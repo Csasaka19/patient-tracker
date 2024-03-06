@@ -27,7 +27,6 @@ List<String> texts = [
   "Review and adjust exercise plan based on progress and goals.",
 ];
 
-
 class MobileScaffold extends StatefulWidget {
   const MobileScaffold({Key? key}) : super(key: key);
 
@@ -47,7 +46,7 @@ class _MobileScaffoldState extends State<MobileScaffold> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-              Padding(
+            Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 "Welcome, $username!",
@@ -60,10 +59,8 @@ class _MobileScaffoldState extends State<MobileScaffold> {
             // first 4 boxes in grid
             AspectRatio(
               aspectRatio: 1,
-              
               child: SizedBox(
                 width: double.infinity,
-                
                 child: GridView.builder(
                   itemCount: 4,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -112,7 +109,7 @@ class _MobileScaffoldState extends State<MobileScaffold> {
             ),
 
             // list of previous days
-             Expanded(
+            Expanded(
               child: ListView.builder(
                 itemCount: 10,
                 itemBuilder: (context, index) {

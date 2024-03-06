@@ -96,7 +96,7 @@ class Login extends StatelessWidget {
               customButton(
                 labelButton: 'Login',
                 labelColor: appbartextColor,
-                action: () => gotoDashboard(),
+                action: () => gotoHome(),
               ),
 
               const SizedBox(height: 20),
@@ -160,8 +160,8 @@ class Login extends StatelessWidget {
     );
   }
 
-  void gotoDashboard() {
-    Get.toNamed('/dashboard');
+  void gotoHome() {
+    Get.toNamed('/home');
   }
 
   void gotoRegistration() {
