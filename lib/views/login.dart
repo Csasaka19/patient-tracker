@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:patient_tracker/configs/constants.dart';
 import 'package:patient_tracker/customs/custombutton.dart';
 import 'package:patient_tracker/customs/customtext.dart';
@@ -105,7 +108,7 @@ class Login extends StatelessWidget {
               customButton(
                 labelButton: 'Login',
                 labelColor: appbartextColor,
-                action: () => gotoHome(),
+                action: () => remoteLogin(),
               ),
 
               const SizedBox(height: 20),
@@ -167,6 +170,24 @@ class Login extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> remoteLogin() async {
+    http.Response response;
+    response = await http.get(Uri.parse(
+        'http://acs314flutter.xyz/Patient-tracker/login.php?username=${userNameController.text.trim()}&password=${passwordController.text.trim()}'));
+    if (response.statusCode == 200) {
+      var serverResponse = json.decode(response.body);
+      int serverStatus = serverResponse['success'];
+      if (serverStatus == 1) {
+        print('Login successful');
+        gotoHome();
+      } else {
+        print('Login failed');
+      }
+    } else {
+      print('Username or password is incorrect');
+    }
   }
 
   void gotoHome() {

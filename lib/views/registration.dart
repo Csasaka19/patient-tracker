@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:patient_tracker/configs/constants.dart';
@@ -5,7 +7,14 @@ import 'package:patient_tracker/customs/custombutton.dart';
 import 'package:patient_tracker/customs/customtext.dart';
 import 'package:patient_tracker/customs/customtextfield.dart';
 import 'package:patient_tracker/customs/square_tile.dart';
+import 'package:http/http.dart' as http;
 
+TextEditingController userNameController = TextEditingController();
+TextEditingController passwordController = TextEditingController();
+TextEditingController confirmController = TextEditingController();
+TextEditingController emailController = TextEditingController();
+TextEditingController firstnameController = TextEditingController();
+TextEditingController lastnameController = TextEditingController();
 class Registration extends StatelessWidget {
   Registration({Key? key}) : super(key: key);
 
@@ -13,12 +22,6 @@ class Registration extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController userNameController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
-    TextEditingController confirmController = TextEditingController();
-    TextEditingController emailController = TextEditingController();
-    TextEditingController firstnameController = TextEditingController();
-    TextEditingController lastnameController = TextEditingController();
     return Scaffold(
       backgroundColor: greyColor,
       appBar: AppBar(
@@ -150,10 +153,10 @@ class Registration extends StatelessWidget {
 
               const SizedBox(height: 25),
 
-              // Log in button
+              // Registration button
               customButton(
                 labelButton: 'Register',
-                action: () => gotoLogin(),
+                action: () => remoteSignup(),
                 labelColor: appbartextColor,
               ),
 
@@ -204,6 +207,28 @@ class Registration extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> remoteSignup() async {
+    http.Response response;
+    response = await http.post(Uri.parse("http://acs314flutter.xyz/Patient-tracker/signup.php"), body: {
+      "username": userNameController.text.trim(),
+      "email": emailController.text.trim(),
+      "first_name": firstnameController.text.trim(),
+      "second_name": lastnameController.text.trim(),
+      "password": passwordController.text.trim(),
+    });
+
+    if (response.body == "success") {
+      var serverResponse = json.decode(response.body);
+      int signupStatus = serverResponse['success'];
+      if (signupStatus == 1) {
+      Get.snackbar("Success", "Registration successful");
+      Get.offAllNamed('/login');
+      } else {
+      Get.snackbar("Error", "Registration failed");
+      }
+    } 
   }
 
   void gotoLogin() {

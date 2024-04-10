@@ -40,6 +40,7 @@ dependencies:
   shared_preferences: ^2.2.2
   sqflite: ^2.3.2
   path: ^1.8.3
+  http: ^0.13.5
 
 dev_dependencies:
   flutter_test:

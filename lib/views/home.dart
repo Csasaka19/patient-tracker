@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:patient_tracker/configs/constants.dart';
-import 'package:patient_tracker/views/dashboards/desktop.dart';
 import 'package:patient_tracker/views/dashboards/mobile.dart';
-import 'package:patient_tracker/views/dashboards/responsive_layout.dart';
-import 'package:patient_tracker/views/dashboards/tablet.dart';
 import 'package:patient_tracker/views/login.dart';
 import 'package:patient_tracker/views/profile.dart';
 import 'package:patient_tracker/views/settings.dart';
