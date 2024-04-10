@@ -15,7 +15,7 @@ class ProfilePage extends StatelessWidget {
       body:  SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
-          child: Center( // Wrap the Column with Center widget
+          child: Center( 
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
