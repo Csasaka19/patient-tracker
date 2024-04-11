@@ -23,7 +23,7 @@ class _WelcomeViewState extends State<WelcomeView>
     super.initState();
 
     animationController = AnimationController(
-      duration: const Duration(milliseconds: 1000),
+      duration: const Duration(milliseconds: 60000),
       vsync: this,
     );
 
@@ -31,13 +31,12 @@ class _WelcomeViewState extends State<WelcomeView>
 
     Future.delayed(const Duration(seconds: 3), () {
       if (seenOnboarding) {
-        Get.offAll('/login');
+        Get.toNamed('/login');
       } else {
         storage.write('seenOnboarding', true);
-        Get.offAll('/onboarding');
+        Get.toNamed('/onboarding');
       }
     });
-    animationController.forward();
   }
 
   @override
@@ -77,21 +76,26 @@ class _WelcomeViewState extends State<WelcomeView>
                     labelColor: appbartextColor,
                     italic: true),
                 const SizedBox(height: 30),
-                Container(
+                GestureDetector(
+                  onTap: () {
+                  Get.toNamed('/onboarding');
+                  },
+                  child: Container(
                   height: 50,
                   width: double.infinity,
                   margin:
-                      const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                    const EdgeInsets.only(left: 20, right: 20, bottom: 20),
                   decoration: BoxDecoration(
                     color: secondaryColor,
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: const Center(
                     child: CustomText(
-                        label: "Get Started",
-                        fontSize: 20,
-                        labelColor: primaryColor,
-                        italic: true),
+                      label: "Get Started",
+                      fontSize: 20,
+                      labelColor: primaryColor,
+                      italic: true),
+                  ),
                   ),
                 )
               ]),

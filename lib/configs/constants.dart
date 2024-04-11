@@ -10,3 +10,4 @@ const Color green = Color(0xFF74AD61);
 const Color pinkColor = Color(0xFFE91E63);
 const Color orangeColor = Color(0xFFFF5722);
 const Color purpleColor = Color(0xFF9C27B0);
+const Color darkbackground = Color.fromARGB(255, 83, 66, 66);

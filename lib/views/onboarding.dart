@@ -114,7 +114,7 @@ class OnboardingView extends StatelessWidget {
                     ),
                     child: GestureDetector(
                       onTap: () {
-                        Get.offAll('/login');
+                        Get.toNamed('/login');
                       },
                       child: Container(
                         width: screenWidth * 0.75,

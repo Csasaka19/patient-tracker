@@ -11,6 +11,7 @@
 /home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/assets/images/fit.png
 /home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/assets/images/googlefit.png
 /home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/assets/images/google.png
+/home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/assets/logos/examination.png
 /home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/assets/doctors/doctor_1.png
 /home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/assets/doctors/doctor_3.png
 /home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/assets/doctors/doctor_2.png
