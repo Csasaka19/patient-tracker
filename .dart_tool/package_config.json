@@ -86,6 +86,12 @@
       "languageVersion": "2.15"
     },
     {
+      "name": "get_storage",
+      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/get_storage-2.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
       "name": "http",
       "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/http-0.13.6",
       "packageUri": "lib/",
@@ -126,6 +132,24 @@
       "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/path-1.8.3",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "path_provider",
+      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/path_provider-2.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "path_provider_android",
+      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/path_provider_android-2.2.3",
+      "packageUri": "lib/",
+      "languageVersion": "3.1"
+    },
+    {
+      "name": "path_provider_foundation",
+      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/path_provider_foundation-2.3.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
     },
     {
       "name": "path_provider_linux",
@@ -302,7 +326,7 @@
       "languageVersion": "3.2"
     }
   ],
-  "generated": "2024-04-10T13:12:20.576938Z",
+  "generated": "2024-04-11T11:38:45.799725Z",
   "generator": "pub",
   "generatorVersion": "3.2.5"
 }

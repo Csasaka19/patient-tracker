@@ -5,9 +5,17 @@
 /home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/NOTICES
 /home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/FontManifest.json
 /home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/kernel_blob.bin
+/home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/assets/onboarding/onboarding_1.jpg
+/home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/assets/onboarding/onboarding_3.jpg
+/home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/assets/onboarding/onboarding_2.jpg
 /home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/assets/images/fit.png
 /home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/assets/images/googlefit.png
 /home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/assets/images/google.png
+/home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/assets/doctors/doctor_1.png
+/home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/assets/doctors/doctor_3.png
+/home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/assets/doctors/doctor_2.png
+/home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/assets/doctors/doctor_4.jpg
+/home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/assets/doctors/doctor_5.jpg
 /home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/version.json
 /home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf
 /home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/AssetManifest.bin.json
