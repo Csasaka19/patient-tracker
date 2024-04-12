@@ -68,91 +68,10 @@ class Profile_screen extends StatelessWidget {
               ],
             ),
             const SizedBox(
-              height: 30,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.0900,
-                    width: MediaQuery.of(context).size.width * 0.2500,
-                    child: Column(children: [
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.0400,
-                        width: MediaQuery.of(context).size.width * 0.1500,
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage("assets/icons/calories.png"),
-                              filterQuality: FilterQuality.high),
-                        ),
-                      ),
-                      const CustomText(label: "Calories", fontSize: 12, labelColor: appbartextColor),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      const CustomText(label: "215cal", fontSize: 14, labelColor: appbartextColor),
-                    ]),
-                  ),
-                  Container(
-                    height: 50,
-                    width: 1,
-                    color: appbartextColor,
-                  ),
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.0900,
-                    width: MediaQuery.of(context).size.width * 0.2500,
-                    child: Column(children: [
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.0400,
-                        width: MediaQuery.of(context).size.width * 0.1500,
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage("assets/icons/weight.png"),
-                              filterQuality: FilterQuality.high),
-                        ),
-                      ),
-                      const CustomText(label: "Weight", fontSize: 12, labelColor: appbartextColor),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      const CustomText(label: "215kg", fontSize: 14, labelColor: appbartextColor),
-                    ]),
-                  ),
-                  Container(
-                    height: 50,
-                    width: 1,
-                    color: appbartextColor,
-                  ),
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.0900,
-                    width: MediaQuery.of(context).size.width * 0.2500,
-                    child: Column(children: [
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.0400,
-                        width: MediaQuery.of(context).size.width * 0.1500,
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage("assets/icons/heart.png"),
-                              filterQuality: FilterQuality.high),
-                        ),
-                      ),
-                      const CustomText(label: "Heart Rate", fontSize: 12, labelColor: appbartextColor),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      const CustomText(label: "72bpm", fontSize: 14, labelColor: appbartextColor),
-                    ]),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(
               height: 50,
             ),
             Container(
-              height: 550,
+              height: 650,
               width: double.infinity,
               decoration: const BoxDecoration(
                   color: appbartextColor,
@@ -182,8 +101,17 @@ class Profile_screen extends StatelessWidget {
                   child: Divider(),
                 ),
                 profile_list(
-                  image: "assets/icons/hospital-insurance.png",
+                  image: "assets/icons/meds.png",
                   title: "Medications",
+                  color: blackColor,
+                ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                  child: Divider(),
+                ),
+                profile_list(
+                  image: "assets/icons/medical-record.png",
+                  title: "Medical Records ",
                   color: blackColor,
                 ),
                 const Padding(

@@ -17,7 +17,7 @@ class profile_list extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
+          SizedBox(
             height: MediaQuery.of(context).size.height * 0.06,
             width: MediaQuery.of(context).size.width * 0.9,
             child: Row(children: [
@@ -33,7 +33,7 @@ class profile_list extends StatelessWidget {
               const SizedBox(
                 width: 5,
               ),
-              Container(
+              SizedBox(
                 height: MediaQuery.of(context).size.height * 0.06,
                 width: MediaQuery.of(context).size.width * 0.5800,
                 child: Row(children: [
@@ -42,7 +42,7 @@ class profile_list extends StatelessWidget {
                     child: CustomText(
                       label: title,
                       fontSize: 14,
-                      labelColor: appbartextColor,
+                      labelColor: blackColor,
                     ),
                   ),
                 ]),
@@ -51,7 +51,7 @@ class profile_list extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 0.06,
                   width: MediaQuery.of(context).size.width * 0.1100,
                   decoration: const BoxDecoration(),
-                  child: Image.asset("lib/icons/forward.png")),
+                  child: Image.asset("assets/icons/forward.png")),
             ]),
           ),
         ],
