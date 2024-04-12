@@ -13,7 +13,7 @@ class OnboardingController extends GetxController{
     if(isLastScreen){
       Get.offAllNamed('/login');
     }else{
-      pageController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.ease);
+      pageController.nextPage(duration: const Duration(milliseconds: 12000), curve: Curves.ease);
     }
   }
 

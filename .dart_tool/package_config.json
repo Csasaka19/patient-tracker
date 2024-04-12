@@ -32,6 +32,12 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "crypto",
+      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/crypto-3.0.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
       "name": "cupertino_icons",
       "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/cupertino_icons-1.0.6",
       "packageUri": "lib/",
@@ -92,6 +98,12 @@
       "languageVersion": "2.16"
     },
     {
+      "name": "google_fonts",
+      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/google_fonts-4.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
       "name": "http",
       "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/http-0.13.6",
       "packageUri": "lib/",
@@ -126,6 +138,12 @@
       "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/meta-1.10.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "page_transition",
+      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/page_transition-2.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
     },
     {
       "name": "path",
@@ -180,6 +198,12 @@
       "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/plugin_platform_interface-2.1.8",
       "packageUri": "lib/",
       "languageVersion": "3.0"
+    },
+    {
+      "name": "responsive_sizer",
+      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/responsive_sizer-3.3.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "salomon_bottom_bar",
@@ -326,7 +350,7 @@
       "languageVersion": "3.2"
     }
   ],
-  "generated": "2024-04-11T11:38:45.799725Z",
+  "generated": "2024-04-12T15:46:51.647841Z",
   "generator": "pub",
   "generatorVersion": "3.2.5"
 }

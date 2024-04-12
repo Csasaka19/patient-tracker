@@ -14,7 +14,7 @@ class Routes {
     GetPage(name: '/registration', page: () => Registration()),
     GetPage(name: '/mobile', page: () => const MobileScaffold()),
     GetPage(name: '/home', page: () => Home()),
-    GetPage(name: '/profile', page: () => ProfilePage()),
+    GetPage(name: '/profile', page: () => Profile_screen()),
     GetPage(name: '/settings', page: () => Settings()),
     GetPage(name: '/welcome', page: () => const WelcomeView()),
     GetPage(name: '/onboarding', page: () =>  OnboardingView()),

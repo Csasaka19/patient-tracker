@@ -15,6 +15,7 @@ TextEditingController confirmController = TextEditingController();
 TextEditingController emailController = TextEditingController();
 TextEditingController firstnameController = TextEditingController();
 TextEditingController lastnameController = TextEditingController();
+
 class Registration extends StatelessWidget {
   Registration({Key? key}) : super(key: key);
 
@@ -23,7 +24,7 @@ class Registration extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: greyColor,
+      backgroundColor: blackColor,
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
@@ -38,15 +39,20 @@ class Registration extends StatelessWidget {
               const SizedBox(height: 20),
 
               // logo
-              const Icon(
-                Icons.medical_services_sharp,
-                size: 100,
+              const Image(
+                image: AssetImage('assets/logos/healthy.png'),
+                width: 100,
+                height: 100,
               ),
 
               const SizedBox(height: 30),
 
               // welcome back!
-              const CustomText(label: "Hello! Join Us", fontSize: 30),
+              const CustomText(
+                label: "Hello! Join Us",
+                fontSize: 30,
+                labelColor: appbartextColor,
+              ),
 
               const SizedBox(height: 25),
 
@@ -55,9 +61,11 @@ class Registration extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const CustomText(
-                      label: "Username", labelColor: blackColor, fontSize: 16),
+                      label: "Username",
+                      labelColor: appbartextColor,
+                      fontSize: 16),
                   const SizedBox(width: 15),
-                  customTextField(
+                  CustomTextField(
                     userFieldController: userNameController,
                     icon: Icons.person_2_sharp,
                     hint: 'Username',
@@ -72,10 +80,10 @@ class Registration extends StatelessWidget {
                 children: [
                   const CustomText(
                       label: "First Name",
-                      labelColor: blackColor,
+                      labelColor: appbartextColor,
                       fontSize: 16),
                   const SizedBox(width: 10),
-                  customTextField(
+                  CustomTextField(
                     userFieldController: firstnameController,
                     icon: Icons.person_4_outlined,
                     hint: 'First Name',
@@ -89,9 +97,11 @@ class Registration extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const CustomText(
-                      label: "Last Name", labelColor: blackColor, fontSize: 16),
+                      label: "Last Name",
+                      labelColor: appbartextColor,
+                      fontSize: 16),
                   const SizedBox(width: 10),
-                  customTextField(
+                  CustomTextField(
                     userFieldController: lastnameController,
                     icon: Icons.person_4_outlined,
                     hint: 'Last Name',
@@ -105,9 +115,11 @@ class Registration extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const CustomText(
-                      label: "Email", labelColor: blackColor, fontSize: 16),
+                      label: "Email",
+                      labelColor: appbartextColor,
+                      fontSize: 16),
                   const SizedBox(width: 55),
-                  customTextField(
+                  CustomTextField(
                     userFieldController: emailController,
                     icon: Icons.mark_email_unread_outlined,
                     hint: 'Email',
@@ -122,9 +134,11 @@ class Registration extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const CustomText(
-                      label: "Password", labelColor: blackColor, fontSize: 16),
+                      label: "Password",
+                      labelColor: appbartextColor,
+                      fontSize: 16),
                   const SizedBox(width: 10),
-                  customTextField(
+                  CustomTextField(
                     userFieldController: passwordController,
                     icon: Icons.lock_outline_sharp,
                     isPassword: true,
@@ -140,9 +154,11 @@ class Registration extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const CustomText(
-                      label: "Confirm", labelColor: blackColor, fontSize: 16),
+                      label: "Confirm",
+                      labelColor: appbartextColor,
+                      fontSize: 16),
                   const SizedBox(width: 20),
-                  customTextField(
+                  CustomTextField(
                     userFieldController: confirmController,
                     icon: Icons.lock_outline_sharp,
                     isPassword: true,
@@ -157,7 +173,7 @@ class Registration extends StatelessWidget {
               customButton(
                 labelButton: 'Register',
                 action: () => remoteSignup(),
-                labelColor: appbartextColor,
+                labelColor: primaryColor,
               ),
 
               const SizedBox(height: 20),
@@ -170,20 +186,20 @@ class Registration extends StatelessWidget {
                     Expanded(
                       child: Divider(
                         thickness: 0.6,
-                        color: blackColor,
+                        color: appbartextColor,
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 10.0),
                       child: CustomText(
                           label: "Or Register with",
-                          labelColor: blackColor,
+                          labelColor: appbartextColor,
                           fontSize: 16),
                     ),
                     Expanded(
                       child: Divider(
-                        thickness: 0.5,
-                        color: blackColor,
+                        thickness: 0.6,
+                        color: appbartextColor,
                       ),
                     ),
                   ],
@@ -211,24 +227,26 @@ class Registration extends StatelessWidget {
 
   Future<void> remoteSignup() async {
     http.Response response;
-    response = await http.post(Uri.parse("http://acs314flutter.xyz/Patient-tracker/signup.php"), body: {
-      "username": userNameController.text.trim(),
-      "email": emailController.text.trim(),
-      "first_name": firstnameController.text.trim(),
-      "second_name": lastnameController.text.trim(),
-      "password": passwordController.text.trim(),
-    });
+    response = await http.post(
+        Uri.parse("http://acs314flutter.xyz/Patient-tracker/signup.php"),
+        body: {
+          "username": userNameController.text.trim(),
+          "email": emailController.text.trim(),
+          "first_name": firstnameController.text.trim(),
+          "second_name": lastnameController.text.trim(),
+          "password": passwordController.text.trim(),
+        });
 
     if (response.body == "success") {
       var serverResponse = json.decode(response.body);
       int signupStatus = serverResponse['success'];
       if (signupStatus == 1) {
-      Get.snackbar("Success", "Registration successful");
-      Get.offAllNamed('/login');
+        gotoLogin();
+        Get.snackbar("Success", "Registration successful");
       } else {
-      Get.snackbar("Error", "Registration failed");
+        Get.snackbar("Error", "Registration failed");
       }
-    } 
+    }
   }
 
   void gotoLogin() {

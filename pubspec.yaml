@@ -39,6 +39,9 @@ dependencies:
   get_storage: ^2.1.1
   salomon_bottom_bar: ^3.3.2
   shared_preferences: ^2.2.2
+  responsive_sizer: ^3.3.1
+  google_fonts: ^4.0.4
+  page_transition: ^2.1.0
   sqflite: ^2.3.2
   path: ^1.8.3
   http: ^0.13.5
@@ -72,6 +75,7 @@ flutter:
     - assets/doctors/
     - assets/logos/
     - assets/onboarding/
+    - assets/google_fonts/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

@@ -12,7 +12,7 @@ class customButton extends StatelessWidget {
   const customButton({
     super.key,
     this.labelColor = primaryColor,
-    this.backgroundColor = blackColor,
+    this.backgroundColor = secondaryColor,
     this.labelButton = "Login",
     this.action,
   });

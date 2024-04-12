@@ -13,7 +13,7 @@ ScreenController screenController = Get.put(ScreenController());
 
 var screens = [
   MobileScaffold(),
-  ProfilePage(),
+  Profile_screen(),
   Settings(),
   const Login(),
 ];

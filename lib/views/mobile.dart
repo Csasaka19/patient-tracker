@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:patient_tracker/configs/constants.dart';
 import 'package:patient_tracker/customs/box.dart';
-import 'package:patient_tracker/customs/layout.dart';
-import 'package:patient_tracker/customs/tile.dart';
 
 List<String> texts = [
   "Check blood pressure and record readings for today.",
@@ -40,8 +38,6 @@ class _MobileScaffoldState extends State<MobileScaffold> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: greyColor,
-      appBar: myAppBar,
-      drawer: myDrawer,
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -113,9 +109,6 @@ class _MobileScaffoldState extends State<MobileScaffold> {
               child: ListView.builder(
                 itemCount: 10,
                 itemBuilder: (context, index) {
-                  return MyTile(
-                    randomText: texts[index],
-                  );
                 },
               ),
             ),

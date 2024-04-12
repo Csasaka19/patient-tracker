@@ -1,22 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:patient_tracker/configs/constants.dart';
 
-class customTextField extends StatelessWidget {
+class CustomTextField extends StatefulWidget {
   final IconData? icon;
-  final bool hideText;
   final bool isPassword;
   final String? hint;
-  
-  const customTextField({
-    super.key,
+  final Color textColor;
+
+  const CustomTextField({
+    Key? key,
     required this.userFieldController,
     this.icon,
-    this.hideText = false,
     this.isPassword = false,
     this.hint,
+    this.textColor = appbartextColor,
   });
-
   final TextEditingController userFieldController;
+
+  @override
+  _CustomTextFieldState createState() => _CustomTextFieldState();
+}
+
+class _CustomTextFieldState extends State<CustomTextField> {
+  bool hideText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -27,11 +33,13 @@ class customTextField extends StatelessWidget {
       width: MediaQuery.of(context).size.width / 2,
       child: TextField(
         focusNode: focusNode,
-        obscureText: hideText,
+        obscureText: widget.isPassword ? hideText : false,
         cursorRadius: const Radius.elliptical(5, 0),
-        controller: userFieldController,
+        controller: widget.userFieldController,
+        style: TextStyle(color: Colors.white),
         decoration: InputDecoration(
-          hintText: hint,
+          hintText: widget.hint,
+          hintStyle: TextStyle(color: appbartextColor),
           border: OutlineInputBorder(
             borderRadius: const BorderRadius.all(Radius.circular(10)),
             borderSide: BorderSide(
@@ -44,8 +52,23 @@ class customTextField extends StatelessWidget {
               color: primaryColor,
             ),
           ),
-          suffixIcon: isPassword ? const Icon(Icons.visibility) : null,
-          prefixIcon: Icon(icon),
+          suffixIcon: widget.isPassword
+              ? GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      hideText = !hideText;
+                    });
+                  },
+                  child: Icon(
+                    hideText ? Icons.visibility_off : Icons.visibility,
+                    color: appbartextColor,
+                  ),
+                )
+              : null,
+          prefixIcon: Icon(
+            widget.icon,
+            color: appbartextColor,
+          ),
         ),
       ),
     );

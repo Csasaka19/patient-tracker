@@ -27,7 +27,7 @@ class Login extends StatelessWidget {
     });
 
     return Scaffold(
-      backgroundColor: greyColor,
+      backgroundColor: blackColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Center(
@@ -46,7 +46,7 @@ class Login extends StatelessWidget {
                 const SizedBox(height: 30),
           
                 // welcome back!
-                const CustomText(label: "Welcome back you!", fontSize: 30),
+                const CustomText(label: "Welcome back you!", fontSize: 30, labelColor: appbartextColor,),
           
                 const SizedBox(height: 25),
           
@@ -55,11 +55,11 @@ class Login extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const CustomText(
-                        label: "Username", labelColor: blackColor, fontSize: 16),
+                        label: "Username", labelColor: appbartextColor, fontSize: 16),
                     const SizedBox(width: 10),
-                    customTextField(
+                    CustomTextField(
                       userFieldController: userNameController,
-                      icon: Icons.person,
+                      icon: (Icons.person),
                       hint: 'Username',
                     ),
                   ],
@@ -72,14 +72,13 @@ class Login extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const CustomText(
-                        label: "Password", labelColor: blackColor, fontSize: 16),
+                        label: "Password", labelColor: appbartextColor, fontSize: 16),
                     const SizedBox(width: 10),
-                    customTextField(
+                    CustomTextField(
                       userFieldController: passwordController,
                       icon: Icons.lock,
                       isPassword: true,
                       hint: 'Password',
-                      hideText: true,
                     ),
                   ],
                 ),
@@ -96,7 +95,7 @@ class Login extends StatelessWidget {
                     children: [
                       CustomText(
                         label: "Forgot password?",
-                        labelColor: blackColor,
+                        labelColor: appbartextColor,
                       ),
                       SizedBox(width: 5),
                       CustomText(label: "Recover", labelColor: primaryColor),
@@ -109,7 +108,7 @@ class Login extends StatelessWidget {
                 // Log in button
                 customButton(
                   labelButton: 'Login',
-                  labelColor: appbartextColor,
+                  labelColor: primaryColor,
                   action: () => remoteLogin(),
                 ),
           
@@ -123,20 +122,20 @@ class Login extends StatelessWidget {
                       Expanded(
                         child: Divider(
                           thickness: 0.6,
-                          color: blackColor,
+                          color: appbartextColor,
                         ),
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10.0),
                         child: CustomText(
                             label: "Or Continue with",
-                            labelColor: blackColor,
+                            labelColor: appbartextColor,
                             fontSize: 16),
                       ),
                       Expanded(
                         child: Divider(
-                          thickness: 0.5,
-                          color: blackColor,
+                          thickness: 0.6,
+                          color: appbartextColor,
                         ),
                       ),
                     ],
@@ -166,7 +165,7 @@ class Login extends StatelessWidget {
                     children: [
                       CustomText(
                           label: "Not a member?",
-                          labelColor: blackColor,
+                          labelColor: appbartextColor,
                           fontSize: 16),
                       SizedBox(width: 4),
                       CustomText(

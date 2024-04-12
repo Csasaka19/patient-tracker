@@ -18,6 +18,10 @@ collection
 2.18
 file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/collection-1.18.0/
 file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/collection-1.18.0/lib/
+crypto
+2.19
+file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/crypto-3.0.3/
+file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/crypto-3.0.3/lib/
 cupertino_icons
 2.19
 file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/cupertino_icons-1.0.6/
@@ -46,6 +50,10 @@ get_storage
 2.16
 file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/get_storage-2.1.1/
 file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/get_storage-2.1.1/lib/
+google_fonts
+2.14
+file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/google_fonts-4.0.4/
+file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/google_fonts-4.0.4/lib/
 http
 2.19
 file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/http-0.13.6/
@@ -70,6 +78,10 @@ meta
 2.12
 file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/meta-1.10.0/
 file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/meta-1.10.0/lib/
+page_transition
+2.17
+file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/page_transition-2.1.0/
+file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/page_transition-2.1.0/lib/
 path
 2.12
 file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/path-1.8.3/
@@ -106,6 +118,10 @@ plugin_platform_interface
 3.0
 file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/plugin_platform_interface-2.1.8/
 file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/plugin_platform_interface-2.1.8/lib/
+responsive_sizer
+2.12
+file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/responsive_sizer-3.3.1/
+file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/responsive_sizer-3.3.1/lib/
 salomon_bottom_bar
 2.12
 file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/salomon_bottom_bar-3.3.2/
