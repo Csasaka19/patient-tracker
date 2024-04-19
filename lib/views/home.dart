@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:patient_tracker/configs/constants.dart';
-import 'package:patient_tracker/views/mobile.dart';
+import 'package:patient_tracker/views/dashboard.dart';
 import 'package:patient_tracker/views/login.dart';
 import 'package:patient_tracker/views/profile.dart';
 import 'package:patient_tracker/views/settings.dart';
@@ -12,10 +12,10 @@ import 'package:get/get.dart';
 ScreenController screenController = Get.put(ScreenController());
 
 var screens = [
-  MobileScaffold(),
-  Profile_screen(),
+  const Profile_screen(),
   Settings(),
   const Login(),
+  const Dashboard(),
 ];
 
 class Home extends StatelessWidget {

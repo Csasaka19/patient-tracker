@@ -74,7 +74,7 @@ class Profile_screen extends StatelessWidget {
               height: 650,
               width: double.infinity,
               decoration: const BoxDecoration(
-                  color: appbartextColor,
+                  color: blackColor,
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30))),

@@ -23,6 +23,7 @@
 /home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/assets/icons/camera.png
 /home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/assets/icons/calories.png
 /home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/assets/icons/weight.png
+/home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/assets/icons/forward.png
 /home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/assets/icons/heart2.png
 /home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/assets/doctors/doctor_1.png
 /home/sasaka-jr/patient-tracker/build/linux/x64/debug/bundle/data/flutter_assets/assets/doctors/doctor_3.png

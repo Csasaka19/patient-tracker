@@ -42,7 +42,7 @@ class profile_list extends StatelessWidget {
                     child: CustomText(
                       label: title,
                       fontSize: 14,
-                      labelColor: blackColor,
+                      labelColor: appbartextColor,
                     ),
                   ),
                 ]),
