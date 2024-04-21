@@ -1,21 +1,21 @@
+import 'dart:ffi';
+
 class MedicalRecord {
-  final String appointment;
-  final String diagnosis;
-  final String treatmentPlan;
-  final String record;
+  final Int user_id;
+  final String record_date;
+  final String description;
 
   MedicalRecord(
-      {required this.appointment,
-      required this.diagnosis,
-      required this.treatmentPlan,
-      required this.record});
+      {required this.user_id,
+      required this.record_date,
+      required this.description
+  });
 
   factory MedicalRecord.fromJson(Map<String, dynamic> json) {
     return MedicalRecord(
-      appointment: json['appointment'],
-      diagnosis: json['diagnosis'],
-      treatmentPlan: json['treatmentPlan'],
-      record: json['record'],
+      user_id: json['user_id'],
+      record_date: json['record_date'],
+      description: json['description'],
     );
   }
 }

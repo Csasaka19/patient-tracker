@@ -4,8 +4,6 @@ import 'package:http/http.dart' as http;
 import 'package:patient_tracker/configs/constants.dart';
 import 'package:patient_tracker/models/medical_records-model.dart';
 
-
-
 class MedicalRecordsPage extends StatefulWidget {
   @override
   _MedicalRecordsPageState createState() => _MedicalRecordsPageState();
@@ -13,7 +11,8 @@ class MedicalRecordsPage extends StatefulWidget {
 
 class _MedicalRecordsPageState extends State<MedicalRecordsPage> {
   Future<List<MedicalRecord>> fetchMedicalRecords() async {
-    final response = await http.get(Uri.parse("https://api.patienttrackerapp.com/medications"));
+    final response = await http
+        .get(Uri.parse("https://api.patienttrackerapp.com/medications"));
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
@@ -39,19 +38,18 @@ class _MedicalRecordsPageState extends State<MedicalRecordsPage> {
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  title: Text(snapshot.data![index].appointment,
+                  title: Text('User ID: ${snapshot.data![index].user_id}',
                       style: const TextStyle(color: appbartextColor)),
                   subtitle: Text(
-                      'Diagnosis: ${snapshot.data![index].diagnosis}\nTreatment Plan: ${snapshot.data![index].treatmentPlan}\nRecord: ${snapshot.data![index].record}',
+                      'Record Date: ${snapshot.data![index].record_date}\nDescription: ${snapshot.data![index].description}',
                       style: const TextStyle(color: appbartextColor)),
                 );
               },
             );
           } else if (snapshot.hasError) {
-            return Text("${snapshot.error}",
-                style: const TextStyle(color: appbartextColor));
+            return Text("${snapshot.error}");
           }
-          return const CircularProgressIndicator(color: appbartextColor,);
+          return const CircularProgressIndicator();
         },
       ),
     );

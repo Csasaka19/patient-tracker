@@ -1,16 +1,16 @@
 class Medication {
   final String name;
-  final String dosage;
-  final String instructions;
+  final String description;
+  final String image;
 
   Medication(
-      {required this.name, required this.dosage, required this.instructions});
+      {required this.name, required this.description, required this.image});
 
   factory Medication.fromJson(Map<String, dynamic> json) {
     return Medication(
       name: json['name'],
-      dosage: json['dosage'],
-      instructions: json['instructions'],
+      description: json['description'],
+      image: json['image'],
     );
   }
 }
