@@ -38,7 +38,7 @@ class _DoctorPageState extends State<DoctorPage> {
         var doctorList = doctors
             .map<Doctor>((doctors) => Doctor.fromJson(doctors))
             .toList();
-        doctorController.updateMedications(doctorList);
+        doctorController.updateDoctor(doctorList);
       } else {
         throw Exception('Failed to load medications from API');
       }
@@ -107,6 +107,11 @@ class _DoctorPageState extends State<DoctorPage> {
       scrollDirection: Axis.vertical,
       physics: const BouncingScrollPhysics(),
       child: ListTile(
+        minVerticalPadding: 15,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        focusColor: secondaryColor,
         leading: SizedBox(
           width: 60,
           height: 150,

@@ -3,6 +3,7 @@ import 'package:patient_tracker/views/appointments.dart';
 import 'package:patient_tracker/views/dashboard.dart';
 import 'package:patient_tracker/views/doctors.dart';
 import 'package:patient_tracker/views/home.dart';
+import 'package:patient_tracker/views/hospitals.dart';
 import 'package:patient_tracker/views/login.dart';
 import 'package:patient_tracker/views/medical_records.dart';
 import 'package:patient_tracker/views/medications.dart';
@@ -26,5 +27,6 @@ class Routes {
     GetPage(name: '/medical_records', page: () => MedicalRecordsPage()),
     GetPage(name: '/appointments', page: () => AppointmentsPage()),
     GetPage(name: '/doctors', page: () => DoctorPage()),
+    GetPage(name: '/hospitals', page: () => HospitalPage()),
   ];
 }
