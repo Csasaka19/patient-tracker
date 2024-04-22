@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:patient_tracker/views/appointments.dart';
 import 'package:patient_tracker/views/dashboard.dart';
+import 'package:patient_tracker/views/doctors.dart';
 import 'package:patient_tracker/views/home.dart';
 import 'package:patient_tracker/views/login.dart';
 import 'package:patient_tracker/views/medical_records.dart';
@@ -24,5 +25,6 @@ class Routes {
     GetPage(name: '/medication', page: () => MedicationPage()),
     GetPage(name: '/medical_records', page: () => MedicalRecordsPage()),
     GetPage(name: '/appointments', page: () => AppointmentsPage()),
+    GetPage(name: '/doctors', page: () => DoctorPage()),
   ];
 }

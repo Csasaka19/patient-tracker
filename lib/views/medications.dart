@@ -14,6 +14,52 @@ class MedicationPage extends StatefulWidget {
 }
 
 class _MedicationPageState extends State<MedicationPage> {
+  bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchMedications();
+  }
+
+  Future<void> _fetchMedications() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      final response = await http.get(Uri.parse(
+          "http://acs314flutter.xyz/Patient-tracker/get_medications.php"));
+
+      if (response.statusCode == 200) {
+        var serverResponse = json.decode(response.body);
+        var medications = serverResponse['medications'];
+        var medicationsList = medications
+            .map<Medication>((medication) => Medication.fromJson(medication))
+            .toList();
+        medicationController.updateMedications(medicationsList);
+      } else {
+        throw Exception('Failed to load medications from API');
+      }
+    } catch (e) {
+      print('Error fetching medications: $e');
+      _showErrorSnackBar();
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
+  void _showErrorSnackBar() {
+    Get.snackbar(
+      'Error',
+      'Failed to fetch medications. Please try again later.',
+      backgroundColor: pinkColor,
+      colorText: appbartextColor,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,41 +68,71 @@ class _MedicationPageState extends State<MedicationPage> {
         title: const Text('Medications'),
         backgroundColor: appbartextColor,
       ),
-      body: Obx(() {
-        if (medicationController.medications.isEmpty) {
-          return const Center(child: CircularProgressIndicator());
-        } else {
-          return ListView.builder(
-             itemCount: medicationController.medications.length,
-             itemBuilder: (context, index) {
-              return ListTile(
-                leading: Image.network(
-                    medicationController.medications[index].image),
-                title: Text(
-                    'Medication Name: ${medicationController.medications[index].name}',
-                    style: const TextStyle(color: appbartextColor)),
-                subtitle: Text(
-                    'Medication Description: ${medicationController.medications[index].description}',
-                    style: const TextStyle(color: appbartextColor)),
-              );
-            },
-          );
-        }
-      }),
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : _buildMedicationsListView(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _fetchMedications,
+        tooltip: 'Refresh',
+        child: const Icon(Icons.refresh),
+        backgroundColor: appbartextColor,
+      ),
     );
   }
 
-  Future<void> fetchMedications() async {
-    http.Response response;
-    response = await http.get(Uri.parse("http://acs314flutter.xyz/Patient-tracker/get_medications.php"));
+  Widget _buildMedicationsListView() {
+    return Obx(() {
+      if (medicationController.medications.isEmpty) {
+        return const Center(
+          child: Text(
+            'No medications available',
+            style: TextStyle(color: appbartextColor),
+          ),
+        );
+      } else {
+        return ListView.builder(
+          itemCount: medicationController.medications.length,
+          itemBuilder: (context, index) {
+            return _buildMedicationListTile(index);
+          },
+        );
+      }
+    });
+  }
 
-    if(response.statusCode == 200) {
-      var serverResponse = json.decode(response.body);
-      var medications = serverResponse['medications'];
-      var medicationsLIst = medications.map<Medication>((medication) => Medication.fromJson(medication)).toList();
-      medicationController.updateMedications(medicationsLIst);
-    } else {
-      throw Exception('Failed to load medications from API');
-    }
+  Widget _buildMedicationListTile(int index) {
+    final medication = medicationController.medications[index];
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      physics: const BouncingScrollPhysics(),
+      child: ListTile(
+        leading: SizedBox(
+          width: 60,
+          height: 150,
+          child: _buildMedicationImage(index),
+        ),
+        title: Text(
+          'Medication Name: ${medication.name}',
+          style: const TextStyle(color: appbartextColor),
+        ),
+        subtitle: Text(
+          'Medication Description: ${medication.description}',
+          style: const TextStyle(color: appbartextColor),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMedicationImage(int index) {
+    final medication = medicationController.medications[index];
+    return medication.image.isNotEmpty
+        ? Image.network(
+            medication.image,
+            fit: BoxFit.cover,
+          )
+        : const Placeholder(
+            fallbackHeight: 50,
+            fallbackWidth: 50,
+          );
   }
 }
