@@ -15,7 +15,7 @@ var screens = [
   const Profile_screen(),
   Settings(),
   const Login(),
-  const Dashboard(),
+  Dashboard(),
 ];
 
 class Home extends StatelessWidget {

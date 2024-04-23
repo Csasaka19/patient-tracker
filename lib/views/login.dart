@@ -28,154 +28,156 @@ class Login extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: blackColor,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(height: 20),
-          
-                // logo
-                const Image(
-                  image: AssetImage('assets/logos/examination.png'),
-                  width: 100,
-                  height: 100,
-                ),
-                
-                const SizedBox(height: 30),
-          
-                // welcome back!
-                const CustomText(label: "Welcome back you!", fontSize: 30, labelColor: appbartextColor,),
-          
-                const SizedBox(height: 25),
-          
-                // username textfield
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const CustomText(
-                        label: "Username", labelColor: appbartextColor, fontSize: 16),
-                    const SizedBox(width: 10),
-                    CustomTextField(
-                      userFieldController: userNameController,
-                      icon: (Icons.person),
-                      hint: 'Username',
-                    ),
-                  ],
-                ),
-          
-                const SizedBox(height: 10),
-          
-                // password textfield
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const CustomText(
-                        label: "Password", labelColor: appbartextColor, fontSize: 16),
-                    const SizedBox(width: 10),
-                    CustomTextField(
-                      userFieldController: passwordController,
-                      icon: Icons.lock,
-                      isPassword: true,
-                      hint: 'Password',
-                    ),
-                  ],
-                ),
-          
-                const SizedBox(height: 30),
-          
-                // Forgot password section
-                GestureDetector(
-                  onTap: () {
-                    print("Recovery process has begun");
-                  },
-                  child: const Row(
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 20),
+            
+                  // logo
+                  const Image(
+                    image: AssetImage('assets/logos/examination.png'),
+                    width: 100,
+                    height: 100,
+                  ),
+                  
+                  const SizedBox(height: 30),
+            
+                  // welcome back!
+                  const CustomText(label: "Welcome back you!", fontSize: 30, labelColor: appbartextColor,),
+            
+                  const SizedBox(height: 25),
+            
+                  // username textfield
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CustomText(
-                        label: "Forgot password?",
-                        labelColor: appbartextColor,
+                      const CustomText(
+                          label: "Username", labelColor: appbartextColor, fontSize: 16),
+                      const SizedBox(width: 10),
+                      CustomTextField(
+                        userFieldController: userNameController,
+                        icon: (Icons.person),
+                        hint: 'Username',
                       ),
-                      SizedBox(width: 5),
-                      CustomText(label: "Recover", labelColor: primaryColor),
                     ],
                   ),
-                ),
-          
-                const SizedBox(height: 40),
-          
-                // Log in button
-                customButton(
-                  labelButton: 'Login',
-                  labelColor: primaryColor,
-                  action: () => remoteLogin(),
-                ),
-          
-                const SizedBox(height: 20),
-          
-                // Alternative login options
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
+            
+                  const SizedBox(height: 15),
+            
+                  // password textfield
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Expanded(
-                        child: Divider(
-                          thickness: 0.6,
-                          color: appbartextColor,
-                        ),
+                      const CustomText(
+                          label: "Password", labelColor: appbartextColor, fontSize: 16),
+                      const SizedBox(width: 10),
+                      CustomTextField(
+                        userFieldController: passwordController,
+                        icon: Icons.lock,
+                        isPassword: true,
+                        hint: 'Password',
                       ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
-                        child: CustomText(
-                            label: "Or Continue with",
+                    ],
+                  ),
+            
+                  const SizedBox(height: 30),
+            
+                  // Forgot password section
+                  GestureDetector(
+                    onTap: () {
+                      print("Recovery process has begun");
+                    },
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CustomText(
+                          label: "Forgot password?",
+                          labelColor: appbartextColor,
+                        ),
+                        SizedBox(width: 5),
+                        CustomText(label: "Recover", labelColor: primaryColor),
+                      ],
+                    ),
+                  ),
+            
+                  const SizedBox(height: 40),
+            
+                  // Log in button
+                  customButton(
+                    labelButton: 'Login',
+                    labelColor: primaryColor,
+                    action: () => remoteLogin(),
+                  ),
+            
+                  const SizedBox(height: 20),
+            
+                  // Alternative login options
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Divider(
+                            thickness: 0.6,
+                            color: appbartextColor,
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10.0),
+                          child: CustomText(
+                              label: "Or Continue with",
+                              labelColor: appbartextColor,
+                              fontSize: 16),
+                        ),
+                        Expanded(
+                          child: Divider(
+                            thickness: 0.6,
+                            color: appbartextColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+            
+                  const SizedBox(height: 50),
+            
+                  //  Google + Fit sign in buttons
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // Google button
+                      SquareTile(imagePath: 'assets/images/google.png'),
+            
+                      SizedBox(width: 25),
+                    ],
+                  ),
+            
+                  const SizedBox(height: 50),
+            
+                  // Non member section
+                  GestureDetector(
+                    onTap: () => gotoRegistration(),
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CustomText(
+                            label: "Not a member?",
                             labelColor: appbartextColor,
                             fontSize: 16),
-                      ),
-                      Expanded(
-                        child: Divider(
-                          thickness: 0.6,
-                          color: appbartextColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-          
-                const SizedBox(height: 50),
-          
-                //  Google + Fit sign in buttons
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // Google button
-                    SquareTile(imagePath: 'assets/images/google.png'),
-          
-                    SizedBox(width: 25),
-                  ],
-                ),
-          
-                const SizedBox(height: 50),
-          
-                // Non member section
-                GestureDetector(
-                  onTap: () => gotoRegistration(),
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CustomText(
-                          label: "Not a member?",
-                          labelColor: appbartextColor,
-                          fontSize: 16),
-                      SizedBox(width: 4),
-                      CustomText(
-                          label: "Register",
-                          labelColor: primaryColor,
-                          fontSize: 16),
-                    ],
-                  ),
-                )
-              ],
+                        SizedBox(width: 4),
+                        CustomText(
+                            label: "Register",
+                            labelColor: primaryColor,
+                            fontSize: 16),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),

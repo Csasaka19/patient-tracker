@@ -31,194 +31,196 @@ class Registration extends StatelessWidget {
           onPressed: () => Get.back(),
         ),
       ),
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(height: 20),
-
-              // logo
-              const Image(
-                image: AssetImage('assets/logos/healthy.png'),
-                width: 100,
-                height: 100,
-              ),
-
-              const SizedBox(height: 30),
-
-              // welcome back!
-              const CustomText(
-                label: "Hello! Join Us",
-                fontSize: 30,
-                labelColor: appbartextColor,
-              ),
-
-              const SizedBox(height: 25),
-
-              // username textfield
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const CustomText(
-                      label: "Username",
-                      labelColor: appbartextColor,
-                      fontSize: 16),
-                  const SizedBox(width: 15),
-                  CustomTextField(
-                    userFieldController: userNameController,
-                    icon: Icons.person_2_sharp,
-                    hint: 'Username',
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 5),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const CustomText(
-                      label: "First Name",
-                      labelColor: appbartextColor,
-                      fontSize: 16),
-                  const SizedBox(width: 10),
-                  CustomTextField(
-                    userFieldController: firstnameController,
-                    icon: Icons.person_4_outlined,
-                    hint: 'First Name',
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 5),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const CustomText(
-                      label: "Last Name",
-                      labelColor: appbartextColor,
-                      fontSize: 16),
-                  const SizedBox(width: 10),
-                  CustomTextField(
-                    userFieldController: lastnameController,
-                    icon: Icons.person_4_outlined,
-                    hint: 'Last Name',
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 5),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const CustomText(
-                      label: "Email",
-                      labelColor: appbartextColor,
-                      fontSize: 16),
-                  const SizedBox(width: 55),
-                  CustomTextField(
-                    userFieldController: emailController,
-                    icon: Icons.mark_email_unread_outlined,
-                    hint: 'Email',
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 5),
-
-              // password textfield
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const CustomText(
-                      label: "Password",
-                      labelColor: appbartextColor,
-                      fontSize: 16),
-                  const SizedBox(width: 10),
-                  CustomTextField(
-                    userFieldController: passwordController,
-                    icon: Icons.lock_outline_sharp,
-                    isPassword: true,
-                    hint: 'Password',
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 5),
-
-              // Confirm password textfield
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const CustomText(
-                      label: "Confirm",
-                      labelColor: appbartextColor,
-                      fontSize: 16),
-                  const SizedBox(width: 20),
-                  CustomTextField(
-                    userFieldController: confirmController,
-                    icon: Icons.lock_outline_sharp,
-                    isPassword: true,
-                    hint: 'Confirm Password',
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 25),
-
-              // Registration button
-              customButton(
-                labelButton: 'Register',
-                action: () => remoteSignup(),
-                labelColor: primaryColor,
-              ),
-
-              const SizedBox(height: 20),
-
-              // Alternative login options
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25.0),
-                child: Row(
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(height: 20),
+        
+                // logo
+                const Image(
+                  image: AssetImage('assets/logos/healthy.png'),
+                  width: 100,
+                  height: 100,
+                ),
+        
+                const SizedBox(height: 30),
+        
+                // welcome back!
+                const CustomText(
+                  label: "Hello! Join Us",
+                  fontSize: 30,
+                  labelColor: appbartextColor,
+                ),
+        
+                const SizedBox(height: 25),
+        
+                // username textfield
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Expanded(
-                      child: Divider(
-                        thickness: 0.6,
-                        color: appbartextColor,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10.0),
-                      child: CustomText(
-                          label: "Or Register with",
-                          labelColor: appbartextColor,
-                          fontSize: 16),
-                    ),
-                    Expanded(
-                      child: Divider(
-                        thickness: 0.6,
-                        color: appbartextColor,
-                      ),
+                    const CustomText(
+                        label: "Username",
+                        labelColor: appbartextColor,
+                        fontSize: 16),
+                    const SizedBox(width: 15),
+                    CustomTextField(
+                      userFieldController: userNameController,
+                      icon: Icons.person_2_sharp,
+                      hint: 'Username',
                     ),
                   ],
                 ),
-              ),
-
-              const SizedBox(height: 30),
-
-              //  Google + Fit sign in buttons
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Google button
-                  SquareTile(imagePath: 'assets/images/google.png'),
-
-                  SizedBox(width: 25),
-                ],
-              ),
-            ],
+        
+                const SizedBox(height: 15),
+        
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const CustomText(
+                        label: "First Name",
+                        labelColor: appbartextColor,
+                        fontSize: 16),
+                    const SizedBox(width: 10),
+                    CustomTextField(
+                      userFieldController: firstnameController,
+                      icon: Icons.person_4_outlined,
+                      hint: 'First Name',
+                    ),
+                  ],
+                ),
+        
+                const SizedBox(height: 15),
+        
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const CustomText(
+                        label: "Last Name",
+                        labelColor: appbartextColor,
+                        fontSize: 16),
+                    const SizedBox(width: 10),
+                    CustomTextField(
+                      userFieldController: lastnameController,
+                      icon: Icons.person_4_outlined,
+                      hint: 'Last Name',
+                    ),
+                  ],
+                ),
+        
+                const SizedBox(height: 15),
+        
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const CustomText(
+                        label: "Email",
+                        labelColor: appbartextColor,
+                        fontSize: 16),
+                    const SizedBox(width: 55),
+                    CustomTextField(
+                      userFieldController: emailController,
+                      icon: Icons.mark_email_unread_outlined,
+                      hint: 'Email',
+                    ),
+                  ],
+                ),
+        
+                const SizedBox(height: 15),
+        
+                // password textfield
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const CustomText(
+                        label: "Password",
+                        labelColor: appbartextColor,
+                        fontSize: 16),
+                    const SizedBox(width: 10),
+                    CustomTextField(
+                      userFieldController: passwordController,
+                      icon: Icons.lock_outline_sharp,
+                      isPassword: true,
+                      hint: 'Password',
+                    ),
+                  ],
+                ),
+        
+                const SizedBox(height: 15),
+        
+                // Confirm password textfield
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const CustomText(
+                        label: "Confirm",
+                        labelColor: appbartextColor,
+                        fontSize: 16),
+                    const SizedBox(width: 20),
+                    CustomTextField(
+                      userFieldController: confirmController,
+                      icon: Icons.lock_outline_sharp,
+                      isPassword: true,
+                      hint: 'Confirm Password',
+                    ),
+                  ],
+                ),
+        
+                const SizedBox(height: 25),
+        
+                // Registration button
+                customButton(
+                  labelButton: 'Register',
+                  action: () => remoteSignup(),
+                  labelColor: primaryColor,
+                ),
+        
+                const SizedBox(height: 20),
+        
+                // Alternative login options
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Divider(
+                          thickness: 0.6,
+                          color: appbartextColor,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        child: CustomText(
+                            label: "Or Register with",
+                            labelColor: appbartextColor,
+                            fontSize: 16),
+                      ),
+                      Expanded(
+                        child: Divider(
+                          thickness: 0.6,
+                          color: appbartextColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+        
+                const SizedBox(height: 30),
+        
+                //  Google + Fit sign in buttons
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Google button
+                    SquareTile(imagePath: 'assets/images/google.png'),
+        
+                    SizedBox(width: 25),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -242,9 +244,9 @@ class Registration extends StatelessWidget {
       int signupStatus = serverResponse['success'];
       if (signupStatus == 1) {
         gotoLogin();
-        Get.snackbar("Success", "Registration successful");
+        Get.snackbar("Success", "Registration successful", backgroundColor: pinkColor, colorText: appbartextColor);
       } else {
-        Get.snackbar("Error", "Registration failed");
+        Get.snackbar("Error", "Registration failed", backgroundColor: pinkColor, colorText: appbartextColor);
       }
     }
   }

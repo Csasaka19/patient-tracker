@@ -17,7 +17,7 @@ class Routes {
   static var routes = [
     GetPage(name: '/login', page: () => Login()),
     GetPage(name: '/registration', page: () => Registration()),
-    GetPage(name: '/dashboard', page: () => const Dashboard()),
+    GetPage(name: '/dashboard', page: () =>  Dashboard()),
     GetPage(name: '/home', page: () => Home()),
     GetPage(name: '/profile', page: () => Profile_screen()),
     GetPage(name: '/settings', page: () => Settings()),
