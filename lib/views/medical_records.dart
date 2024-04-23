@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:patient_tracker/configs/constants.dart';
+import 'package:patient_tracker/controllers/medical-record_controller.dart';
 import 'package:patient_tracker/models/medical_records-model.dart';
+
+MedicalRecordsController medicalController =
+    Get.put(MedicalRecordsController());
 
 class MedicalRecordsPage extends StatefulWidget {
   @override
@@ -10,16 +15,52 @@ class MedicalRecordsPage extends StatefulWidget {
 }
 
 class _MedicalRecordsPageState extends State<MedicalRecordsPage> {
-  Future<List<MedicalRecord>> fetchMedicalRecords() async {
-    final response = await http
-        .get(Uri.parse("https://api.patienttrackerapp.com/medications"));
+  bool _isLoading = false;
+  String _searchText = "";
 
-    if (response.statusCode == 200) {
-      List jsonResponse = json.decode(response.body);
-      return jsonResponse.map((item) => MedicalRecord.fromJson(item)).toList();
-    } else {
-      throw Exception('Failed to load medical records from API');
+  @override
+  void initState() {
+    super.initState();
+    _fetchMedicalRecords();
+  }
+
+  Future<void> _fetchMedicalRecords() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      final response = await http.get(Uri.parse(
+          "http://acs314flutter.xyz/Patient-tracker/get_medical_records.php?user_id=1"));
+
+      if (response.statusCode == 200) {
+        var serverResponse = json.decode(response.body);
+        var medical_records = serverResponse['medical_records'];
+        var recordList = medical_records
+            .map<MedicalRecord>(
+                (medical_record) => MedicalRecord.fromJson(medical_record))
+            .toList();
+        medicalController.updateMedicalRecords(recordList);
+      } else {
+        throw Exception('Failed to load medications from API');
+      }
+    } catch (e) {
+      print('Error fetching medical records: $e');
+      _showErrorSnackBar();
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
+  }
+
+  void _showErrorSnackBar() {
+    Get.snackbar(
+      'Error',
+      'Failed to fetch medical records for user. Please try again later.',
+      backgroundColor: pinkColor,
+      colorText: appbartextColor,
+    );
   }
 
   @override
@@ -27,30 +68,110 @@ class _MedicalRecordsPageState extends State<MedicalRecordsPage> {
     return Scaffold(
       backgroundColor: blackColor,
       appBar: AppBar(
-        title: const Text('Medical Records'),
+        title: const Text('Your Medical Records',
+            style: TextStyle(color: appbartextColor)),
+        backgroundColor: blackColor,
+      ),
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    scrollPhysics: const BouncingScrollPhysics(),
+                    onChanged: (value) {
+                      setState(() {
+                        _searchText = value;
+                      });
+                    },
+                    decoration: InputDecoration(
+                      labelText: "Search",
+                      hintText: "Search for your previous medical records...",
+                      prefixIcon: const Icon(
+                        Icons.search,
+                        color: appbartextColor,
+                      ),
+                      suffixIcon: const Icon(
+                        Icons.filter_list,
+                        color: appbartextColor,
+                      ),
+                      filled: true,
+                      fillColor: appbartextColor.withOpacity(0.3),
+                      border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(25.0),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(child: _buildMedicalRecordsGridView()),
+              ],
+            ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _fetchMedicalRecords,
+        tooltip: 'Refresh',
+        child: const Icon(Icons.refresh),
         backgroundColor: appbartextColor,
       ),
-      body: FutureBuilder<List<MedicalRecord>>(
-        future: fetchMedicalRecords(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return ListView.builder(
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text('User ID: ${snapshot.data![index].user_id}',
-                      style: const TextStyle(color: appbartextColor)),
-                  subtitle: Text(
-                      'Record Date: ${snapshot.data![index].record_date}\nDescription: ${snapshot.data![index].description}',
-                      style: const TextStyle(color: appbartextColor)),
-                );
-              },
-            );
-          } else if (snapshot.hasError) {
-            return Text("${snapshot.error}");
-          }
-          return const CircularProgressIndicator();
-        },
+    );
+  }
+
+  Widget _buildMedicalRecordsGridView() {
+    return Obx(() {
+      if (medicalController.medical_records.isEmpty) {
+        return const Center(
+          child: Text(
+            'No medical Records available',
+            style: TextStyle(color: appbartextColor),
+          ),
+        );
+      } else {
+        var displayedMedicalRecords = medicalController.medical_records
+            .where((medication) => medication.name.contains(_searchText))
+            .toList();
+
+        return GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 3 / 2,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+          ),
+          itemCount: displayedMedicalRecords.length,
+          itemBuilder: (context, index) {
+            return _buildMedicalRecordCard(
+                index, displayedMedicalRecords as List<MedicalRecord>);
+          },
+        );
+      }
+    });
+  }
+
+  Widget _buildMedicalRecordCard(
+      int index, List<MedicalRecord> medical_records) {
+    final medical_record = medical_records[index];
+    return Card(
+      elevation: 5,
+      child: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Column(
+          children: [
+            Text(
+              'Medical Record ID: ${medical_record.id}',
+              style: const TextStyle(color: appbartextColor),
+            ),
+            Text(
+              'Record Date: ${medical_record.record_date}',
+              style: const TextStyle(color: appbartextColor),
+            ),
+            Text(
+              'Medication Description: ${medical_record.description}',
+              style: const TextStyle(color: appbartextColor),
+            ),
+          ],
+        ),
       ),
     );
   }
