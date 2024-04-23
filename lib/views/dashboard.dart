@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:patient_tracker/configs/constants.dart';
 import 'package:patient_tracker/customs/customtext.dart';
 import 'package:patient_tracker/customs/dashboard-item.dart';
@@ -16,7 +17,7 @@ class _DashboardState extends State<Dashboard> {
       icon: Icons.medical_services,
       imagepath: 'assets/images/medications.jpg',
       onTap: () {
-        // Navigate to Medications page
+        Get.toNamed('/medication');
       },
     ),
     DashboardItem(
@@ -24,7 +25,7 @@ class _DashboardState extends State<Dashboard> {
       icon: Icons.people_outline_sharp,
       imagepath: 'assets/doctors/doctor_1.png',
       onTap: () {
-        // Navigate to Doctors page
+        Get.toNamed('/doctors');
       },
     ),
     DashboardItem(
@@ -32,7 +33,7 @@ class _DashboardState extends State<Dashboard> {
       icon: Icons.local_hospital,
       imagepath: 'assets/images/hospital.jpg',
       onTap: () {
-        // Navigate to Hospitals page
+        Get.toNamed('/hospitals');
       },
     ),
     DashboardItem(
@@ -40,7 +41,7 @@ class _DashboardState extends State<Dashboard> {
       icon: Icons.assignment_add,
       imagepath: 'assets/images/records.jpg',
       onTap: () {
-        // Navigate to Medical Records page
+        Get.toNamed('/medical_records');
       },
     ),
     DashboardItem(
@@ -48,7 +49,7 @@ class _DashboardState extends State<Dashboard> {
       icon: Icons.calendar_today_outlined,
       imagepath: 'assets/doctors/doctor_3.png',
       onTap: () {
-        // Navigate to Hospital Visits page
+        Get.toNamed('/hospital_visits');
       },
     ),
     DashboardItem(
@@ -56,7 +57,7 @@ class _DashboardState extends State<Dashboard> {
       icon: Icons.calendar_today,
       imagepath: 'assets/doctors/doctor_2.png',
       onTap: () {
-        // Navigate to Your Recommendations page
+        Get.toNamed('/recommendations');
       },
     ),
   ];
@@ -106,10 +107,12 @@ class _DashboardState extends State<Dashboard> {
                       labelColor: appbartextColor),
                   const SizedBox(height: 20),
                   const CustomText(
-                      label: 'What would you like to do today? We hope you are feeling better!',
-                      fontSize: 20,
-                      labelColor: appbartextColor,
-                      italic: true,),
+                    label:
+                        'What would you like to do today? We hope you are feeling better!',
+                    fontSize: 20,
+                    labelColor: appbartextColor,
+                    italic: true,
+                  ),
                   const SizedBox(height: 20),
                   TextField(
                     onChanged: (value) {
@@ -126,11 +129,17 @@ class _DashboardState extends State<Dashboard> {
                           borderRadius: BorderRadius.circular(12)),
                       filled: true,
                       fillColor: appbartextColor.withOpacity(0.3),
-                        suffixIcon: Icon(Icons.filter_list),
+                      suffixIcon: Icon(Icons.filter_list),
                     ),
                   ),
                   const SizedBox(height: 20),
-                  const CustomText(label: "Every record you need is here, discard the tedious documented papers! For your health right?", fontSize: 16, labelColor: appbartextColor, italic: true,),
+                  const CustomText(
+                    label:
+                        "Every record you need is here, discard the tedious documented papers! For your health right?",
+                    fontSize: 16,
+                    labelColor: appbartextColor,
+                    italic: true,
+                  ),
                   const SizedBox(height: 30),
                   Expanded(
                     child: GridView.count(

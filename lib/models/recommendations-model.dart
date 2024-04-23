@@ -9,10 +9,10 @@ class Recommendation {
 
   factory Recommendation.fromJson(Map<String, dynamic> json) {
     return Recommendation(
-      id: json['id'],
-      user_id: json['user_id'],
-      recommendation_date: json['recommendation_date'],
-      description: json['description'],
+      id: json['id'].toString(),
+      user_id: json['user_id'].toString(),
+      recommendation_date: json['recommendation_date'].toString(),
+      description: json['description'].toString(),
     );
   }
 }

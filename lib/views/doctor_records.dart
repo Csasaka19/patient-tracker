@@ -145,21 +145,31 @@ class _DoctorRecordsPageState extends State<DoctorRecordsPage> {
     final doctorRecord = doctorRecords[index];
     return Card(
       elevation: 5,
+      color: appbartextColor.withOpacity(0.6),
       child: Padding(
         padding: const EdgeInsets.all(15),
         child: Column(
           children: [
+            const Row(
+              children: [
+                Icon(
+                  Icons.read_more_rounded,
+                  color: primaryColor,
+                ),
+                SizedBox(width: 5),
+              ],
+            ),
             Text(
               'Record ID: ${doctorRecord.id}',
-              style: const TextStyle(color: appbartextColor),
+              style: const TextStyle(color: primaryColor),
             ),
             Text(
               'Record Date: ${doctorRecord.record_date}',
-              style: const TextStyle(color: appbartextColor),
+              style: const TextStyle(color: primaryColor),
             ),
             Text(
-              'Record Description: ${doctorRecord.description}',
-              style: const TextStyle(color: appbartextColor),
+              'Description: ${doctorRecord.description}',
+              style: const TextStyle(color: primaryColor),
             ),
           ],
         ),

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:patient_tracker/configs/constants.dart';
 import 'package:patient_tracker/views/dashboard.dart';
+import 'package:patient_tracker/views/doctors.dart';
+import 'package:patient_tracker/views/hospitals.dart';
 import 'package:patient_tracker/views/login.dart';
 import 'package:patient_tracker/views/profile.dart';
-import 'package:patient_tracker/views/medication_records.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:patient_tracker/controllers/screen_controller.dart';
 import 'package:get/get.dart';
@@ -12,10 +13,11 @@ import 'package:get/get.dart';
 ScreenController screenController = Get.put(ScreenController());
 
 var screens = [
-  const Profile_screen(),
-  Settings(),
-  const Login(),
   Dashboard(),
+  const Profile_screen(),
+  HospitalPage(),
+  DoctorPage(),
+  const Login(),
 ];
 
 class Home extends StatelessWidget {
@@ -25,28 +27,36 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: Obx(() => SalomonBottomBar(
-            backgroundColor: green,
+            backgroundColor: lightBlue,
             currentIndex: screenController.selectedScreen.value,
             onTap: (index) => screenController.updatePage(index),
             items: [
               SalomonBottomBarItem(
-                icon: Icon(Icons.home),
-                title: const Text("Home"),
-                selectedColor: primaryColor,
+                icon: const Icon(Icons.home_outlined, color: blackColor,),
+                title: const Text("Home", style:  TextStyle(color: primaryColor),),
+                selectedColor: secondaryColor,
               ),
               SalomonBottomBarItem(
-                icon: Icon(Icons.person),
-                title: const Text("Profile"),
+                icon: const Icon(Icons.person_2_outlined, color: blackColor,),
+                title: const Text("Profile",style:  TextStyle(color: primaryColor)),
                 selectedColor: pinkColor,
               ),
               SalomonBottomBarItem(
-                icon: Icon(Icons.settings),
-                title: const Text("Settings"),
+                icon: const Icon(Icons.medical_services_outlined, color: blackColor,),
+                title: const Text("Hospitals", style: TextStyle(color: primaryColor)),
                 selectedColor:orangeColor,
               ),
               SalomonBottomBarItem(
-                icon: Icon(Icons.logout),
-                title: const Text("Logout"),
+                icon: const Icon(
+                  Icons.people_alt_outlined,
+                  color: blackColor,
+                ),
+                title: const Text("Doctors", style: TextStyle(color: primaryColor)),
+                selectedColor: orangeColor,
+              ),
+              SalomonBottomBarItem(
+                icon: const Icon(Icons.help_outline_outlined),
+                title: const Text("Help", style: TextStyle(color: primaryColor)),
                 selectedColor: purpleColor,
               ),
             ],

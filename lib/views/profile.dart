@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:patient_tracker/configs/constants.dart';
 import 'package:patient_tracker/configs/profile_list.dart';
 import 'package:patient_tracker/customs/customtext.dart';
-
-
 
 class Profile_screen extends StatelessWidget {
   const Profile_screen({super.key});
@@ -28,18 +27,20 @@ class Profile_screen extends StatelessWidget {
                     width: 110,
                     height: 110,
                     decoration: BoxDecoration(
-                        border: Border.all(width: 4, color: appbartextColor),
-                        boxShadow: [
-                          BoxShadow(
-                              spreadRadius: 2,
-                              blurRadius: 10,
-                              color: blackColor.withOpacity(0.1))
-                        ],
-                        shape: BoxShape.circle,
-                        image: const DecorationImage(
-                          image: AssetImage("assets/logos/man.png"),
-                          fit: BoxFit.cover,
-                        )),
+                      border: Border.all(width: 4, color: appbartextColor),
+                      boxShadow: [
+                        BoxShadow(
+                          spreadRadius: 2,
+                          blurRadius: 10,
+                          color: blackColor.withOpacity(0.1),
+                        )
+                      ],
+                      shape: BoxShape.circle,
+                      image: const DecorationImage(
+                        image: AssetImage("assets/logos/man.png"),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                   Positioned(
                     bottom: 0,
@@ -48,11 +49,13 @@ class Profile_screen extends StatelessWidget {
                       height: 30,
                       width: 30,
                       decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(width: 1, color: appbartextColor),
-                          color: appbartextColor,
-                          image: const DecorationImage(
-                              image: AssetImage("assets/icons/camera.png"))),
+                        shape: BoxShape.circle,
+                        border: Border.all(width: 1, color: appbartextColor),
+                        color: appbartextColor,
+                        image: const DecorationImage(
+                          image: AssetImage("assets/icons/camera.png"),
+                        ),
+                      ),
                     ),
                   ),
                 ],
@@ -64,7 +67,11 @@ class Profile_screen extends StatelessWidget {
             const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CustomText(label: "Clive Sasaka", fontSize: 20, labelColor: appbartextColor),
+                CustomText(
+                  label: "Clive Sasaka",
+                  fontSize: 20,
+                  labelColor: appbartextColor,
+                ),
               ],
             ),
             const SizedBox(
@@ -74,65 +81,100 @@ class Profile_screen extends StatelessWidget {
               height: 650,
               width: double.infinity,
               decoration: const BoxDecoration(
-                  color: blackColor,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30))),
-              child: Column(children: [
-                const SizedBox(
-                  height: 50,
+                color: blackColor,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30),
+                  topRight: Radius.circular(30),
                 ),
-                profile_list(
-                  image: "assets/icons/heart2.png",
-                  title: "Full Personal Details",
-                  color: blackColor,
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                  child: Divider(),
-                ),
-                profile_list(
-                  image: "assets/icons/appoint.png",
-                  title: "Doctors and Appointments",
-                  color: blackColor,
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                  child: Divider(),
-                ),
-                profile_list(
-                  image: "assets/icons/meds.png",
-                  title: "Medications",
-                  color: blackColor,
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                  child: Divider(),
-                ),
-                profile_list(
-                  image: "assets/icons/medical-record.png",
-                  title: "Medical Records ",
-                  color: blackColor,
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                  child: Divider(),
-                ),
-                profile_list(
-                  image: "assets/icons/hospital.png",
-                  title: "Hospitals",
-                  color: blackColor,
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                  child: Divider(),
-                ),
-                profile_list(
-                  image: "assets/icons/logout.png",
-                  title: "Log out",
-                  color: pinkColor,
-                ),
-              ]),
+              ),
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      // Navigate to Full Personal Details page
+                      // Add your navigation code here
+                    },
+                    child: profile_list(
+                      image: "assets/icons/heart2.png",
+                      title: "Full Personal Details",
+                      color: blackColor,
+                    ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                    child: Divider(),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Get.toNamed('/doctors');
+                    },
+                    child: profile_list(
+                      image: "assets/icons/appoint.png",
+                      title: "Doctors and Appointments",
+                      color: blackColor,
+                    ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                    child: Divider(),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Get.toNamed('/medication');
+                    },
+                    child: profile_list(
+                      image: "assets/icons/meds.png",
+                      title: "Medications",
+                      color: blackColor,
+                    ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                    child: Divider(),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Get.toNamed('/medical_records');
+                    },
+                    child: profile_list(
+                      image: "assets/icons/medical-record.png",
+                      title: "Medical Records",
+                      color: blackColor,
+                    ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                    child: Divider(),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Get.toNamed('/hospitals');
+                    },
+                    child: profile_list(
+                      image: "assets/icons/hospital.png",
+                      title: "Hospitals",
+                      color: blackColor,
+                    ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                    child: Divider(),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Get.toNamed('/login');
+                    },
+                    child: profile_list(
+                      image: "assets/icons/logout.png",
+                      title: "Log out",
+                      color: pinkColor,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

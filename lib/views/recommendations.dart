@@ -148,24 +148,34 @@ class _RecommendationPageState extends State<RecommendationPage> {
     final recommendation = recommendations[index];
     return Card(
       elevation: 5,
+      color: greyColor,
       child: Padding(
-        padding: const EdgeInsets.all(15),
-        child: Column(
+      padding: const EdgeInsets.all(15),
+      child: Column(
+        children: [
+        const Row(
           children: [
-            Text(
-              'Recommendation ID: ${recommendation.id}',
-              style: const TextStyle(color: appbartextColor),
-            ),
-            Text(
-              'Recommendation Date: ${recommendation.recommendation_date}',
-              style: const TextStyle(color: appbartextColor),
-            ),
-            Text(
-              'Recommendation Description: ${recommendation.description}',
-              style: const TextStyle(color: appbartextColor),
-            ),
+          Icon(
+            Icons.info,
+            color: primaryColor,
+          ),
+          SizedBox(width: 5),
           ],
         ),
+        Text(
+              'Recommendation ID: ${recommendation.id}',
+              style: const TextStyle(color: primaryColor),
+          ),
+        Text(
+          'Recommendation Date: ${recommendation.recommendation_date}',
+          style: const TextStyle(color: primaryColor),
+        ),
+        Text(
+          'Description: ${recommendation.description}',
+          style: const TextStyle(color: primaryColor),
+        ),
+        ],
+      ),
       ),
     );
   }

@@ -6,8 +6,8 @@ import 'package:patient_tracker/configs/constants.dart';
 import 'package:patient_tracker/controllers/medical-record_controller.dart';
 import 'package:patient_tracker/models/medical_records-model.dart';
 
-MedicalRecordsController medicalController =
-    Get.put(MedicalRecordsController());
+
+MedicalRecordsController medicalController = Get.put(MedicalRecordsController());
 
 class MedicalRecordsPage extends StatefulWidget {
   @override
@@ -35,14 +35,14 @@ class _MedicalRecordsPageState extends State<MedicalRecordsPage> {
 
       if (response.statusCode == 200) {
         var serverResponse = json.decode(response.body);
-        var medical_records = serverResponse['medical_records'];
-        var recordList = medical_records
+        var medicalRecordsData = serverResponse['medical_records'];
+        var medicalRecordList = medicalRecordsData
             .map<MedicalRecord>(
-                (medical_record) => MedicalRecord.fromJson(medical_record))
+                (medicalRecord) => MedicalRecord.fromJson(medicalRecord))
             .toList();
-        medicalController.updateMedicalRecords(recordList);
+        medicalController.updateMedicalRecords(medicalRecordList);
       } else {
-        throw Exception('Failed to load medications from API');
+        throw Exception('Failed to load medical records from API');
       }
     } catch (e) {
       print('Error fetching medical records: $e');
@@ -57,7 +57,7 @@ class _MedicalRecordsPageState extends State<MedicalRecordsPage> {
   void _showErrorSnackBar() {
     Get.snackbar(
       'Error',
-      'Failed to fetch medical records for user. Please try again later.',
+      'Failed to fetch medical records. Please try again later.',
       backgroundColor: pinkColor,
       colorText: appbartextColor,
     );
@@ -79,7 +79,6 @@ class _MedicalRecordsPageState extends State<MedicalRecordsPage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
-                    scrollPhysics: const BouncingScrollPhysics(),
                     onChanged: (value) {
                       setState(() {
                         _searchText = value;
@@ -87,7 +86,7 @@ class _MedicalRecordsPageState extends State<MedicalRecordsPage> {
                     },
                     decoration: InputDecoration(
                       labelText: "Search",
-                      hintText: "Search for your previous medical records...",
+                      hintText: "Search for your medical records...",
                       prefixIcon: const Icon(
                         Icons.search,
                         color: appbartextColor,
@@ -106,7 +105,7 @@ class _MedicalRecordsPageState extends State<MedicalRecordsPage> {
                     ),
                   ),
                 ),
-                Expanded(child: _buildMedicalRecordsGridView()),
+                Expanded(child: _buildMedicalRecordListView()),
               ],
             ),
       floatingActionButton: FloatingActionButton(
@@ -118,27 +117,21 @@ class _MedicalRecordsPageState extends State<MedicalRecordsPage> {
     );
   }
 
-  Widget _buildMedicalRecordsGridView() {
+  Widget _buildMedicalRecordListView() {
     return Obx(() {
       if (medicalController.medical_records.isEmpty) {
         return const Center(
           child: Text(
-            'No medical Records available',
+            'No medical records available',
             style: TextStyle(color: appbartextColor),
           ),
         );
       } else {
         var displayedMedicalRecords = medicalController.medical_records
-            .where((medication) => medication.name.contains(_searchText))
+            .where((medicalRecord) => medicalRecord.name.contains(_searchText))
             .toList();
 
-        return GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 3 / 2,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-          ),
+        return ListView.builder(
           itemCount: displayedMedicalRecords.length,
           itemBuilder: (context, index) {
             return _buildMedicalRecordCard(
@@ -154,21 +147,31 @@ class _MedicalRecordsPageState extends State<MedicalRecordsPage> {
     final medical_record = medical_records[index];
     return Card(
       elevation: 5,
+      color: greyColor,
       child: Padding(
         padding: const EdgeInsets.all(15),
         child: Column(
           children: [
+            const Row(
+              children: [
+                Icon(
+                  Icons.info,
+                  color: primaryColor,
+                ),
+                SizedBox(width: 5),
+              ],
+            ),
             Text(
               'Medical Record ID: ${medical_record.id}',
-              style: const TextStyle(color: appbartextColor),
+              style: const TextStyle(color: primaryColor),
             ),
             Text(
-              'Record Date: ${medical_record.record_date}',
-              style: const TextStyle(color: appbartextColor),
+              'Medical Record Date: ${medical_record.record_date}',
+              style: const TextStyle(color: primaryColor),
             ),
             Text(
-              'Medication Description: ${medical_record.description}',
-              style: const TextStyle(color: appbartextColor),
+              'Description: ${medical_record.description}',
+              style: const TextStyle(color: primaryColor),
             ),
           ],
         ),

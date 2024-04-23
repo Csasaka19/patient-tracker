@@ -8,9 +8,9 @@ class Hospital {
 
   factory Hospital.fromJson(Map<String, dynamic> json) {
     return Hospital(
-      name: json['name'],
-      address: json['address'],
-      image: json['image'],
+      name: json['name'] ?? 'Default Name',
+      address: json['address'] ?? 'Default Address',
+      image: json['image'] ?? 'Default Image',
     );
   }
 }

@@ -9,10 +9,10 @@ class HospitalVisit {
 
   factory HospitalVisit.fromJson(Map<String, dynamic> json) {
     return HospitalVisit(
-      id: json['id'],
-      user_id: json['user_id'],
-      visit_date: json['visit_date'],
-      description: json['description'],
+      id: json['id'].toString(),
+      user_id: json['user_id'].toString(),
+      visit_date: json['visit_date'].toString(),
+      description: json['description'].toString(),
     );
   }
 }
