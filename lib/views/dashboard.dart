@@ -118,6 +118,7 @@ class _DashboardState extends State<Dashboard> {
                       });
                     },
                     decoration: InputDecoration(
+                      labelText: "Search",
                       hintText: 'Search for your records......',
                       prefixIcon:
                           const Icon(Icons.search, color: appbartextColor),

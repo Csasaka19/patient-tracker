@@ -6,7 +6,6 @@ import 'package:patient_tracker/configs/constants.dart';
 import 'package:patient_tracker/controllers/hospital_controller.dart';
 import 'package:patient_tracker/models/hospital-model.dart';
 
-
 HospitalController hospitalController = Get.put(HospitalController());
 
 class HospitalPage extends StatefulWidget {
@@ -16,6 +15,7 @@ class HospitalPage extends StatefulWidget {
 
 class _HospitalPageState extends State<HospitalPage> {
   bool _isLoading = false;
+  String _searchText = "";
 
   @override
   void initState() {
@@ -35,9 +35,10 @@ class _HospitalPageState extends State<HospitalPage> {
       if (response.statusCode == 200) {
         var serverResponse = json.decode(response.body);
         var hospitals = serverResponse['hospitals'];
-        var hospitalList =
-            hospitals.map<Hospital>((hospitals) => Hospital.fromJson(hospitals)).toList();
-        hospitalController.updateHospital(hospitalList);
+        var hospitalsList = hospitals
+            .map<Hospital>((hospital) => Hospital.fromJson(hospital))
+            .toList();
+        hospitalController.updateHospital(hospitalsList);
       } else {
         throw Exception('Failed to load hospitals from API');
       }
@@ -54,7 +55,7 @@ class _HospitalPageState extends State<HospitalPage> {
   void _showErrorSnackBar() {
     Get.snackbar(
       'Error',
-      'Failed to fetch doctors. Please try again later.',
+      'Failed to fetch hospitals. Please try again later.',
       backgroundColor: pinkColor,
       colorText: appbartextColor,
     );
@@ -65,12 +66,47 @@ class _HospitalPageState extends State<HospitalPage> {
     return Scaffold(
       backgroundColor: blackColor,
       appBar: AppBar(
-        title: const Text('Hospitals'),
-        backgroundColor: appbartextColor,
+        title:
+            const Text('Hospitals', style: TextStyle(color: appbartextColor)),
+        backgroundColor: blackColor,
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
-          :  _buildHospitalsListView(),
+          : Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    scrollPhysics: const BouncingScrollPhysics(),
+                    onChanged: (value) {
+                      setState(() {
+                        _searchText = value;
+                      });
+                    },
+                    decoration: InputDecoration(
+                      labelText: "Search",
+                      hintText: "Search for hospitals near you...",
+                      prefixIcon: const Icon(
+                        Icons.search,
+                        color: appbartextColor,
+                      ),
+                      suffixIcon: const Icon(
+                        Icons.filter_list,
+                        color: appbartextColor,
+                      ),
+                      filled: true,
+                      fillColor: appbartextColor.withOpacity(0.3),
+                      border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(25.0),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(child: _buildHospitalsGridView()),
+              ],
+            ),
       floatingActionButton: FloatingActionButton(
         onPressed: _fetchHospitals,
         tooltip: 'Refresh',
@@ -80,56 +116,61 @@ class _HospitalPageState extends State<HospitalPage> {
     );
   }
 
-  Widget _buildHospitalsListView() {
+  Widget _buildHospitalsGridView() {
     return Obx(() {
       if (hospitalController.hospitals.isEmpty) {
         return const Center(
           child: Text(
-            'No hospitals found in the database. Please try again later.',
+            'No hospitals available',
             style: TextStyle(color: appbartextColor),
           ),
         );
       } else {
-        return ListView.builder(
-          itemCount: hospitalController.hospitals.length,
+        var displayedHospitals = hospitalController.hospitals
+            .where((hospital) => hospital.name.contains(_searchText))
+            .toList();
+
+        return GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 3 / 2,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+          ),
+          itemCount: displayedHospitals.length,
           itemBuilder: (context, index) {
-            return _buildHospitalListTile(index);
+            return _buildHospitalContainer(
+                index, displayedHospitals as List<Hospital>);
           },
         );
       }
     });
   }
 
-  Widget _buildHospitalListTile(int index) {
-    final hospital = hospitalController.hospitals[index];
-    return SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      physics: const BouncingScrollPhysics(),
-      child: ListTile(
-        minVerticalPadding: 15,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        focusColor: secondaryColor,
-        leading: SizedBox(
-          width: 60,
-          height: 150,
-          child: _buildMedicationImage(index),
-        ),
-        title: Text(
-          'Institution Name: ${hospital.name}',
-          style: const TextStyle(color: appbartextColor),
-        ),
-        subtitle: Text(
-          'Proximate Location: ${hospital.address}',
-          style: const TextStyle(color: appbartextColor),
-        ),
+  Widget _buildHospitalContainer(int index, List<Hospital> hospitals) {
+    final hospital = hospitals[index];
+    return Container(
+      padding: const EdgeInsets.all(10),
+      child: Column(
+        children: [
+          Expanded(
+            child: _buildHospitalImage(index, hospitals),
+          ),
+          Text(
+            'Hospital Name: ${hospital.name}',
+            style: const TextStyle(color: appbartextColor),
+          ),
+          Text(
+            'Hospital Location: ${hospital.address}',
+            style: const TextStyle(color: appbartextColor),
+          ),
+        ],
       ),
     );
   }
 
-  Widget _buildMedicationImage(int index) {
-   final hospital = hospitalController.hospitals[index];
+  Widget _buildHospitalImage(int index, List<Hospital> hospitals) {
+    final hospital = hospitals[index];
     return hospital.image.isNotEmpty
         ? Image.network(
             hospital.image,

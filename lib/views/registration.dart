@@ -243,8 +243,8 @@ class Registration extends StatelessWidget {
       var serverResponse = json.decode(response.body);
       int signupStatus = serverResponse['success'];
       if (signupStatus == 1) {
-        gotoLogin();
         Get.snackbar("Success", "Registration successful", backgroundColor: pinkColor, colorText: appbartextColor);
+        Get.back();
       } else {
         Get.snackbar("Error", "Registration failed", backgroundColor: pinkColor, colorText: appbartextColor);
       }

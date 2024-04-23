@@ -3,7 +3,7 @@ import 'package:patient_tracker/configs/constants.dart';
 import 'package:patient_tracker/views/dashboard.dart';
 import 'package:patient_tracker/views/login.dart';
 import 'package:patient_tracker/views/profile.dart';
-import 'package:patient_tracker/views/settings.dart';
+import 'package:patient_tracker/views/medication_records.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:patient_tracker/controllers/screen_controller.dart';
 import 'package:get/get.dart';

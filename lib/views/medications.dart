@@ -15,6 +15,7 @@ class MedicationPage extends StatefulWidget {
 
 class _MedicationPageState extends State<MedicationPage> {
   bool _isLoading = false;
+  String _searchText = "";
 
   @override
   void initState() {
@@ -65,12 +66,41 @@ class _MedicationPageState extends State<MedicationPage> {
     return Scaffold(
       backgroundColor: blackColor,
       appBar: AppBar(
-        title: const Text('Medications'),
-        backgroundColor: appbartextColor,
+        title: const Text('Medications', style: TextStyle(color: appbartextColor)),
+        backgroundColor: blackColor,
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
-          : _buildMedicationsListView(),
+          : Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    scrollPhysics: const BouncingScrollPhysics(),
+                    
+                    onChanged: (value) {
+                      setState(() {
+                        _searchText = value;
+                      });
+                    },
+                    decoration:  InputDecoration(
+                      labelText: "Search",
+                      hintText: "Search for medications",
+                      prefixIcon: const Icon(Icons.search, color: appbartextColor,),
+                      suffixIcon: const Icon(Icons.filter_list, color: appbartextColor,),
+                      filled: true,
+                      fillColor: appbartextColor.withOpacity(0.3),
+                      border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(25.0),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(child: _buildMedicationsGridView()),
+              ],
+            ),
       floatingActionButton: FloatingActionButton(
         onPressed: _fetchMedications,
         tooltip: 'Refresh',
@@ -80,7 +110,7 @@ class _MedicationPageState extends State<MedicationPage> {
     );
   }
 
-  Widget _buildMedicationsListView() {
+  Widget _buildMedicationsGridView() {
     return Obx(() {
       if (medicationController.medications.isEmpty) {
         return const Center(
@@ -90,41 +120,50 @@ class _MedicationPageState extends State<MedicationPage> {
           ),
         );
       } else {
-        return ListView.builder(
-          itemCount: medicationController.medications.length,
+        var displayedMedications = medicationController.medications
+            .where((medication) => medication.name.contains(_searchText))
+            .toList();
+
+        return GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 3 / 2,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+          ),
+          itemCount: displayedMedications.length,
           itemBuilder: (context, index) {
-            return _buildMedicationListTile(index);
+            return _buildMedicationContainer(index, displayedMedications as List<Medication>);
           },
         );
       }
     });
   }
 
-  Widget _buildMedicationListTile(int index) {
-    final medication = medicationController.medications[index];
-    return SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      physics: const BouncingScrollPhysics(),
-      child: ListTile(
-        leading: SizedBox(
-          width: 60,
-          height: 150,
-          child: _buildMedicationImage(index),
-        ),
-        title: Text(
-          'Medication Name: ${medication.name}',
-          style: const TextStyle(color: appbartextColor),
-        ),
-        subtitle: Text(
-          'Medication Description: ${medication.description}',
-          style: const TextStyle(color: appbartextColor),
-        ),
+  Widget _buildMedicationContainer(int index, List<Medication> medications) {
+    final medication = medications[index];
+    return Container(
+      padding: const EdgeInsets.all(10),
+      child: Column(
+        children: [
+          Expanded(
+            child: _buildMedicationImage(index, medications),
+          ),
+          Text(
+            'Medication Name: ${medication.name}',
+            style: const TextStyle(color: appbartextColor),
+          ),
+          Text(
+            'Medication Description: ${medication.description}',
+            style: const TextStyle(color: appbartextColor),
+          ),
+        ],
       ),
     );
   }
 
-  Widget _buildMedicationImage(int index) {
-    final medication = medicationController.medications[index];
+  Widget _buildMedicationImage(int index, List<Medication> medications) {
+    final medication = medications[index];
     return medication.image.isNotEmpty
         ? Image.network(
             medication.image,

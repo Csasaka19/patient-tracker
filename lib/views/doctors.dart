@@ -8,7 +8,6 @@ import 'package:patient_tracker/models/doctor_model.dart';
 
 DoctorController doctorController = Get.put(DoctorController());
 
-
 class DoctorPage extends StatefulWidget {
   @override
   _DoctorPageState createState() => _DoctorPageState();
@@ -16,6 +15,7 @@ class DoctorPage extends StatefulWidget {
 
 class _DoctorPageState extends State<DoctorPage> {
   bool _isLoading = false;
+  String _searchText = "";
 
   @override
   void initState() {
@@ -35,12 +35,11 @@ class _DoctorPageState extends State<DoctorPage> {
       if (response.statusCode == 200) {
         var serverResponse = json.decode(response.body);
         var doctors = serverResponse['doctors'];
-        var doctorList = doctors
-            .map<Doctor>((doctors) => Doctor.fromJson(doctors))
-            .toList();
-        doctorController.updateDoctor(doctorList);
+        var doctorsList =
+            doctors.map<Doctor>((doctor) => Doctor.fromJson(doctor)).toList();
+        doctorController.updateDoctor(doctorsList);
       } else {
-        throw Exception('Failed to load medications from API');
+        throw Exception('Failed to load doctors from API');
       }
     } catch (e) {
       print('Error fetching doctors: $e');
@@ -66,12 +65,46 @@ class _DoctorPageState extends State<DoctorPage> {
     return Scaffold(
       backgroundColor: blackColor,
       appBar: AppBar(
-        title: const Text('Doctors'),
-        backgroundColor: appbartextColor,
+        title: const Text('Doctors', style: TextStyle(color: appbartextColor)),
+        backgroundColor: blackColor,
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
-          : _buildDoctorsListView(),
+          : Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    scrollPhysics: const BouncingScrollPhysics(),
+                    onChanged: (value) {
+                      setState(() {
+                        _searchText = value;
+                      });
+                    },
+                    decoration: InputDecoration(
+                      labelText: "Search",
+                      hintText: "Search for doctors",
+                      prefixIcon: const Icon(
+                        Icons.search,
+                        color: appbartextColor,
+                      ),
+                      suffixIcon: const Icon(
+                        Icons.filter_list,
+                        color: appbartextColor,
+                      ),
+                      filled: true,
+                      fillColor: appbartextColor.withOpacity(0.3),
+                      border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(25.0),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(child: _buildDoctorsGridView()),
+              ],
+            ),
       floatingActionButton: FloatingActionButton(
         onPressed: _fetchDoctors,
         tooltip: 'Refresh',
@@ -81,56 +114,61 @@ class _DoctorPageState extends State<DoctorPage> {
     );
   }
 
-  Widget _buildDoctorsListView() {
+  Widget _buildDoctorsGridView() {
     return Obx(() {
       if (doctorController.doctors.isEmpty) {
         return const Center(
           child: Text(
-            'No doctors available in your area',
+            'No doctors available',
             style: TextStyle(color: appbartextColor),
           ),
         );
       } else {
-        return ListView.builder(
-          itemCount: doctorController.doctors.length,
+        var displayedDoctors = doctorController.doctors
+            .where((doctor) => doctor.name.contains(_searchText))
+            .toList();
+
+        return GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 3 / 2,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+          ),
+          itemCount: displayedDoctors.length,
           itemBuilder: (context, index) {
-            return _buildDoctorListTile(index);
+            return _buildDoctorContainer(
+                index, displayedDoctors as List<Doctor>);
           },
         );
       }
     });
   }
 
-  Widget _buildDoctorListTile(int index) {
-    final doctor = doctorController.doctors[index];
-    return SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      physics: const BouncingScrollPhysics(),
-      child: ListTile(
-        minVerticalPadding: 15,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        focusColor: secondaryColor,
-        leading: SizedBox(
-          width: 60,
-          height: 150,
-          child: _buildMedicationImage(index),
-        ),
-        title: Text(
-          'Medic Name: ${doctor.name}',
-          style: const TextStyle(color: appbartextColor),
-        ),
-        subtitle: Text(
-          'Specialty: ${doctor.specialization}',
-          style: const TextStyle(color: appbartextColor),
-        ),
+  Widget _buildDoctorContainer(int index, List<Doctor> doctors) {
+    final doctor = doctors[index];
+    return Container(
+      padding: const EdgeInsets.all(10),
+      child: Column(
+        children: [
+          Expanded(
+            child: _buildDoctorImage(index, doctors),
+          ),
+          Text(
+            'Medic Name: ${doctor.name}',
+            style: const TextStyle(color: appbartextColor),
+          ),
+          Text(
+            'Area of specialization: ${doctor.specialization}',
+            style: const TextStyle(color: appbartextColor),
+          ),
+        ],
       ),
     );
   }
 
-  Widget _buildMedicationImage(int index) {
-    final doctor = doctorController.doctors[index];
+  Widget _buildDoctorImage(int index, List<Doctor> doctors) {
+    final doctor = doctors[index];
     return doctor.image.isNotEmpty
         ? Image.network(
             doctor.image,

@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:patient_tracker/views/appointments.dart';
+import 'package:patient_tracker/views/recommendations.dart';
 import 'package:patient_tracker/views/dashboard.dart';
 import 'package:patient_tracker/views/doctors.dart';
 import 'package:patient_tracker/views/home.dart';
@@ -10,7 +10,7 @@ import 'package:patient_tracker/views/medications.dart';
 import 'package:patient_tracker/views/onboarding.dart';
 import 'package:patient_tracker/views/profile.dart';
 import 'package:patient_tracker/views/registration.dart';
-import 'package:patient_tracker/views/settings.dart';
+import 'package:patient_tracker/views/medication_records.dart';
 import 'package:patient_tracker/views/welcome.dart';
 
 class Routes {
@@ -20,12 +20,10 @@ class Routes {
     GetPage(name: '/dashboard', page: () =>  Dashboard()),
     GetPage(name: '/home', page: () => Home()),
     GetPage(name: '/profile', page: () => Profile_screen()),
-    GetPage(name: '/settings', page: () => Settings()),
     GetPage(name: '/welcome', page: () => const WelcomeView()),
     GetPage(name: '/onboarding', page: () =>  OnboardingView()),
     GetPage(name: '/medication', page: () => MedicationPage()),
     GetPage(name: '/medical_records', page: () => MedicalRecordsPage()),
-    GetPage(name: '/appointments', page: () => AppointmentsPage()),
     GetPage(name: '/doctors', page: () => DoctorPage()),
     GetPage(name: '/hospitals', page: () => HospitalPage()),
   ];
