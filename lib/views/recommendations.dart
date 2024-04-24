@@ -148,7 +148,7 @@ class _RecommendationPageState extends State<RecommendationPage> {
     final recommendation = recommendations[index];
     return Card(
       elevation: 5,
-      color: greyColor,
+      color: appbartextColor.withOpacity(0.6),
       child: Padding(
       padding: const EdgeInsets.all(15),
       child: Column(

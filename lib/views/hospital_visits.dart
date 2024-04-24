@@ -128,7 +128,7 @@ class _HospitalVisitPageState extends State<HospitalVisitPage> {
         );
       } else {
         var displayedHospitalVisits = hospitalVisitController.hospital_visits
-            .where((hospitalVisit) => hospitalVisit.name.contains(_searchText))
+            .where((hospitalVisit) => hospitalVisit.description.contains(_searchText))
             .toList();
 
         return ListView.builder(
@@ -147,7 +147,7 @@ class _HospitalVisitPageState extends State<HospitalVisitPage> {
     final hospital_visit = hospital_visits[index];
     return Card(
       elevation: 5,
-      color: greyColor,
+      color: appbartextColor.withOpacity(0.6),
       child: Padding(
         padding: const EdgeInsets.all(15),
         child: Column(

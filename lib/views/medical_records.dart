@@ -128,7 +128,7 @@ class _MedicalRecordsPageState extends State<MedicalRecordsPage> {
         );
       } else {
         var displayedMedicalRecords = medicalController.medical_records
-            .where((medicalRecord) => medicalRecord.name.contains(_searchText))
+            .where((medicalRecord) => medicalRecord.description.contains(_searchText))
             .toList();
 
         return ListView.builder(
