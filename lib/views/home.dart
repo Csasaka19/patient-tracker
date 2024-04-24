@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:patient_tracker/configs/constants.dart';
 import 'package:patient_tracker/views/dashboard.dart';
 import 'package:patient_tracker/views/doctors.dart';
+import 'package:patient_tracker/views/help.dart';
 import 'package:patient_tracker/views/hospitals.dart';
-import 'package:patient_tracker/views/login.dart';
 import 'package:patient_tracker/views/profile.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:patient_tracker/controllers/screen_controller.dart';
@@ -17,7 +17,7 @@ var screens = [
   const Profile_screen(),
   HospitalPage(),
   DoctorPage(),
-  const Login(),
+  UserGuidePage(),
 ];
 
 class Home extends StatelessWidget {
