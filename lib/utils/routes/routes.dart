@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:patient_tracker/views/doctor_records.dart';
+import 'package:patient_tracker/views/help.dart';
 import 'package:patient_tracker/views/hospital_visits.dart';
 import 'package:patient_tracker/views/recommendations.dart';
 import 'package:patient_tracker/views/dashboard.dart';
@@ -30,5 +31,6 @@ class Routes {
     GetPage(name: '/recommendations', page: () => RecommendationPage()),
     GetPage(name: '/doctor_records', page: () => DoctorRecordsPage()),
     GetPage(name: '/hospital_visits', page: () => HospitalVisitPage()),
+    GetPage(name: '/help', page: () =>  UserGuidePage()),
   ];
 }

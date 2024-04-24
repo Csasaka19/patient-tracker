@@ -159,7 +159,7 @@ class _DashboardState extends State<Dashboard> {
               right: 16,
               child: FloatingActionButton(
                 onPressed: () {
-                  // Show help message
+                  Get.toNamed('/help');
                 },
                 tooltip: 'Need help?',
                 child: const Icon(Icons.help_outline),

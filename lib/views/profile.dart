@@ -92,17 +92,6 @@ class Profile_screen extends StatelessWidget {
                   const SizedBox(
                     height: 50,
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      // Navigate to Full Personal Details page
-                      // Add your navigation code here
-                    },
-                    child: profile_list(
-                      image: "assets/icons/heart2.png",
-                      title: "Full Personal Details",
-                      color: blackColor,
-                    ),
-                  ),
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
                     child: Divider(),
