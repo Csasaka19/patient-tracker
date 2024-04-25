@@ -92,9 +92,9 @@ I welcome contributions from the community to enhance the Patient Tracker Flutte
 ### Browse
 
 <div style="display: flex; justify-content: center;">
-    <img src="assets/readme/doctors.png" alt="doctors" style="width: 50%; margin-right: 5px;">
-    <img src="assets/readme/medications.png" alt="medications" style="width: 50%; margin-right: 5px;">
-    <img src="assets/readme/hospitals.png" alt="hospitals" style="width: 50%; margin-right: 5px;">
+    <img src="assets/readme/doctors.png" alt="doctors" style="width: 30%; margin-right: 5px;">
+    <img src="assets/readme/medications.png" alt="medications" style="width: 30%; margin-right: 5px;">
+    <img src="assets/readme/hospitals.png" alt="hospitals" style="width: 30%; margin-right: 5px;">
 </div>
 *Browse and be informed about doctors, medications and hospitals.*
 
