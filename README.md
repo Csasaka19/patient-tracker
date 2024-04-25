@@ -54,9 +54,9 @@ I welcome contributions from the community to enhance the Patient Tracker Flutte
 ### Onboarding
 
 <div style="display: flex; justify-content: center;">
-    <img src="assets/readme/onboard_1.png" alt="Onboarding 1" style="width: 40%; margin-right: 5px;">
-    <img src="assets/readme/onboard_2.png" alt="Onboarding 2" style="width: 40%; margin-right: 5px;">
-    <img src="assets/readme/onboard_3.png" alt="Onboarding 3" style="width: 40%;">
+    <img src="assets/readme/onboard_1.png" alt="Onboarding 1" style="width: 30%; margin-right: 5px;">
+    <img src="assets/readme/onboard_2.png" alt="Onboarding 2" style="width: 30%; margin-right: 5px;">
+    <img src="assets/readme/onboard_3.png" alt="Onboarding 3" style="width: 30%;">
 </div>
 
 *Welcome to Patient Tracker! Get started with our easy-to-follow onboarding process.*
@@ -84,8 +84,8 @@ I welcome contributions from the community to enhance the Patient Tracker Flutte
 ### Dashboard
 
 <div style="display: flex; justify-content: center;">
-    <img src="assets/readme/dashboard.png" alt="dashboard 1" style="width: 50%; margin-right: 5px;">
-    <img src="assets/readme/dashboard_2.png" alt="dashboard 2" style="width: 50%; margin-right: 5px;">
+    <img src="assets/readme/dashboard.png" alt="dashboard 1" style="width: 30%; margin-right: 5px;">
+    <img src="assets/readme/dashboard_2.png" alt="dashboard 2" style="width: 30%; margin-right: 5px;">
 </div>
 *Stay organized with a comprehensive dashboard displaying all your health-related data.*
 
