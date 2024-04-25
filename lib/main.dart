@@ -4,7 +4,7 @@ import 'package:patient_tracker/utils/routes/routes.dart';
 
 void main() {
   runApp(GetMaterialApp(
-    initialRoute: "/welcome",
+    initialRoute: "/hospitals",
     debugShowCheckedModeBanner: false,
     getPages: Routes.routes,
   ));

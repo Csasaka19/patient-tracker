@@ -173,7 +173,7 @@ class _HospitalPageState extends State<HospitalPage> {
     final hospital = hospitals[index];
     return hospital.image.isNotEmpty
         ? Image.network(
-            hospital.image,
+            "http://acs314flutter.xyz/Patient-tracker/images/${hospital.image}",
             fit: BoxFit.cover,
           )
         : const Placeholder(

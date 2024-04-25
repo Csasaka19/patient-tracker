@@ -66,7 +66,8 @@ class _MedicationPageState extends State<MedicationPage> {
     return Scaffold(
       backgroundColor: blackColor,
       appBar: AppBar(
-        title: const Text('Medications', style: TextStyle(color: appbartextColor)),
+        title:
+            const Text('Medications', style: TextStyle(color: appbartextColor)),
         backgroundColor: blackColor,
       ),
       body: _isLoading
@@ -77,17 +78,22 @@ class _MedicationPageState extends State<MedicationPage> {
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
                     scrollPhysics: const BouncingScrollPhysics(),
-                    
                     onChanged: (value) {
                       setState(() {
                         _searchText = value;
                       });
                     },
-                    decoration:  InputDecoration(
+                    decoration: InputDecoration(
                       labelText: "Search",
                       hintText: "Search for medications",
-                      prefixIcon: const Icon(Icons.search, color: appbartextColor,),
-                      suffixIcon: const Icon(Icons.filter_list, color: appbartextColor,),
+                      prefixIcon: const Icon(
+                        Icons.search,
+                        color: appbartextColor,
+                      ),
+                      suffixIcon: const Icon(
+                        Icons.filter_list,
+                        color: appbartextColor,
+                      ),
                       filled: true,
                       fillColor: appbartextColor.withOpacity(0.3),
                       border: const OutlineInputBorder(
@@ -133,7 +139,8 @@ class _MedicationPageState extends State<MedicationPage> {
           ),
           itemCount: displayedMedications.length,
           itemBuilder: (context, index) {
-            return _buildMedicationContainer(index, displayedMedications as List<Medication>);
+            return _buildMedicationContainer(
+                index, displayedMedications as List<Medication>);
           },
         );
       }
@@ -166,7 +173,7 @@ class _MedicationPageState extends State<MedicationPage> {
     final medication = medications[index];
     return medication.image.isNotEmpty
         ? Image.network(
-            medication.image,
+            "http://acs314flutter.xyz/Patient-tracker/images/${medication.image}",
             fit: BoxFit.cover,
           )
         : const Placeholder(

@@ -171,7 +171,7 @@ class _DoctorPageState extends State<DoctorPage> {
     final doctor = doctors[index];
     return doctor.image.isNotEmpty
         ? Image.network(
-            doctor.image,
+            "http://acs314flutter.xyz/Patient-tracker/images/${doctor.image}",
             fit: BoxFit.cover,
           )
         : const Placeholder(
