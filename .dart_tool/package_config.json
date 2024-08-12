@@ -39,9 +39,9 @@
     },
     {
       "name": "cupertino_icons",
-      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/cupertino_icons-1.0.6",
+      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/cupertino_icons-1.0.8",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "3.1"
     },
     {
       "name": "fake_async",
@@ -51,9 +51,9 @@
     },
     {
       "name": "ffi",
-      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/ffi-2.1.0",
+      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/ffi-2.1.2",
       "packageUri": "lib/",
-      "languageVersion": "3.0"
+      "languageVersion": "3.3"
     },
     {
       "name": "file",
@@ -65,7 +65,7 @@
       "name": "flutter",
       "rootUri": "file:///home/sasaka-jr/snap/flutter/common/flutter/packages/flutter",
       "packageUri": "lib/",
-      "languageVersion": "3.2"
+      "languageVersion": "3.3"
     },
     {
       "name": "flutter_lints",
@@ -77,7 +77,7 @@
       "name": "flutter_test",
       "rootUri": "file:///home/sasaka-jr/snap/flutter/common/flutter/packages/flutter_test",
       "packageUri": "lib/",
-      "languageVersion": "3.2"
+      "languageVersion": "3.3"
     },
     {
       "name": "flutter_web_plugins",
@@ -116,6 +116,24 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "leak_tracker",
+      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/leak_tracker-10.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "leak_tracker_flutter_testing",
+      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/leak_tracker_flutter_testing-3.0.3",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "leak_tracker_testing",
+      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/leak_tracker_testing-3.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
       "name": "lints",
       "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/lints-2.1.1",
       "packageUri": "lib/",
@@ -123,19 +141,19 @@
     },
     {
       "name": "matcher",
-      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/matcher-0.12.16",
+      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/matcher-0.12.16+1",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "3.0"
     },
     {
       "name": "material_color_utilities",
-      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/material_color_utilities-0.5.0",
+      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/material_color_utilities-0.8.0",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "meta",
-      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/meta-1.10.0",
+      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/meta-1.12.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -147,27 +165,27 @@
     },
     {
       "name": "path",
-      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/path-1.8.3",
+      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/path-1.9.0",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "3.0"
     },
     {
       "name": "path_provider",
-      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/path_provider-2.1.2",
+      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/path_provider-2.1.4",
       "packageUri": "lib/",
-      "languageVersion": "3.0"
+      "languageVersion": "3.2"
     },
     {
       "name": "path_provider_android",
-      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/path_provider_android-2.2.3",
+      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/path_provider_android-2.2.9",
       "packageUri": "lib/",
-      "languageVersion": "3.1"
+      "languageVersion": "3.4"
     },
     {
       "name": "path_provider_foundation",
-      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/path_provider_foundation-2.3.2",
+      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/path_provider_foundation-2.4.0",
       "packageUri": "lib/",
-      "languageVersion": "3.0"
+      "languageVersion": "3.2"
     },
     {
       "name": "path_provider_linux",
@@ -183,15 +201,15 @@
     },
     {
       "name": "path_provider_windows",
-      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/path_provider_windows-2.2.1",
+      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/path_provider_windows-2.3.0",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "3.2"
     },
     {
       "name": "platform",
-      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/platform-3.1.4",
+      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/platform-3.1.5",
       "packageUri": "lib/",
-      "languageVersion": "3.0"
+      "languageVersion": "3.2"
     },
     {
       "name": "plugin_platform_interface",
@@ -213,45 +231,45 @@
     },
     {
       "name": "shared_preferences",
-      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/shared_preferences-2.2.2",
+      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/shared_preferences-2.3.1",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "3.3"
     },
     {
       "name": "shared_preferences_android",
-      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/shared_preferences_android-2.2.1",
+      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/shared_preferences_android-2.3.1",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "3.4"
     },
     {
       "name": "shared_preferences_foundation",
-      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/shared_preferences_foundation-2.3.5",
+      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/shared_preferences_foundation-2.5.1",
       "packageUri": "lib/",
-      "languageVersion": "3.0"
+      "languageVersion": "3.3"
     },
     {
       "name": "shared_preferences_linux",
-      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/shared_preferences_linux-2.3.2",
+      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/shared_preferences_linux-2.4.1",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "3.3"
     },
     {
       "name": "shared_preferences_platform_interface",
-      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/shared_preferences_platform_interface-2.3.2",
-      "packageUri": "lib/",
-      "languageVersion": "3.0"
-    },
-    {
-      "name": "shared_preferences_web",
-      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/shared_preferences_web-2.2.2",
+      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/shared_preferences_platform_interface-2.4.1",
       "packageUri": "lib/",
       "languageVersion": "3.2"
     },
     {
-      "name": "shared_preferences_windows",
-      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/shared_preferences_windows-2.3.2",
+      "name": "shared_preferences_web",
+      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/shared_preferences_web-2.4.2",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "3.4"
+    },
+    {
+      "name": "shared_preferences_windows",
+      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/shared_preferences_windows-2.4.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
     },
     {
       "name": "sky_engine",
@@ -267,15 +285,15 @@
     },
     {
       "name": "sqflite",
-      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/sqflite-2.3.2",
+      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/sqflite-2.3.3+1",
       "packageUri": "lib/",
-      "languageVersion": "3.0"
+      "languageVersion": "3.3"
     },
     {
       "name": "sqflite_common",
-      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/sqflite_common-2.5.3",
+      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/sqflite_common-2.5.4",
       "packageUri": "lib/",
-      "languageVersion": "3.0"
+      "languageVersion": "3.3"
     },
     {
       "name": "stack_trace",
@@ -309,7 +327,7 @@
     },
     {
       "name": "test_api",
-      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/test_api-0.6.1",
+      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/test_api-0.7.0",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -326,16 +344,16 @@
       "languageVersion": "2.14"
     },
     {
-      "name": "web",
-      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/web-0.3.0",
+      "name": "vm_service",
+      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/vm_service-14.2.1",
       "packageUri": "lib/",
-      "languageVersion": "3.2"
+      "languageVersion": "3.3"
     },
     {
-      "name": "win32",
-      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/win32-5.2.0",
+      "name": "web",
+      "rootUri": "file:///home/sasaka-jr/.pub-cache/hosted/pub.dev/web-1.0.0",
       "packageUri": "lib/",
-      "languageVersion": "3.2"
+      "languageVersion": "3.4"
     },
     {
       "name": "xdg_directories",
@@ -350,7 +368,10 @@
       "languageVersion": "3.2"
     }
   ],
-  "generated": "2024-04-12T15:46:51.647841Z",
+  "generated": "2024-08-12T06:38:05.458042Z",
   "generator": "pub",
-  "generatorVersion": "3.2.5"
+  "generatorVersion": "3.4.3",
+  "flutterRoot": "file:///home/sasaka-jr/snap/flutter/common/flutter",
+  "flutterVersion": "3.22.2",
+  "pubCache": "file:///home/sasaka-jr/.pub-cache"
 }
