@@ -8,7 +8,7 @@ class profile_list extends StatelessWidget {
   final String image;
   final Color color;
 
-  profile_list({required this.image, required this.title, required this.color});
+  const profile_list({super.key, required this.image, required this.title, required this.color});
 
   @override
   Widget build(BuildContext context) {

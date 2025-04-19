@@ -4,6 +4,6 @@ class RecommendationController extends GetxController {
   var recommendations = [].obs;
 
   updateRecommendations(list) {
-    this.recommendations.value = list;
+    recommendations.value = list;
   }
 }

@@ -4,6 +4,6 @@ class HospitalController extends GetxController {
   var hospitals = [].obs;
 
   updateHospital(list) {
-    this.hospitals.value = list;
+    hospitals.value = list;
   }
 }

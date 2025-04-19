@@ -27,7 +27,7 @@ class customButton extends StatelessWidget {
           elevation: 20,
           padding: const EdgeInsets.all(25),
           shadowColor: blackColor,
-          maximumSize: Size.fromWidth(600),
+          maximumSize: const Size.fromWidth(600),
 
         ),
         child: CustomText(label: labelButton, labelColor: labelColor,));

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:patient_tracker/configs/constants.dart';
-import 'package:patient_tracker/customs/customtext.dart';
+import 'package:patient_tracker/core/theme/app_theme.dart';
+import 'package:patient_tracker/widgets/common/app_logo.dart';
 
 class WelcomeView extends StatefulWidget {
   const WelcomeView({super.key});
@@ -12,24 +12,48 @@ class WelcomeView extends StatefulWidget {
 }
 
 class _WelcomeViewState extends State<WelcomeView>
-    with TickerProviderStateMixin {
-  late AnimationController animationController;
-  late bool seenOnboarding;
-
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _fadeInAnimation;
+  late Animation<Offset> _slideAnimation;
   final GetStorage storage = GetStorage();
+  bool seenOnboarding = false;
 
   @override
   void initState() {
     super.initState();
 
-    animationController = AnimationController(
-      duration: const Duration(milliseconds: 60000),
+    // Set up animations
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 3500),
       vsync: this,
     );
 
+    _fadeInAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: const Interval(0.0, 0.65, curve: Curves.easeOut),
+      ),
+    );
+
+    _slideAnimation = Tween<Offset>(
+      begin: const Offset(0, 0.5),
+      end: Offset.zero,
+    ).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: const Interval(0.3, 1.0, curve: Curves.easeOutCubic),
+      ),
+    );
+
+    // Check if user has seen onboarding
     seenOnboarding = storage.read('seenOnboarding') ?? false;
 
-    Future.delayed(const Duration(seconds: 3), () {
+    // Start animation
+    _animationController.forward();
+
+    // Navigate after delay
+    Future.delayed(const Duration(seconds: 8), () {
       if (seenOnboarding) {
         Get.toNamed('/login');
       } else {
@@ -40,65 +64,76 @@ class _WelcomeViewState extends State<WelcomeView>
   }
 
   @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
-        body: Container(
-            width: double.infinity,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/doctors/doctor_4.jpg'),
-                fit: BoxFit.cover,
+      body: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: isDarkMode
+                ? [const Color(0xFF0D47A1), const Color(0xFF1A237E)]
+                : [const Color(0xFF42A5F5), const Color(0xFF1E88E5)],
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Animated logo
+            FadeTransition(
+              opacity: _fadeInAnimation,
+              child: const AppLogo(
+                size: 120,
+                darkMode: true,
+                showText: false,
               ),
             ),
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Colors.black.withOpacity(.8),
-                    Colors.black.withOpacity(.7),
-                    Colors.black.withOpacity(.2),
+            const SizedBox(height: 24),
+
+            // Animated text
+            FadeTransition(
+              opacity: _fadeInAnimation,
+              child: SlideTransition(
+                position: _slideAnimation,
+                child: const Column(
+                  children: [
+                    Text(
+                      "Afya Yangu",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        letterSpacing: 1.5,
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      "Your Health Companion",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white,
+                        letterSpacing: 0.5,
+                      ),
+                    ),
                   ],
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
                 ),
               ),
-              child:
-                  Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-                const CustomText(
-                    label: "Patient Tracker",
-                    fontSize: 40,
-                    labelColor: appbartextColor,
-                    italic: true),
-                const SizedBox(height: 10),
-                const CustomText(
-                    label: "Find your medical records, appointments, and more",
-                    fontSize: 17,
-                    labelColor: appbartextColor,
-                    italic: true),
-                const SizedBox(height: 30),
-                GestureDetector(
-                  onTap: () {
-                  Get.toNamed('/onboarding');
-                  },
-                  child: Container(
-                  height: 50,
-                  width: double.infinity,
-                  margin:
-                    const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-                  decoration: BoxDecoration(
-                    color: secondaryColor,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: const Center(
-                    child: CustomText(
-                      label: "Get Started",
-                      fontSize: 20,
-                      labelColor: primaryColor,
-                      italic: true),
-                  ),
-                  ),
-                )
-              ]),
-            )));
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

@@ -8,8 +8,8 @@ class DashboardItem extends StatelessWidget {
   final String imagepath;
   final VoidCallback onTap;
 
-  DashboardItem(
-      {required this.title,
+  const DashboardItem(
+      {super.key, required this.title,
       required this.icon,
       required this.imagepath,
       required this.onTap});

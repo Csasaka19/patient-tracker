@@ -1,172 +1,470 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:patient_tracker/configs/constants.dart';
-import 'package:patient_tracker/customs/customtext.dart';
-import 'package:patient_tracker/customs/dashboard-item.dart';
+import 'package:patient_tracker/core/theme/app_theme.dart';
+import 'package:patient_tracker/widgets/common/app_logo.dart';
+import 'package:patient_tracker/widgets/common/theme_switch.dart';
+import 'package:patient_tracker/core/data/mock_data.dart';
 
-class Dashboard extends StatefulWidget {
-  @override
-  _DashboardState createState() => _DashboardState();
+class DashboardItem {
+  final String title;
+  final IconData icon;
+  final String route;
+  final Color color;
+
+  DashboardItem({
+    required this.title,
+    required this.icon,
+    required this.route,
+    required this.color,
+  });
 }
 
-class _DashboardState extends State<Dashboard> {
-  String filter = '';
-  List<DashboardItem> dashboardItems = [
+class DashboardController extends GetxController {
+  final List<DashboardItem> dashboardItems = [
+    DashboardItem(
+      title: 'Medical Records',
+      icon: Icons.assignment_outlined,
+      route: '/medical_records',
+      color: AppTheme.primaryBlue,
+    ),
     DashboardItem(
       title: 'Medications',
-      icon: Icons.medical_services,
-      imagepath: 'assets/images/medications.jpg',
-      onTap: () {
-        Get.toNamed('/medication');
-      },
+      icon: Icons.medication_outlined,
+      route: '/medication',
+      color: AppTheme.secondaryGreen,
     ),
     DashboardItem(
       title: 'Doctors',
-      icon: Icons.people_outline_sharp,
-      imagepath: 'assets/doctors/doctor_1.png',
-      onTap: () {
-        Get.toNamed('/doctors');
-      },
+      icon: Icons.people_outline,
+      route: '/doctors',
+      color: Colors.purple,
     ),
     DashboardItem(
       title: 'Hospitals',
-      icon: Icons.local_hospital,
-      imagepath: 'assets/images/hospital.jpg',
-      onTap: () {
-        Get.toNamed('/hospitals');
-      },
-    ),
-    DashboardItem(
-      title: 'Medical Records',
-      icon: Icons.assignment_add,
-      imagepath: 'assets/images/records.jpg',
-      onTap: () {
-        Get.toNamed('/medical_records');
-      },
+      icon: Icons.local_hospital_outlined,
+      route: '/hospitals',
+      color: Colors.orange,
     ),
     DashboardItem(
       title: 'Hospital Visits',
       icon: Icons.calendar_today_outlined,
-      imagepath: 'assets/doctors/doctor_3.png',
-      onTap: () {
-        Get.toNamed('/hospital_visits');
-      },
+      route: '/hospital_visits',
+      color: Colors.teal,
     ),
     DashboardItem(
-      title: 'Your Recommendations',
-      icon: Icons.calendar_today,
-      imagepath: 'assets/doctors/doctor_2.png',
-      onTap: () {
-        Get.toNamed('/recommendations');
-      },
+      title: 'Recommendations',
+      icon: Icons.recommend_outlined,
+      route: '/recommendations',
+      color: Colors.red,
     ),
   ];
 
+  final searchText = ''.obs;
+
+  List<DashboardItem> get filteredItems {
+    if (searchText.value.isEmpty) {
+      return dashboardItems;
+    }
+    return dashboardItems
+        .where((item) =>
+            item.title.toLowerCase().contains(searchText.value.toLowerCase()))
+        .toList();
+  }
+
+  void search(String text) {
+    searchText.value = text;
+  }
+}
+
+class Dashboard extends StatelessWidget {
+  const Dashboard({super.key});
+
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(DashboardController());
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final userData = MockUser.userData;
+
     return Scaffold(
-      appBar: AppBar(
-        title: const CustomText(
-            label: 'Patient Tracker Dashboard',
-            fontSize: 24,
-            labelColor: appbartextColor),
-        backgroundColor: blackColor,
-      ),
-      body: Container(
-        width: double.infinity,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/doctors/doctor_5.jpg'),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Stack(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Colors.black.withOpacity(.8),
-                    Colors.black.withOpacity(.7),
-                    Colors.black.withOpacity(.2),
-                  ],
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
+      body: CustomScrollView(
+        slivers: [
+          // App Bar with logo
+          SliverAppBar(
+            expandedHeight: 180.0,
+            pinned: true,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: isDarkMode
+                        ? [AppTheme.darkBlue, const Color(0xFF1E1E1E)]
+                        : [AppTheme.primaryBlue, AppTheme.accentBlue],
+                  ),
+                ),
+                child: const Center(
+                  child: AppLogo(
+                    size: 80,
+                    darkMode: true,
+                  ),
                 ),
               ),
             ),
-            Padding(
+            actions: const [
+              Padding(
+                padding: EdgeInsets.only(right: 16.0),
+                child: ThemeSwitchIcon(),
+              ),
+            ],
+          ),
+
+          // Greeting and search
+          SliverToBoxAdapter(
+            child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 20),
-                  const CustomText(
-                      label: 'Welcome Back! ',
-                      fontSize: 24,
-                      labelColor: appbartextColor),
-                  const SizedBox(height: 20),
-                  const CustomText(
-                    label:
-                        'What would you like to do today? We hope you are feeling better!',
-                    fontSize: 20,
-                    labelColor: appbartextColor,
-                    italic: true,
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Welcome, ${userData['firstName']}',
+                              style: Theme.of(context).textTheme.headlineMedium,
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              'Your health companion',
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            ),
+                          ],
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Get.snackbar(
+                            'Profile',
+                            'Profile view coming soon',
+                            snackPosition: SnackPosition.BOTTOM,
+                          );
+                        },
+                        child: CircleAvatar(
+                          radius: 30,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.primary,
+                          child: Text(
+                            '${userData['firstName'][0]}${userData['lastName'][0]}',
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 24),
+
+                  // Search bar
                   TextField(
-                    onChanged: (value) {
-                      setState(() {
-                        filter = value;
-                      });
-                    },
+                    onChanged: controller.search,
                     decoration: InputDecoration(
-                      labelText: "Search",
-                      hintText: 'Search for your records......',
-                      prefixIcon:
-                          const Icon(Icons.search, color: appbartextColor),
+                      hintText: 'Search health records...',
+                      prefixIcon: const Icon(Icons.search),
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12)),
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide.none,
+                      ),
                       filled: true,
-                      fillColor: appbartextColor.withOpacity(0.3),
-                      suffixIcon: Icon(Icons.filter_list),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  const CustomText(
-                    label:
-                        "Every record you need is here, discard the tedious documented papers! For your health right?",
-                    fontSize: 16,
-                    labelColor: appbartextColor,
-                    italic: true,
-                  ),
-                  const SizedBox(height: 30),
-                  Expanded(
-                    child: GridView.count(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 16,
-                      mainAxisSpacing: 16,
-                      children: dashboardItems
-                          .where((item) => item.title.contains(filter))
-                          .toList(),
                     ),
                   ),
                 ],
               ),
             ),
-            Positioned(
-              bottom: 16,
-              right: 16,
-              child: FloatingActionButton(
-                onPressed: () {
-                  Get.toNamed('/help');
-                },
-                tooltip: 'Need help?',
-                child: const Icon(Icons.help_outline),
+          ),
+
+          // Health stats
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Your Health Overview',
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                  const SizedBox(height: 16),
+                  _buildHealthStats(context),
+                ],
               ),
             ),
-          ],
+          ),
+
+          // Upcoming visits
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Upcoming Appointments',
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                  const SizedBox(height: 16),
+                  _buildUpcomingVisits(context),
+                ],
+              ),
+            ),
+          ),
+
+          // Main dashboard heading
+          SliverToBoxAdapter(
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: Text(
+                'Quick Access',
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ),
+          ),
+
+          // Dashboard grid
+          Obx(() => SliverPadding(
+                padding: const EdgeInsets.all(16.0),
+                sliver: SliverGrid(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 16.0,
+                    crossAxisSpacing: 16.0,
+                    childAspectRatio: 1.0,
+                  ),
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      final item = controller.filteredItems[index];
+                      return _buildDashboardItem(context, item, isDarkMode);
+                    },
+                    childCount: controller.filteredItems.length,
+                  ),
+                ),
+              )),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDashboardItem(
+      BuildContext context, DashboardItem item, bool isDarkMode) {
+    return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: InkWell(
+        onTap: () => Get.toNamed(item.route),
+        borderRadius: BorderRadius.circular(16),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: isDarkMode
+                      ? item.color.withOpacity(0.2)
+                      : item.color.withOpacity(0.1),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  item.icon,
+                  size: 36,
+                  color: item.color,
+                ),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                item.title,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ],
+          ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildHealthStats(BuildContext context) {
+    final userData = MockUser.userData;
+
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          ListTile(
+            leading: CircleAvatar(
+              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+              child: Icon(
+                Icons.favorite_outline,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
+            title: const Text('Blood Type'),
+            subtitle: Text(userData['bloodType'] as String),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () {
+              Get.snackbar(
+                'Health Information',
+                'Detailed health stats coming soon',
+                snackPosition: SnackPosition.BOTTOM,
+              );
+            },
+          ),
+          const Divider(height: 1),
+          ListTile(
+            leading: CircleAvatar(
+              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+              child: Icon(
+                Icons.warning_amber_rounded,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
+            title: const Text('Allergies'),
+            subtitle: Text((userData['allergies'] as List).join(', ')),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () {
+              Get.snackbar(
+                'Allergies',
+                'Detailed allergy information coming soon',
+                snackPosition: SnackPosition.BOTTOM,
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildUpcomingVisits(BuildContext context) {
+    // Get a couple of future visits
+    final upcomingVisits = [
+      {
+        'doctor': 'Dr. Jane Smith',
+        'specialty': 'Cardiologist',
+        'date': 'June 15, 2023',
+        'time': '10:00 AM',
+      },
+      {
+        'doctor': 'Dr. Michael Johnson',
+        'specialty': 'Neurologist',
+        'date': 'July 2, 2023',
+        'time': '2:30 PM',
+      },
+    ];
+
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          ...upcomingVisits.map((visit) => Column(
+                children: [
+                  ListTile(
+                    leading: CircleAvatar(
+                      backgroundColor:
+                          Theme.of(context).colorScheme.primaryContainer,
+                      child: Icon(
+                        Icons.calendar_today,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                    title: Text(visit['doctor']!),
+                    subtitle: Text(
+                        '${visit['specialty']} • ${visit['date']} at ${visit['time']}'),
+                    trailing: ElevatedButton(
+                      onPressed: () {
+                        Get.snackbar(
+                          'Appointment Details',
+                          'View appointment details coming soon',
+                          snackPosition: SnackPosition.BOTTOM,
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        minimumSize: const Size(80, 36),
+                      ),
+                      child: const Text('View'),
+                    ),
+                  ),
+                  if (visit != upcomingVisits.last) const Divider(height: 1),
+                ],
+              )),
+          InkWell(
+            onTap: () {
+              Get.snackbar(
+                'All Appointments',
+                'View all appointments feature coming soon',
+                snackPosition: SnackPosition.BOTTOM,
+              );
+            },
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Theme.of(context)
+                    .colorScheme
+                    .primaryContainer
+                    .withOpacity(0.3),
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(16),
+                  bottomRight: Radius.circular(16),
+                ),
+              ),
+              child: Text(
+                'View All Appointments',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

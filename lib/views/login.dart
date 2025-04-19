@@ -9,6 +9,9 @@ import 'package:patient_tracker/customs/customtext.dart';
 import 'package:patient_tracker/customs/customtextfield.dart';
 import 'package:patient_tracker/customs/square_tile.dart';
 import 'package:patient_tracker/utils/prefs.dart';
+import 'package:patient_tracker/core/theme/app_theme.dart';
+import 'package:patient_tracker/widgets/common/app_logo.dart';
+import 'package:patient_tracker/widgets/common/theme_switch.dart';
 
 TextEditingController userNameController = TextEditingController();
 TextEditingController passwordController = TextEditingController();
@@ -22,162 +25,222 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    myprefs.getValue("username").then((value) {
-      userNameController.text = value;
-    });
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: blackColor,
-      body: SingleChildScrollView(
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: isDarkMode
+                ? [AppTheme.darkBlue, const Color(0xFF121212)]
+                : [AppTheme.accentBlue.withOpacity(0.8), AppTheme.primaryBlue],
+          ),
+        ),
         child: SafeArea(
           child: SingleChildScrollView(
-            child: Center(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 20),
-            
-                  // logo
-                  const Image(
-                    image: AssetImage('assets/logos/examination.png'),
-                    width: 100,
-                    height: 100,
+                // Theme toggle and brand logo
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24.0,
+                    vertical: 16.0,
                   ),
-                  
-                  const SizedBox(height: 30),
-            
-                  // welcome back!
-                  const CustomText(label: "Welcome back you!", fontSize: 30, labelColor: appbartextColor,),
-            
-                  const SizedBox(height: 25),
-            
-                  // username textfield
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      const CustomText(
-                          label: "Username", labelColor: appbartextColor, fontSize: 16),
-                      const SizedBox(width: 10),
-                      CustomTextField(
-                        userFieldController: userNameController,
-                        icon: (Icons.person),
-                        hint: 'Username',
+                      const ThemeSwitchIcon(size: 22),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+                // App logo
+                const AppLogo(
+                  size: 100,
+                  darkMode: true,
+                ),
+
+                const SizedBox(height: 50),
+
+                // Login form
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 24),
+                  padding: const EdgeInsets.all(24),
+                  decoration: BoxDecoration(
+                    color: isDarkMode
+                        ? Colors.grey.shade900.withOpacity(0.8)
+                        : Colors.white.withOpacity(0.9),
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        blurRadius: 10,
+                        spreadRadius: 5,
                       ),
                     ],
                   ),
-            
-                  const SizedBox(height: 15),
-            
-                  // password textfield
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const CustomText(
-                          label: "Password", labelColor: appbartextColor, fontSize: 16),
-                      const SizedBox(width: 10),
-                      CustomTextField(
-                        userFieldController: passwordController,
-                        icon: Icons.lock,
-                        isPassword: true,
-                        hint: 'Password',
+                      Text(
+                        'Welcome back',
+                        style: Theme.of(context).textTheme.headlineMedium,
                       ),
-                    ],
-                  ),
-            
+                      const SizedBox(height: 8),
+                      Text(
+                        'Login to your account',
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
                   const SizedBox(height: 30),
             
-                  // Forgot password section
-                  GestureDetector(
-                    onTap: () {
-                      print("Recovery process has begun");
-                    },
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CustomText(
-                          label: "Forgot password?",
-                          labelColor: appbartextColor,
+                      // Username field
+                      TextField(
+                        controller: userNameController,
+                        decoration: InputDecoration(
+                          labelText: 'Username',
+                          prefixIcon: const Icon(Icons.person_outline),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
                         ),
-                        SizedBox(width: 5),
-                        CustomText(label: "Recover", labelColor: primaryColor),
+                      ),
+                      const SizedBox(height: 16),
+
+                      // Password field
+                      TextField(
+                        controller: passwordController,
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          labelText: 'Password',
+                          prefixIcon: const Icon(Icons.lock_outline),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(height: 16),
+
+                      // Forgot password
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: TextButton(
+                          onPressed: () {
+                            // Show password recovery dialog
+                            Get.snackbar(
+                              'Password Recovery',
+                              'Password recovery feature will be implemented soon',
+                              snackPosition: SnackPosition.BOTTOM,
+                            );
+                          },
+                          child: Text(
+                            'Forgot Password?',
+                            style: TextStyle(
+                              color: isDarkMode
+                                  ? AppTheme.accentBlue
+                                  : AppTheme.primaryBlue,
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(height: 24),
+
+                      // Login button
+                      SizedBox(
+                        width: double.infinity,
+                        height: 50,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            // Skip authentication and go directly to home
+                            Get.offAllNamed('/home');
+                          },
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                          child: const Text(
+                            'LOGIN',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
             
-                  const SizedBox(height: 40),
-            
-                  // Log in button
-                  customButton(
-                    labelButton: 'Login',
-                    labelColor: primaryColor,
-                    action: () => remoteLogin(),
+                const SizedBox(height: 30),
+
+                // Social login options
+                Text(
+                  'Or continue with',
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(0.8),
+                    fontSize: 16,
                   ),
-            
-                  const SizedBox(height: 20),
-            
-                  // Alternative login options
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 25.0),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Divider(
-                            thickness: 0.6,
-                            color: appbartextColor,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10.0),
-                          child: CustomText(
-                              label: "Or Continue with",
-                              labelColor: appbartextColor,
-                              fontSize: 16),
-                        ),
-                        Expanded(
-                          child: Divider(
-                            thickness: 0.6,
-                            color: appbartextColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-            
-                  const SizedBox(height: 50),
-            
-                  //  Google + Fit sign in buttons
-                  const Row(
+                ),
+
+                const SizedBox(height: 20),
+
+                // Social login buttons
+                Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // Google button
-                      SquareTile(imagePath: 'assets/images/google.png'),
-            
-                      SizedBox(width: 25),
-                    ],
-                  ),
-            
-                  const SizedBox(height: 50),
-            
-                  // Non member section
-                  GestureDetector(
-                    onTap: () => gotoRegistration(),
-                    child: const Row(
+                    _socialLoginButton(
+                      context,
+                      'assets/images/google.png',
+                      isDarkMode,
+                    ),
+                    const SizedBox(width: 20),
+                    _socialLoginButton(
+                      context,
+                      'assets/logos/healthy.png',
+                      isDarkMode,
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 30),
+
+                // Register link
+                Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        CustomText(
-                            label: "Not a member?",
-                            labelColor: appbartextColor,
-                            fontSize: 16),
-                        SizedBox(width: 4),
-                        CustomText(
-                            label: "Register",
-                            labelColor: primaryColor,
-                            fontSize: 16),
-                      ],
+                    Text(
+                      'Don\'t have an account? ',
+                      style: TextStyle(
+                        color: Colors.white.withOpacity(0.8),
+                      ),
                     ),
-                  )
-                ],
-              ),
+                    TextButton(
+                      onPressed: () {
+                        Get.toNamed('/registration');
+                      },
+                      child: Text(
+                        'Register',
+                        style: TextStyle(
+                          color: isDarkMode
+                              ? AppTheme.accentGreen
+                              : AppTheme.secondaryGreen,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 20),
+              ],
             ),
           ),
         ),
@@ -185,30 +248,35 @@ class Login extends StatelessWidget {
     );
   }
 
-  Future<void> remoteLogin() async {
-    http.Response response;
-    response = await http.get(Uri.parse(
-        'http://acs314flutter.xyz/Patient-tracker/login.php?username=${userNameController.text.trim()}&password=${passwordController.text.trim()}'));
-    if (response.statusCode == 200) {
-      var serverResponse = json.decode(response.body);
-      int serverStatus = serverResponse['success'];
-      if (serverStatus == 1) {
-        print('Login successful');
-        gotoHome();
-      } else {
-        print('Login failed');
-      }
-    } else {
-      print('Username or password is incorrect');
-    }
-  }
-
-  void gotoHome() {
-    myprefs.setValue("username", userNameController.text);
-    Get.toNamed('/home');
-  }
-
-  void gotoRegistration() {
-    Get.toNamed('/registration');
+  Widget _socialLoginButton(
+      BuildContext context, String assetPath, bool isDarkMode) {
+    return InkWell(
+      onTap: () {
+        Get.snackbar(
+          'Social Login',
+          'Social login feature will be implemented soon',
+          snackPosition: SnackPosition.BOTTOM,
+        );
+      },
+      child: Container(
+        width: 60,
+        height: 60,
+        decoration: BoxDecoration(
+          color: isDarkMode ? Colors.grey.shade800 : Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 5,
+              spreadRadius: 1,
+            ),
+          ],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Image.asset(assetPath),
+        ),
+      ),
+    );
   }
 }

@@ -1,5 +1,5 @@
 name: patient_tracker
-description: "A new Flutter project."
+description: "A health records management application."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -30,21 +30,25 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
+  cupertino_icons: ^1.0.6
   get: ^4.6.6
   get_storage: ^2.1.1
-  salomon_bottom_bar: ^3.3.2
+  google_fonts: ^6.1.0
   shared_preferences: ^2.2.2
-  responsive_sizer: ^3.3.1
-  google_fonts: ^4.0.4
-  page_transition: ^2.1.0
+  salomon_bottom_bar: ^3.3.2
+  cached_network_image: ^3.3.1
+  flutter_svg: ^2.0.9
+  image_picker: ^1.0.7
+  intl: ^0.17.0
+  lottie: ^2.7.0
+  flutter_animate: ^4.3.0
+  url_launcher: ^6.2.2
+  path_provider: ^2.1.1
   sqflite: ^2.3.2
   path: ^1.8.3
-  http: ^0.13.5
+  flutter_local_notifications: ^16.3.0
+  timezone: ^0.9.2
+  charts_flutter_new: ^0.12.0
 
 dev_dependencies:
   flutter_test:
@@ -55,7 +59,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -75,7 +79,7 @@ flutter:
     - assets/doctors/
     - assets/logos/
     - assets/onboarding/
-    - assets/google_fonts/
+#   - assets/animations/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

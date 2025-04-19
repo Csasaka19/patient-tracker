@@ -4,6 +4,6 @@ class DoctorController extends GetxController {
   var doctors = [].obs;
 
   updateDoctor(list) {
-    this.doctors.value = list;
+    doctors.value = list;
   }
 }

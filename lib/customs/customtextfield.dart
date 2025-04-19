@@ -7,8 +7,7 @@ class CustomTextField extends StatefulWidget {
   final String? hint;
   final Color textColor;
 
-  const CustomTextField({
-    Key? key,
+  const CustomTextField({super.key, 
     required this.userFieldController,
     this.icon,
     this.isPassword = false,
@@ -36,10 +35,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
         obscureText: widget.isPassword ? hideText : false,
         cursorRadius: const Radius.elliptical(5, 0),
         controller: widget.userFieldController,
-        style: TextStyle(color: Colors.white),
+        style: const TextStyle(color: Colors.white),
         decoration: InputDecoration(
           hintText: widget.hint,
-          hintStyle: TextStyle(color: appbartextColor),
+          hintStyle: const TextStyle(color: appbartextColor),
           border: OutlineInputBorder(
             borderRadius: const BorderRadius.all(Radius.circular(10)),
             borderSide: BorderSide(
