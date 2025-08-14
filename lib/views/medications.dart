@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:patient_tracker/core/theme/app_theme.dart';
 import 'package:patient_tracker/widgets/common/theme_switch.dart';
 import 'package:patient_tracker/controllers/medications_controller.dart';
@@ -47,22 +45,6 @@ class _MedicationPageState extends State<MedicationPage> {
               ))
           .toList();
       medicationController.updateMedications(medicationsList);
-
-      /* Commented out the actual API call
-      final response = await http.get(Uri.parse(
-          "http://acs314flutter.xyz/Patient-tracker/get_medications.php"));
-
-      if (response.statusCode == 200) {
-        var serverResponse = json.decode(response.body);
-        var medications = serverResponse['medications'];
-        var medicationsList = medications
-            .map<Medication>((medication) => Medication.fromJson(medication))
-            .toList();
-        medicationController.updateMedications(medicationsList);
-      } else {
-        throw Exception('Failed to load medications from API');
-      }
-      */
     } catch (e) {
       print('Error fetching medications: $e');
       _showErrorSnackBar();
@@ -197,11 +179,17 @@ class _MedicationPageState extends State<MedicationPage> {
           );
         }
 
-        return ListView.builder(
+        return GridView.builder(
           padding: const EdgeInsets.all(12),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: MediaQuery.of(context).size.width > 600 ? 3 : 2,
+            childAspectRatio: 0.8,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
+          ),
           itemCount: displayedMedications.length,
           itemBuilder: (context, index) {
-            return _buildMedicationCard(
+            return _buildMedicationTile(
                 index, displayedMedications as List<Medication>);
           },
         );
@@ -209,7 +197,7 @@ class _MedicationPageState extends State<MedicationPage> {
     });
   }
 
-  Widget _buildMedicationCard(int index, List<Medication> medications) {
+  Widget _buildMedicationTile(int index, List<Medication> medications) {
     final medication = medications[index];
 
     // Get additional mock data for a richer UI
@@ -225,8 +213,7 @@ class _MedicationPageState extends State<MedicationPage> {
     );
 
     return Card(
-      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
-      elevation: 2,
+      elevation: 3,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
@@ -242,75 +229,102 @@ class _MedicationPageState extends State<MedicationPage> {
         borderRadius: BorderRadius.circular(16),
         child: Padding(
           padding: const EdgeInsets.all(16),
-          child: Row(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Medication icon/image
-              Container(
-                width: 60,
-                height: 60,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Icon(
-                  Icons.medication_rounded,
-                  size: 32,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
-              const SizedBox(width: 16),
-
-              // Medication info
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      medication.name,
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      '${matchingMockMed['dosage']} • ${matchingMockMed['frequency']}',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      medication.description,
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onBackground
-                                .withOpacity(0.7),
-                          ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
-              ),
-
-              // Dates and status
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+              // Medication icon and status
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Chip(
-                    label: Text(
+                  Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .primary
+                          .withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Icon(
+                      Icons.medication_rounded,
+                      size: 28,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: AppTheme.success,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Text(
                       'Active',
                       style: TextStyle(
-                        fontSize: 12,
+                        fontSize: 10,
                         color: Theme.of(context).colorScheme.onPrimary,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                    backgroundColor: AppTheme.success,
-                    padding: EdgeInsets.zero,
                   ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Until ${matchingMockMed['end_date']}',
-                    style: Theme.of(context).textTheme.bodySmall,
+                ],
+              ),
+              const SizedBox(height: 12),
+
+              // Medication name
+              Text(
+                medication.name,
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+              const SizedBox(height: 6),
+
+              // Dosage and frequency
+              Text(
+                '${matchingMockMed['dosage']} • ${matchingMockMed['frequency']}',
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Theme.of(context).colorScheme.primary,
+                      fontWeight: FontWeight.w600,
+                    ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+              const SizedBox(height: 8),
+
+              // Instructions
+              Text(
+                medication.description,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onBackground
+                          .withOpacity(0.7),
+                    ),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+              const Spacer(),
+
+              // End date
+              Row(
+                children: [
+                  Icon(
+                    Icons.schedule,
+                    size: 14,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  const SizedBox(width: 4),
+                  Expanded(
+                    child: Text(
+                      'Until ${matchingMockMed['end_date']}',
+                      style: Theme.of(context).textTheme.bodySmall,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ],
               ),

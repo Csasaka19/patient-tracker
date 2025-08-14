@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:patient_tracker/core/theme/app_theme.dart';
 import 'package:patient_tracker/widgets/common/app_logo.dart';
 
 class WelcomeView extends StatefulWidget {
@@ -25,7 +24,7 @@ class _WelcomeViewState extends State<WelcomeView>
 
     // Set up animations
     _animationController = AnimationController(
-      duration: const Duration(milliseconds: 3500),
+      duration: const Duration(milliseconds: 1500),
       vsync: this,
     );
 

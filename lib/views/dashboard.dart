@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:patient_tracker/core/theme/app_theme.dart';
 import 'package:patient_tracker/widgets/common/app_logo.dart';
 import 'package:patient_tracker/widgets/common/theme_switch.dart';
@@ -145,13 +146,7 @@ class Dashboard extends StatelessWidget {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () {
-                          Get.snackbar(
-                            'Profile',
-                            'Profile view coming soon',
-                            snackPosition: SnackPosition.BOTTOM,
-                          );
-                        },
+                        onTap: () => Get.toNamed('/profile'),
                         child: CircleAvatar(
                           radius: 30,
                           backgroundColor:
@@ -338,13 +333,7 @@ class Dashboard extends StatelessWidget {
             title: const Text('Blood Type'),
             subtitle: Text(userData['bloodType'] as String),
             trailing: const Icon(Icons.chevron_right),
-            onTap: () {
-              Get.snackbar(
-                'Health Information',
-                'Detailed health stats coming soon',
-                snackPosition: SnackPosition.BOTTOM,
-              );
-            },
+            onTap: () => Get.toNamed('/health_overview'),
           ),
           const Divider(height: 1),
           ListTile(
@@ -358,13 +347,7 @@ class Dashboard extends StatelessWidget {
             title: const Text('Allergies'),
             subtitle: Text((userData['allergies'] as List).join(', ')),
             trailing: const Icon(Icons.chevron_right),
-            onTap: () {
-              Get.snackbar(
-                'Allergies',
-                'Detailed allergy information coming soon',
-                snackPosition: SnackPosition.BOTTOM,
-              );
-            },
+            onTap: () => Get.toNamed('/health_overview'),
           ),
         ],
       ),
@@ -372,21 +355,14 @@ class Dashboard extends StatelessWidget {
   }
 
   Widget _buildUpcomingVisits(BuildContext context) {
-    // Get a couple of future visits
-    final upcomingVisits = [
-      {
-        'doctor': 'Dr. Jane Smith',
-        'specialty': 'Cardiologist',
-        'date': 'June 15, 2023',
-        'time': '10:00 AM',
-      },
-      {
-        'doctor': 'Dr. Michael Johnson',
-        'specialty': 'Neurologist',
-        'date': 'July 2, 2023',
-        'time': '2:30 PM',
-      },
-    ];
+    // Get a couple of future visits from mock data
+    final allVisits = MockHospitalVisits.visits;
+    allVisits.sort((a, b) =>
+        DateTime.parse(b['date']).compareTo(DateTime.parse(a['date'])));
+    final upcomingVisits = allVisits
+        .where((visit) => DateTime.parse(visit['date']).isAfter(DateTime.now()))
+        .take(2)
+        .toList();
 
     return Container(
       decoration: BoxDecoration(
@@ -402,46 +378,40 @@ class Dashboard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          ...upcomingVisits.map((visit) => Column(
-                children: [
-                  ListTile(
-                    leading: CircleAvatar(
-                      backgroundColor:
-                          Theme.of(context).colorScheme.primaryContainer,
-                      child: Icon(
-                        Icons.calendar_today,
-                        color: Theme.of(context).colorScheme.primary,
+          if (upcomingVisits.isEmpty)
+            const Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Text('No upcoming appointments'),
+            )
+          else
+            ...upcomingVisits.map((visit) => Column(
+                  children: [
+                    ListTile(
+                      leading: CircleAvatar(
+                        backgroundColor:
+                            Theme.of(context).colorScheme.primaryContainer,
+                        child: Icon(
+                          Icons.calendar_today,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                      title: Text(visit['doctor']!),
+                      subtitle: Text(
+                          '${visit['reason']} • ${DateFormat.yMMMd().format(DateTime.parse(visit['date']))}'),
+                      trailing: ElevatedButton(
+                        onPressed: () => Get.toNamed('/appointments'),
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                          minimumSize: const Size(80, 36),
+                        ),
+                        child: const Text('View'),
                       ),
                     ),
-                    title: Text(visit['doctor']!),
-                    subtitle: Text(
-                        '${visit['specialty']} • ${visit['date']} at ${visit['time']}'),
-                    trailing: ElevatedButton(
-                      onPressed: () {
-                        Get.snackbar(
-                          'Appointment Details',
-                          'View appointment details coming soon',
-                          snackPosition: SnackPosition.BOTTOM,
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
-                        minimumSize: const Size(80, 36),
-                      ),
-                      child: const Text('View'),
-                    ),
-                  ),
-                  if (visit != upcomingVisits.last) const Divider(height: 1),
-                ],
-              )),
+                    if (visit != upcomingVisits.last) const Divider(height: 1),
+                  ],
+                )),
           InkWell(
-            onTap: () {
-              Get.snackbar(
-                'All Appointments',
-                'View all appointments feature coming soon',
-                snackPosition: SnackPosition.BOTTOM,
-              );
-            },
+            onTap: () => Get.toNamed('/appointments'),
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 12),
               alignment: Alignment.center,

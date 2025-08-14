@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:patient_tracker/core/theme/app_theme.dart';
 import 'package:patient_tracker/widgets/common/theme_switch.dart';
 import 'package:patient_tracker/controllers/medical-record_controller.dart';
@@ -49,23 +47,6 @@ class _MedicalRecordsPageState extends State<MedicalRecordsPage> {
               ))
           .toList();
       medicalController.updateMedicalRecords(medicalRecordList);
-
-      /* Commented out the actual API call
-      final response = await http.get(Uri.parse(
-          "http://acs314flutter.xyz/Patient-tracker/get_medical_records.php?user_id=1"));
-
-      if (response.statusCode == 200) {
-        var serverResponse = json.decode(response.body);
-        var medicalRecordsData = serverResponse['medical_records'];
-        var medicalRecordList = medicalRecordsData
-            .map<MedicalRecord>(
-                (medicalRecord) => MedicalRecord.fromJson(medicalRecord))
-            .toList();
-        medicalController.updateMedicalRecords(medicalRecordList);
-      } else {
-        throw Exception('Failed to load medical records from API');
-      }
-      */
     } catch (e) {
       print('Error fetching medical records: $e');
       _showErrorSnackBar();

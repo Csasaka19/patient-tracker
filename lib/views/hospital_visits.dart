@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:patient_tracker/core/theme/app_theme.dart';
 import 'package:patient_tracker/widgets/common/theme_switch.dart';
 import 'package:patient_tracker/controllers/hospital_visits_controller.dart';
@@ -49,23 +47,6 @@ class _HospitalVisitPageState extends State<HospitalVisitPage> {
               ))
           .toList();
       hospitalVisitController.updateHospitalVisit(hospitalVisitList);
-
-      /* Commented out the actual API call
-      final response = await http.get(Uri.parse(
-          "http://acs314flutter.xyz/Patient-tracker/get_hospital_visits.php?user_id=1"));
-
-      if (response.statusCode == 200) {
-        var serverResponse = json.decode(response.body);
-        var hospitalVisitsData = serverResponse['hospital_visits'];
-        var hospitalVisitList = hospitalVisitsData
-            .map<HospitalVisit>(
-                (hospitalVisit) => HospitalVisit.fromJson(hospitalVisit))
-            .toList();
-        hospitalVisitController.updateHospitalVisit(hospitalVisitList);
-      } else {
-        throw Exception('Failed to load hospital visits from API');
-      }
-      */
     } catch (e) {
       print('Error fetching hospital visits: $e');
       _showErrorSnackBar();

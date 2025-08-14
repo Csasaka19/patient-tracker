@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:patient_tracker/core/theme/app_theme.dart';
 import 'package:patient_tracker/widgets/common/theme_switch.dart';
 
 class UserGuidePage extends StatelessWidget {
@@ -29,7 +28,7 @@ class UserGuidePage extends StatelessWidget {
                 color: Theme.of(context).colorScheme.primary,
                 image: const DecorationImage(
                   image: AssetImage(
-                    'assets/images/back_1.jpg',
+                    'assets/images/medications.jpg',
                   ),
                   fit: BoxFit.cover,
                   opacity: 0.7,
@@ -101,7 +100,7 @@ class UserGuidePage extends StatelessWidget {
               child: TextField(
                 decoration: InputDecoration(
                   labelText: 'Search Help Topics',
-                  hintText: 'Type your question or keyword',
+                  hintText: 'Type your question or keyword for assistance',
                   prefixIcon: const Icon(Icons.search),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),

@@ -15,6 +15,9 @@ import 'package:patient_tracker/views/profile.dart';
 import 'package:patient_tracker/views/registration.dart';
 import 'package:patient_tracker/views/welcome.dart';
 import 'package:patient_tracker/views/help_support.dart';
+import 'package:patient_tracker/views/appointments.dart';
+import 'package:patient_tracker/views/settings.dart';
+import 'package:patient_tracker/views/health_overview.dart';
 import 'package:patient_tracker/widgets/common/page_wrapper.dart';
 
 class Routes {
@@ -23,7 +26,7 @@ class Routes {
     GetPage(name: '/registration', page: () => const Registration()),
     GetPage(
         name: '/dashboard', page: () => const PageWrapper(child: Dashboard())),
-     GetPage(name: '/home', page: () => const Home()),
+    GetPage(name: '/home', page: () => const Home()),
     GetPage(
         name: '/profile',
         page: () => const PageWrapper(child: Profile_screen())),
@@ -52,5 +55,14 @@ class Routes {
     GetPage(
         name: '/help', page: () => const PageWrapper(child: UserGuidePage())),
     GetPage(name: '/help_support', page: () => const HelpSupportPage()),
+    GetPage(
+        name: '/appointments',
+        page: () => const PageWrapper(child: AppointmentsPage())),
+    GetPage(
+        name: '/settings',
+        page: () => const PageWrapper(child: SettingsPage())),
+    GetPage(
+        name: '/health_overview',
+        page: () => const PageWrapper(child: HealthOverviewPage())),
   ];
 }

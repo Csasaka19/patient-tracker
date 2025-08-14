@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:patient_tracker/core/theme/app_theme.dart';
 import 'package:patient_tracker/widgets/common/theme_switch.dart';
 import 'package:patient_tracker/controllers/recommendations_controller.dart';
@@ -102,23 +100,6 @@ class _RecommendationPageState extends State<RecommendationPage> {
       ];
 
       recommendationController.updateRecommendations(allRecommendations);
-
-      /* Commented out the actual API call
-      final response = await http.get(Uri.parse(
-          "http://acs314flutter.xyz/Patient-tracker/get_recommendation.php?user_id=1"));
-
-      if (response.statusCode == 200) {
-        var serverResponse = json.decode(response.body);
-        var recommendationsData = serverResponse['recommendations'];
-        var recommendationList = recommendationsData
-            .map<Recommendation>(
-                (recommendation) => Recommendation.fromJson(recommendation))
-            .toList();
-        recommendationController.updateRecommendations(recommendationList);
-      } else {
-        throw Exception('Failed to load recommendations from API');
-      }
-      */
     } catch (e) {
       print('Error fetching recommendations: $e');
       _showErrorSnackBar();

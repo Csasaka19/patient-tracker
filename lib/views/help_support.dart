@@ -74,7 +74,7 @@ class HelpSupportPage extends StatelessWidget {
               ListTile(
                 leading: const Icon(Icons.phone_outlined),
                 title: const Text('Phone Support'),
-                subtitle: const Text('+1 (800) 123-4567'),
+                subtitle: const Text('+ 254 076545678'),
                 trailing: IconButton(
                   icon: const Icon(Icons.arrow_forward_ios, size: 16),
                   onPressed: () {
@@ -110,9 +110,9 @@ class HelpSupportPage extends StatelessWidget {
             icon: Icons.info_outline,
             color: Colors.purple,
             children: [
-              ListTile(
-                title: const Text('App Version'),
-                subtitle: const Text('1.0.0'),
+              const ListTile(
+                title:  Text('App Version'),
+                subtitle:  Text('2.0.0'),
               ),
               ListTile(
                 title: const Text('Terms of Service'),

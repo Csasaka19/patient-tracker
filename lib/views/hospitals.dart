@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:patient_tracker/core/theme/app_theme.dart';
 import 'package:patient_tracker/widgets/common/theme_switch.dart';
 import 'package:patient_tracker/controllers/hospital_controller.dart';
@@ -47,22 +45,6 @@ class _HospitalPageState extends State<HospitalPage> {
               ))
           .toList();
       hospitalController.updateHospital(hospitalsList);
-
-      /* Commented out the actual API call
-      final response = await http.get(Uri.parse(
-          "http://acs314flutter.xyz/Patient-tracker/get_hospitals.php"));
-
-      if (response.statusCode == 200) {
-        var serverResponse = json.decode(response.body);
-        var hospitals = serverResponse['hospitals'];
-        var hospitalsList = hospitals
-            .map<Hospital>((hospital) => Hospital.fromJson(hospital))
-            .toList();
-        hospitalController.updateHospital(hospitalsList);
-      } else {
-        throw Exception('Failed to load hospitals from API');
-      }
-      */
     } catch (e) {
       print('Error fetching hospitals: $e');
       _showErrorSnackBar();
@@ -196,11 +178,17 @@ class _HospitalPageState extends State<HospitalPage> {
           );
         }
 
-        return ListView.builder(
+        return GridView.builder(
           padding: const EdgeInsets.all(12),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: MediaQuery.of(context).size.width > 600 ? 3 : 2,
+            childAspectRatio: 0.85,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
+          ),
           itemCount: displayedHospitals.length,
           itemBuilder: (context, index) {
-            return _buildHospitalCard(
+            return _buildHospitalTile(
                 index, displayedHospitals as List<Hospital>);
           },
         );
@@ -208,7 +196,7 @@ class _HospitalPageState extends State<HospitalPage> {
     });
   }
 
-  Widget _buildHospitalCard(int index, List<Hospital> hospitals) {
+  Widget _buildHospitalTile(int index, List<Hospital> hospitals) {
     final hospital = hospitals[index];
 
     // Get additional mock data for a richer UI
@@ -223,8 +211,7 @@ class _HospitalPageState extends State<HospitalPage> {
     );
 
     return Card(
-      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
-      elevation: 2,
+      elevation: 3,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
@@ -239,111 +226,125 @@ class _HospitalPageState extends State<HospitalPage> {
         },
         borderRadius: BorderRadius.circular(16),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Hospital image
-            Container(
-              height: 150,
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(16),
-                  topRight: Radius.circular(16),
-                ),
-                image: const DecorationImage(
-                  image: AssetImage('assets/images/hospital.jpg'),
-                  fit: BoxFit.cover,
-                ),
-                color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
-              ),
-              alignment: Alignment.topRight,
-              child: Padding(
-                padding: const EdgeInsets.all(12),
-                child: Chip(
-                  label: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Icon(
-                        Icons.star,
-                        size: 16,
-                        color: Colors.amber,
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        matchingMockHospital['rating'].toString(),
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
-                      ),
-                    ],
+            // Hospital image with rating overlay
+            Expanded(
+              flex: 3,
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(16),
+                    topRight: Radius.circular(16),
                   ),
-                  backgroundColor: Theme.of(context).cardColor.withOpacity(0.9),
+                  image: const DecorationImage(
+                    image: AssetImage('assets/images/hospital.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                  color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                ),
+                child: Stack(
+                  children: [
+                    Positioned(
+                      top: 8,
+                      right: 8,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: Colors.black54,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(
+                              Icons.star,
+                              size: 14,
+                              color: Colors.amber,
+                            ),
+                            const SizedBox(width: 2),
+                            Text(
+                              matchingMockHospital['rating'].toString(),
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
 
             // Hospital info
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          hospital.name,
-                          style:
-                              Theme.of(context).textTheme.titleMedium?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
+            Expanded(
+              flex: 2,
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      hospital.name,
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 6),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.location_on_outlined,
+                          size: 14,
+                          color: Theme.of(context).colorScheme.primary,
                         ),
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.directions),
-                        color: Theme.of(context).colorScheme.primary,
-                        onPressed: () {
-                          Get.snackbar(
-                            'Get Directions',
-                            'Navigation will be available in a future update.',
-                            snackPosition: SnackPosition.BOTTOM,
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.location_on_outlined,
-                        size: 16,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: Text(
-                          hospital.address,
-                          style: Theme.of(context).textTheme.bodyMedium,
+                        const SizedBox(width: 4),
+                        Expanded(
+                          child: Text(
+                            hospital.address,
+                            style: Theme.of(context).textTheme.bodySmall,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.phone_outlined,
-                        size: 16,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        matchingMockHospital['phone'].toString(),
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                    const Spacer(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Icon(
+                          Icons.phone,
+                          size: 16,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(6),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Icon(
+                            Icons.directions,
+                            size: 16,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

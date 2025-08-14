@@ -1,13 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:patient_tracker/configs/constants.dart';
-import 'package:patient_tracker/customs/custombutton.dart';
-import 'package:patient_tracker/customs/customtext.dart';
-import 'package:patient_tracker/customs/customtextfield.dart';
-import 'package:patient_tracker/customs/square_tile.dart';
-import 'package:http/http.dart' as http;
 import 'package:patient_tracker/core/theme/app_theme.dart';
 import 'package:patient_tracker/widgets/common/app_logo.dart';
 import 'package:patient_tracker/widgets/common/theme_switch.dart';

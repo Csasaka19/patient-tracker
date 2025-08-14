@@ -50,13 +50,13 @@ class DoctorPage extends StatelessWidget {
         ],
       ),
       body: Column(
-              children: [
+        children: [
           // Search Bar
-                Padding(
+          Padding(
             padding: const EdgeInsets.all(16.0),
-                  child: TextField(
+            child: TextField(
               onChanged: controller.search,
-                    decoration: InputDecoration(
+              decoration: InputDecoration(
                 hintText: 'Search doctors...',
                 prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
@@ -98,18 +98,25 @@ class DoctorPage extends StatelessWidget {
                 );
               }
 
-              return ListView.builder(
+              return GridView.builder(
                 padding: const EdgeInsets.all(8),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount:
+                      MediaQuery.of(context).size.width > 600 ? 3 : 2,
+                  childAspectRatio: 0.8,
+                  crossAxisSpacing: 12,
+                  mainAxisSpacing: 12,
+                ),
                 itemCount: controller.filteredDoctors.length,
                 itemBuilder: (context, index) {
                   final doctor = controller.filteredDoctors[index];
-                  return DoctorCard(doctor: doctor);
+                  return DoctorTile(doctor: doctor);
                 },
               );
             }),
           ),
-              ],
-            ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // Feature to add new doctor would go here
@@ -125,10 +132,10 @@ class DoctorPage extends StatelessWidget {
   }
 }
 
-class DoctorCard extends StatelessWidget {
+class DoctorTile extends StatelessWidget {
   final Map<String, dynamic> doctor;
 
-  const DoctorCard({
+  const DoctorTile({
     Key? key,
     required this.doctor,
   }) : super(key: key);
@@ -138,8 +145,7 @@ class DoctorCard extends StatelessWidget {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Card(
-      margin: const EdgeInsets.only(bottom: 16),
-      elevation: 2,
+      elevation: 3,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
@@ -154,89 +160,118 @@ class DoctorCard extends StatelessWidget {
         },
         borderRadius: BorderRadius.circular(16),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
+          padding: const EdgeInsets.all(12.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // Doctor image
               Container(
-                width: 80,
-                height: 80,
+                width: 70,
+                height: 70,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(35),
                   image: DecorationImage(
                     image: AssetImage(doctor['image'] as String),
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
-              const SizedBox(width: 16),
+              const SizedBox(height: 12),
 
-              // Doctor info
-              Expanded(
-      child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-                    Text(
-                      doctor['name'] as String,
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
+              // Doctor name
+              Text(
+                doctor['name'] as String,
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
                     ),
-                    const SizedBox(height: 4),
-                    Text(
-                      doctor['specialty'] as String,
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                    const SizedBox(height: 4),
-          Text(
-                      doctor['hospital'] as String,
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                    const SizedBox(height: 8),
-
-                    // Rating
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.star,
-                          size: 18,
-                          color: Colors.amber.shade700,
-                        ),
-                        const SizedBox(width: 4),
-          Text(
-                          doctor['rating'].toString(),
-                          style:
-                              Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
               ),
+              const SizedBox(height: 6),
 
-              // View button
-              IconButton(
-                onPressed: () {
-                  // Call doctor
-                  Get.snackbar(
-                    'Contact',
-                    'Calling functionality coming soon',
-                    snackPosition: SnackPosition.BOTTOM,
-                  );
-                },
-                icon: Icon(
-                  Icons.call,
-                  color: isDarkMode
-                      ? AppTheme.accentGreen
-                      : AppTheme.secondaryGreen,
-                ),
+              // Specialty
+              Text(
+                doctor['specialty'] as String,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: isDarkMode
+                          ? AppTheme.accentGreen
+                          : AppTheme.secondaryGreen,
+                      fontWeight: FontWeight.w600,
+                    ),
+                textAlign: TextAlign.center,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+              const SizedBox(height: 4),
+
+              // Hospital
+              Text(
+                doctor['hospital'] as String,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Colors.grey[600],
+                    ),
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+              const Spacer(),
+
+              // Rating and action button row
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Rating
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.star,
+                        size: 16,
+                        color: Colors.amber.shade700,
+                      ),
+                      const SizedBox(width: 2),
+                      Text(
+                        doctor['rating'].toString(),
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              fontWeight: FontWeight.w600,
+                            ),
+                      ),
+                    ],
+                  ),
+
+                  // Call button
+                  Container(
+                    padding: const EdgeInsets.all(6),
+                    decoration: BoxDecoration(
+                      color: isDarkMode
+                          ? AppTheme.accentGreen.withOpacity(0.2)
+                          : AppTheme.secondaryGreen.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: InkWell(
+                      onTap: () {
+                        Get.snackbar(
+                          'Contact',
+                          'Calling functionality coming soon',
+                          snackPosition: SnackPosition.BOTTOM,
+                        );
+                      },
+                      child: Icon(
+                        Icons.call,
+                        size: 18,
+                        color: isDarkMode
+                            ? AppTheme.accentGreen
+                            : AppTheme.secondaryGreen,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
         ),
       ),
-          );
+    );
   }
 }

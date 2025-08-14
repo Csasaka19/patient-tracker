@@ -1,13 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
-import 'package:patient_tracker/configs/constants.dart';
-import 'package:patient_tracker/customs/custombutton.dart';
-import 'package:patient_tracker/customs/customtext.dart';
-import 'package:patient_tracker/customs/customtextfield.dart';
-import 'package:patient_tracker/customs/square_tile.dart';
 import 'package:patient_tracker/utils/prefs.dart';
 import 'package:patient_tracker/core/theme/app_theme.dart';
 import 'package:patient_tracker/widgets/common/app_logo.dart';
@@ -45,8 +37,8 @@ class Login extends StatelessWidget {
               child: Column(
                 children: [
                 // Theme toggle and brand logo
-                Padding(
-                  padding: const EdgeInsets.symmetric(
+                const Padding(
+                  padding: EdgeInsets.symmetric(
                     horizontal: 24.0,
                     vertical: 16.0,
                   ),
@@ -204,7 +196,7 @@ class Login extends StatelessWidget {
                     const SizedBox(width: 20),
                     _socialLoginButton(
                       context,
-                      'assets/logos/healthy.png',
+                      'assets/images/googlefit.png',
                       isDarkMode,
                     ),
                   ],

@@ -3,12 +3,79 @@ import 'package:get/get.dart';
 import 'package:patient_tracker/core/theme/app_theme.dart';
 import 'package:patient_tracker/widgets/common/theme_switch.dart';
 import 'package:patient_tracker/core/data/mock_data.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+
+class ProfileController extends GetxController {
+  final profileImage = Rxn<File>();
+  final picker = ImagePicker();
+
+  Future<void> pickImageFromCamera() async {
+    try {
+      final pickedFile = await picker.pickImage(source: ImageSource.camera);
+      if (pickedFile != null) {
+        profileImage.value = File(pickedFile.path);
+        Get.snackbar(
+          'Success',
+          'Profile picture updated successfully',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: AppTheme.success,
+          colorText: Colors.white,
+        );
+      }
+    } catch (e) {
+      Get.snackbar(
+        'Error',
+        'Failed to take picture: $e',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: AppTheme.error,
+        colorText: Colors.white,
+      );
+    }
+  }
+
+  Future<void> pickImageFromGallery() async {
+    try {
+      final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+      if (pickedFile != null) {
+        profileImage.value = File(pickedFile.path);
+        Get.snackbar(
+          'Success',
+          'Profile picture updated successfully',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: AppTheme.success,
+          colorText: Colors.white,
+        );
+      }
+    } catch (e) {
+      Get.snackbar(
+        'Error',
+        'Failed to select image: $e',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: AppTheme.error,
+        colorText: Colors.white,
+      );
+    }
+  }
+
+  void removeProfilePicture() {
+    profileImage.value = null;
+    Get.snackbar(
+      'Removed',
+      'Profile picture removed successfully',
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: AppTheme.success,
+      colorText: Colors.white,
+    );
+  }
+}
 
 class Profile_screen extends StatelessWidget {
   const Profile_screen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(ProfileController());
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     final userData = MockUser.userData;
 
@@ -33,27 +100,33 @@ class Profile_screen extends StatelessWidget {
                   // Profile Image
                   Stack(
                     children: [
-                      Container(
-                        width: 120,
-                        height: 120,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              width: 4,
-                              color: Theme.of(context).colorScheme.primary),
-                          boxShadow: [
-                            BoxShadow(
-                              spreadRadius: 2,
-                              blurRadius: 10,
-                              color: Colors.black.withOpacity(0.1),
-                            )
-                          ],
-                          shape: BoxShape.circle,
-                          image: const DecorationImage(
-                            image: AssetImage("assets/logos/man.png"),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
+                      Obx(() => Container(
+                            width: 120,
+                            height: 120,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  width: 4,
+                                  color: Theme.of(context).colorScheme.primary),
+                              boxShadow: [
+                                BoxShadow(
+                                  spreadRadius: 2,
+                                  blurRadius: 10,
+                                  color: Colors.black.withOpacity(0.1),
+                                )
+                              ],
+                              shape: BoxShape.circle,
+                              image: controller.profileImage.value != null
+                                  ? DecorationImage(
+                                      image: FileImage(
+                                          controller.profileImage.value!),
+                                      fit: BoxFit.cover,
+                                    )
+                                  : const DecorationImage(
+                                      image: AssetImage("assets/logos/man.png"),
+                                      fit: BoxFit.cover,
+                                    ),
+                            ),
+                          )),
                       Positioned(
                         bottom: 0,
                         right: 0,
@@ -72,14 +145,8 @@ class Profile_screen extends StatelessWidget {
                             icon:
                                 const Icon(Icons.camera_alt_rounded, size: 20),
                             color: Theme.of(context).colorScheme.onPrimary,
-                            onPressed: () {
-                              // Image picking functionality would go here
-                              Get.snackbar(
-                                'Feature Coming Soon',
-                                'Profile picture update will be available in a future update.',
-                                snackPosition: SnackPosition.BOTTOM,
-                              );
-                            },
+                            onPressed: () =>
+                                _showProfilePictureOptions(context, controller),
                           ),
                         ),
                       ),
@@ -170,7 +237,7 @@ class Profile_screen extends StatelessWidget {
                     _buildProfileMenuItem(
                       context,
                       icon: Icons.medical_services_rounded,
-                      title: "Doctors and Appointments",
+                      title: "Doctors ",
                       onTap: () => Get.toNamed('/doctors'),
                     ),
                     _buildProfileMenuItem(
@@ -195,19 +262,19 @@ class Profile_screen extends StatelessWidget {
                       context,
                       icon: Icons.settings_rounded,
                       title: "Settings",
-                      onTap: () {
-                        Get.snackbar(
-                          'Feature Coming Soon',
-                          'Settings will be available in a future update.',
-                          snackPosition: SnackPosition.BOTTOM,
-                        );
-                      },
+                      onTap: () => Get.toNamed('/settings'),
                     ),
                     _buildProfileMenuItem(
                       context,
                       icon: Icons.help_outline_rounded,
                       title: "Help & Support",
-                      onTap: () => Get.toNamed('/help'),
+                      onTap: () => Get.toNamed('/help_support'),
+                    ),
+                    _buildProfileMenuItem(
+                      context,
+                      icon: Icons.calendar_today_rounded,
+                      title: "Appointments",
+                      onTap: () => Get.toNamed('/appointments'),
                     ),
                     const SizedBox(height: 8),
                     _buildProfileMenuItem(
@@ -293,6 +360,106 @@ class Profile_screen extends StatelessWidget {
           size: 16,
           color: Theme.of(context).colorScheme.onBackground.withOpacity(0.5),
         ),
+      ),
+    );
+  }
+
+  void _showProfilePictureOptions(
+      BuildContext context, ProfileController controller) {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) => Container(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Text(
+              'Change Profile Picture',
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildImageOption(
+                  context,
+                  icon: Icons.camera_alt,
+                  label: 'Camera',
+                  onTap: () {
+                    Navigator.pop(context);
+                    controller.pickImageFromCamera();
+                  },
+                ),
+                _buildImageOption(
+                  context,
+                  icon: Icons.photo_library,
+                  label: 'Gallery',
+                  onTap: () {
+                    Navigator.pop(context);
+                    controller.pickImageFromGallery();
+                  },
+                ),
+                _buildImageOption(
+                  context,
+                  icon: Icons.delete,
+                  label: 'Remove',
+                  onTap: () {
+                    Navigator.pop(context);
+                    controller.removeProfilePicture();
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildImageOption(
+    BuildContext context, {
+    required IconData icon,
+    required String label,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          Container(
+            width: 60,
+            height: 60,
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              icon,
+              color: Theme.of(context).colorScheme.primary,
+              size: 30,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            label,
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+        ],
       ),
     );
   }
