@@ -1,29 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:patient_tracker/core/data/mock_data.dart';
 import 'package:patient_tracker/core/theme/app_theme.dart';
 import 'package:patient_tracker/widgets/common/theme_switch.dart';
 
 class DoctorController extends GetxController {
-  final doctors = MockDoctors.doctors.obs;
-  final isLoading = false.obs;
+  final _firestore = FirebaseFirestore.instance;
   final searchText = ''.obs;
 
-  List<Map<String, dynamic>> get filteredDoctors {
-    if (searchText.value.isEmpty) {
-      return doctors;
-    }
-
-    return doctors.where((doctor) {
-      final name = doctor['name'].toString().toLowerCase();
-      final specialty = doctor['specialty'].toString().toLowerCase();
-      final hospital = doctor['hospital'].toString().toLowerCase();
-      final query = searchText.value.toLowerCase();
-
-      return name.contains(query) ||
-          specialty.contains(query) ||
-          hospital.contains(query);
-    }).toList();
+  Stream<QuerySnapshot> get doctorsStream {
+    return _firestore.collection('doctors').snapshots();
   }
 
   void search(String text) {
@@ -71,49 +57,77 @@ class DoctorPage extends StatelessWidget {
 
           // Doctors List
           Expanded(
-            child: Obx(() {
-              if (controller.isLoading.value) {
-                return const Center(child: CircularProgressIndicator());
-              }
+            child: StreamBuilder<QuerySnapshot>(
+              stream: controller.doctorsStream,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return const Center(child: Text('Something went wrong'));
+                }
 
-              if (controller.filteredDoctors.isEmpty) {
-                return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.search_off_rounded,
-                        size: 64,
-                        color: Colors.grey.shade400,
-                      ),
-                      const SizedBox(height: 16),
-                      Text(
-                        'No doctors found',
-                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                              color: Colors.grey.shade500,
-                            ),
-                      ),
-                    ],
-                  ),
-                );
-              }
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                }
 
-              return GridView.builder(
-                padding: const EdgeInsets.all(8),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount:
-                      MediaQuery.of(context).size.width > 600 ? 3 : 2,
-                  childAspectRatio: 0.8,
-                  crossAxisSpacing: 12,
-                  mainAxisSpacing: 12,
-                ),
-                itemCount: controller.filteredDoctors.length,
-                itemBuilder: (context, index) {
-                  final doctor = controller.filteredDoctors[index];
-                  return DoctorTile(doctor: doctor);
-                },
-              );
-            }),
+                final doctors = snapshot.data!.docs;
+
+                return Obx(() {
+                  final filteredDoctors = doctors.where((doc) {
+                    final data = doc.data() as Map<String, dynamic>;
+                    final name = data['name'].toString().toLowerCase();
+                    final specialty =
+                        data['specialty'].toString().toLowerCase();
+                    final hospital = data['hospital'].toString().toLowerCase();
+                    final query = controller.searchText.value.toLowerCase();
+
+                    return name.contains(query) ||
+                        specialty.contains(query) ||
+                        hospital.contains(query);
+                  }).toList();
+
+                  if (filteredDoctors.isEmpty) {
+                    return Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.search_off_rounded,
+                            size: 64,
+                            color: Colors.grey.shade400,
+                          ),
+                          const SizedBox(height: 16),
+                          Text(
+                            'No doctors found',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge
+                                ?.copyWith(
+                                  color: Colors.grey.shade500,
+                                ),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+
+                  return GridView.builder(
+                    padding: const EdgeInsets.all(8),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount:
+                          MediaQuery.of(context).size.width > 600 ? 3 : 2,
+                      childAspectRatio: 0.8,
+                      crossAxisSpacing: 12,
+                      mainAxisSpacing: 12,
+                    ),
+                    itemCount: filteredDoctors.length,
+                    itemBuilder: (context, index) {
+                      final doctor = filteredDoctors[index];
+                      return DoctorTile(
+                          doctor: doctor.data() as Map<String, dynamic>);
+                    },
+                  );
+                });
+              },
+            ),
           ),
         ],
       ),

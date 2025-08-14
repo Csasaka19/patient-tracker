@@ -1,9 +1,15 @@
 import 'package:get/get.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MedicalRecordsController extends GetxController {
-  var medical_records = [].obs;
+  final _firestore = FirebaseFirestore.instance;
+  final searchText = ''.obs;
 
-  updateMedicalRecords(list) {
-    medical_records.value = list;
+  Stream<QuerySnapshot> get medicalRecordsStream {
+    return _firestore.collection('medical_records').snapshots();
+  }
+
+  void search(String text) {
+    searchText.value = text;
   }
 }

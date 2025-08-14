@@ -1,19 +1,21 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:patient_tracker/utils/prefs.dart';
 import 'package:patient_tracker/core/theme/app_theme.dart';
 import 'package:patient_tracker/widgets/common/app_logo.dart';
 import 'package:patient_tracker/widgets/common/theme_switch.dart';
 
-TextEditingController userNameController = TextEditingController();
-TextEditingController passwordController = TextEditingController();
-
-Prefs myprefs = Prefs();
-
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   const Login({super.key});
 
-  void loginButtonPressed() {}
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +36,8 @@ class Login extends StatelessWidget {
         ),
         child: SafeArea(
           child: SingleChildScrollView(
-              child: Column(
-                children: [
+            child: Column(
+              children: [
                 // Theme toggle and brand logo
                 const Padding(
                   padding: EdgeInsets.symmetric(
@@ -89,13 +91,13 @@ class Login extends StatelessWidget {
                         'Login to your account',
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
-                  const SizedBox(height: 30),
-            
+                      const SizedBox(height: 30),
+
                       // Username field
                       TextField(
-                        controller: userNameController,
+                        controller: _emailController,
                         decoration: InputDecoration(
-                          labelText: 'Username',
+                          labelText: 'Email',
                           prefixIcon: const Icon(Icons.person_outline),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -106,7 +108,7 @@ class Login extends StatelessWidget {
 
                       // Password field
                       TextField(
-                        controller: passwordController,
+                        controller: _passwordController,
                         obscureText: true,
                         decoration: InputDecoration(
                           labelText: 'Password',
@@ -149,28 +151,27 @@ class Login extends StatelessWidget {
                         width: double.infinity,
                         height: 50,
                         child: ElevatedButton(
-                          onPressed: () {
-                            // Skip authentication and go directly to home
-                            Get.offAllNamed('/home');
-                          },
+                          onPressed: _isLoading ? null : _login,
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),
                           ),
-                          child: const Text(
-                            'LOGIN',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          ),
+                          child: _isLoading
+                              ? const CircularProgressIndicator()
+                              : const Text(
+                                  'LOGIN',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-            
+                ),
+
                 const SizedBox(height: 30),
 
                 // Social login options
@@ -186,8 +187,8 @@ class Login extends StatelessWidget {
 
                 // Social login buttons
                 Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
                     _socialLoginButton(
                       context,
                       'assets/images/google.png',
@@ -206,8 +207,8 @@ class Login extends StatelessWidget {
 
                 // Register link
                 Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
                     Text(
                       'Don\'t have an account? ',
                       style: TextStyle(
@@ -270,5 +271,23 @@ class Login extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _login() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailController.text, password: _passwordController.text);
+      Get.offAllNamed('/home');
+    } on FirebaseAuthException catch (e) {
+      Get.snackbar('Error', e.message!);
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 }
